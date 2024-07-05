@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Home</title>
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link rel="stylesheet" type="text/css" href="designadmin.css">
+</head>
+<body>
+   <div class="css-sidebar">
+      <div class="top">
+         <div class="logo">
+            <i class="bx bxl-codepen"></i>
+            <span>PetBook.com</span>
+         </div>
+         <i class="bx bx-menu" id="btn"></i>
+      </div>
+      <div class="user">
+         <img src="images/profile.jpg" alt="logo" class="user-img">
+         <div>
+            <p class="bold">Jay Gonzaga</p>
+            <p>Admin</p>
+         </div>
+      </div>
+      <ul>
+         <li>
+            <a href="#">
+               <i class="bx bxs-grid-alt"></i>
+               <span class="css-nav-item">Dashboard</span>
+            </a>
+            <span class="css-tooltip">Dashboard</span>
+         </li>
+         <li>
+            <a href="#">
+               <i class="bx bx-body"></i>
+               <span class="css-nav-item">Profile</span>
+            </a>
+            <span class="css-tooltip">Profile</span>
+         </li>
+         <li>
+            <a href="#">
+               <i class="bx bx-list-check"></i>
+               <span class="css-nav-item">Analytics</span>
+            </a>
+            <span class="css-tooltip">Analytics</span>
+         </li>
+         <li>
+            <a href="#">
+               <i class="bx bx-location-plus"></i>
+               <span class="css-nav-item">Shipping</span>
+            </a>
+            <span class="css-tooltip">Shipping</span>
+         </li>
+         <li>
+            <a href="#">
+               <i class="bx bx-cog"></i>
+               <span class="css-nav-item">Settings</span>
+            </a>
+            <span class="css-tooltip">Settings</span>
+         </li>
+         <li>
+            <a href="#" id="signoutbtn">
+               <i class="bx bx-log-out"></i>
+               <span class="css-nav-item">Logout</span>
+            </a>
+            <span class="css-tooltip">logout</span>
+         </li>
+      </ul>
+
+   </div>
+
+   <div class="css-main-content">
+      <div class="container">
+         <div class="row">
+            <div class="col">
+               <h1>Welcome Admin!</h1>
+            </div>
+            <div class="col">
+               <div class="search">
+            <form>
+               <input type="text" placeholder="Search...">
+               <button type="button"><i class='bx bx-search-alt-2'></i></button>
+            </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+<script>
+   let btn = document.querySelector('#btn');
+   let sidebar = document.querySelector('.css-sidebar');
+
+   btn.onclick = function () {
+      sidebar.classList.toggle('active');
+   };
+
+</script>
+<script type="module">
+	// Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getDatabase, ref, update, set, get, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyDIKgIRcoTWgWKocJ-sSI1J5uN44My0rhc",
+          authDomain: "petbook-69b1e.firebaseapp.com",
+          databaseURL: "https://petbook-69b1e-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "petbook-69b1e",
+          storageBucket: "petbook-69b1e.appspot.com",
+          messagingSenderId: "287346842196",
+          appId: "1:287346842196:web:bf0783523ca3880fd32bc1",
+          measurementId: "G-CDQD87KGXE"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth();
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+               if(user.uid === "A69gRKhnmOfhMy72QPaQXWoXVMB3"){
+                  console.log("user-info", user);
+               }else {
+                // No user is signed in, redirect to login page
+                window.location.href = "profile.html";
+               } 
+            } else if(user == null) {
+                // No user is signed in, redirect to login page
+                window.location.href = "index.html";
+            } 
+        })
+
+        signoutbtn.addEventListener('click', (e) => {
+          signOut(auth)
+           .then(() => {
+               alert('User logged out');
+               window.location.href = "index.html";
+           })
+           .catch((error) => {
+               console.error("Error signing out:", error);
+               // Handle sign-out errors
+            });
+          });
+
+        
+</script>
+</html>

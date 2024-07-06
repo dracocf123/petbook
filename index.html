@@ -11,8 +11,7 @@
 </head>
 
 <body>
-  
-  
+
   <nav>
       <input type="checkbox" id="check">
         <label for="check" class="checkbtn">
@@ -69,7 +68,7 @@
               <section id="home">
                 <!-- <img src="images/bghome.jpg" alt="..." class="homebg"> -->
                   <div class="hometext mb-3">
-                    <h1 class="fw-bold mb-4">Welcome to Paws</h1>
+                    <h1 class="fw-bold mb-4">Welcome to Paws-Connect!</h1>
                     <h3 class="fw-bold">Take your</h3>
                     <h3 class="fw-bold">new best friend</h3>
                     <span>Start your journey towards unconditional love today!</span>
@@ -122,27 +121,44 @@
                   </div>
               </section>
 
-              <section id="adoption-process">
-                <h1>How to Adopt from Paws-Connect?</h1>
-                <h3>Paws-Connect Adoption Process</h3>
-                <div class="row d-flex justify-content-center ">
-                  
-                  <div class="col-md-5 text-start ">
-                    <div class="ap-num">1. Fill Out Adoption Form:</div>
-                    <div class="ap-des">Complete the online form with your details and preferences.</div>
-                    <div class="ap-num">2. Find a Pet:</div>
-                    <div class="ap-des">Browse and filter available pets to find your match.</div>
-                    <div class="ap-num">3. Request to Adopt:</div>
-                    <div class="ap-des">Submit an adoption request for your chosen pet.</div>
-                    <div class="ap-num">4. Communicate with Finder:</div>
-                    <div class="ap-des">Chat with the finder to discuss details and arrange a meeting.</div>
-                    <div class="ap-num">5. Receive Your Pet:</div>
-                    <div class="ap-des">Finalize the adoption and bring your new pet home!</div>
+                <section>
+                  <h1>Available Pets</h1>
+                  <div class="container">
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-md-3 pet-card bg-danger rounded m-2" data-bs-toggle="modal"  data-bs-target="#pet-info"></div>
+                      <div class="col-md-3 pet-card-d bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
+                      <div class="col-md-3 pet-card bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-md-3 pet-card-d bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
+                      <div class="col-md-3 pet-card bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
+                      <div class="col-md-3 pet-card-d bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
+                    </div>
                   </div>
-                  <div class="col-md-5 form-ap"></div>
+
+                   <!-- Modal pet-info-->
+              <div class="modal fade" id="pet-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h2>Planning to Adopt a Pet?</h2>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <img src="images/cat.jpg" alt="" width="100%">
+                      <p>Ditto</p>
+                      <p>pusa pusa pusa pusa pusa pusapusa pusa pusapusa pusa pusapusa pusa pusapusa pusa pusa</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-dark text-white" type="button">Register</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
                 </div>
-                
-              </section>
+              </div>
+
+                </section>
+              
 
               <section id="about" style=" min-height:100vh; height: auto !important;">
                 <div class="reveal">
@@ -245,6 +261,31 @@
                   </div>
                 </div>
               </div>
+
+             
+
+
+              <section id="adoption-process">
+                <h1>How to Adopt from Paws-Connect?</h1>
+                <h3>Paws-Connect Adoption Process</h3>
+                <div class="row d-flex justify-content-center ">
+                  
+                  <div class="col-md-5 text-start ">
+                    <div class="ap-num">1. Fill Out Adoption Form:</div>
+                    <div class="ap-des">Complete the online form with your details and preferences.</div>
+                    <div class="ap-num">2. Find a Pet:</div>
+                    <div class="ap-des">Browse and filter available pets to find your match.</div>
+                    <div class="ap-num">3. Request to Adopt:</div>
+                    <div class="ap-des">Submit an adoption request for your chosen pet.</div>
+                    <div class="ap-num">4. Communicate with Finder:</div>
+                    <div class="ap-des">Chat with the finder to discuss details and arrange a meeting.</div>
+                    <div class="ap-num">5. Receive Your Pet:</div>
+                    <div class="ap-des">Finalize the adoption and bring your new pet home!</div>
+                  </div>
+                  <div class="col-md-5 form-ap"></div>
+                </div>
+                
+              </section>
 
               <section id="faq">
                 <h1>FAQs</h1>
@@ -471,7 +512,6 @@
                 update(ref(db, 'signup/' + user.uid),
                 {
                     last_login: dt.toString()
-
                 });
                   alert("Login Success");
                   window.location.href = "adminhomepage.html";

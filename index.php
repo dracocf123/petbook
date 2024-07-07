@@ -568,8 +568,7 @@
     </script> -->
     </form>  
   </body>
-  
-    </html>
+  </html>
 
     <?php
 include_once 'Class/User.php';

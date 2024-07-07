@@ -73,8 +73,9 @@
                 <!-- <img src="images/bghome.jpg" alt="..." class="homebg"> -->
                   <div class="hometext mb-3">
                     <h1 class="fw-bold mb-4">Welcome to Paws-Connect!</h1>
-                    <h3 class="fw-bold">Take yours</h3>
+                    <h3 class="fw-bold">Take your</h3>
                     <h3 class="fw-bold">new best friend</h3>
+                    <button class="btn-danger" name="try" type="submit"></button>
                     <span>Start your journey towards unconditional love today!</span>
                   </div>
                     <div class="service-content">
@@ -266,9 +267,6 @@
                   </div>
                 </div>
               </div>
-
-             
-
 
               <section id="adoption-process">
                 <h1>How to Adopt from Paws-Connect?</h1>
@@ -570,7 +568,14 @@
   </body>
   </html>
 
-    <?php
+<?php
+if(isset($_POST['try'])){
+  echo '
+              <script>
+                alert("fruits"); 
+              </script>  
+            ';
+}
 include_once 'Class/User.php';
 if(isset($_POST['login'])){
     $un = $_POST['un'];

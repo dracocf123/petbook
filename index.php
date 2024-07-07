@@ -75,7 +75,7 @@
                     <h1 class="fw-bold mb-4">Welcome to Paws-Connect!</h1>
                     <h3 class="fw-bold">Take your</h3>
                     <h3 class="fw-bold">new best friend</h3>
-                    <button class="btn-danger" name="try" type="submit">ss</button>
+                    <button  type="submit" name="try" class="btn btn-primary">try</button>
                     <span>Start your journey towards unconditional love today!</span>
                   </div>
                     <div class="service-content">

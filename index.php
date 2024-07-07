@@ -571,4 +571,27 @@
   
     </html>
 
-  <!--  -->
+    <?php
+include_once 'Class/User.php';
+if(isset($_POST['login'])){
+    $un = $_POST['un'];
+    $pw = $_POST['pw'];
+    $u = new User();
+    $data = $u->login($un, $pw);
+    if($row=$data->fetch_assoc()){
+        if($row['role']=='admin'){
+            echo '
+              <script>
+                alert("ADMIN"); 
+              </script>  
+            ';
+        }
+    }else{
+        echo '
+        <script>
+          alert("WRONG PASSWORD"); 
+        </script>  
+      ';
+    }
+}
+?>

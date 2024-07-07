@@ -75,7 +75,6 @@
                     <h1 class="fw-bold mb-4">Welcome to Paws-Connect!</h1>
                     <h3 class="fw-bold">Take your</h3>
                     <h3 class="fw-bold">new best friend</h3>
-                    <button  type="submit" name="try" class="btn btn-primary">try</button>
                     <span>Start your journey towards unconditional love today!</span>
                   </div>
                     <div class="service-content">
@@ -569,13 +568,6 @@
   </html>
 
 <?php
-if(isset($_POST['try'])){
-  echo '
-              <script>
-                alert("fruits"); 
-              </script>  
-            ';
-}
 include_once 'Class/User.php';
 if(isset($_POST['login'])){
     $un = $_POST['un'];
@@ -586,7 +578,7 @@ if(isset($_POST['login'])){
         if($row['role']=='admin'){
             echo '
               <script>
-                alert("ADMIN"); 
+                window.location="adminhomepage.html";
               </script>  
             ';
         }
@@ -594,6 +586,7 @@ if(isset($_POST['login'])){
         echo '
         <script>
           alert("WRONG PASSWORD"); 
+          window.location="index.php";
         </script>  
       ';
     }

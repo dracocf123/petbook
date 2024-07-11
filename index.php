@@ -9,7 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+<script>
+    function toggleCheckbox() {
+      // Get the checkbox element
+      var checkbox = document.getElementById("check");
 
+      // Toggle the checkbox
+      checkbox.checked = !checkbox.checked;
+    }
+    </script>
 <body>
 <form method="POST">
   <nav>
@@ -21,21 +29,13 @@
       <ul>
           <li><a href="#home"  onclick="toggleCheckbox();">Home</a></li>
           <li><a href="#about"  onclick="toggleCheckbox();">About</a></li>
-          <li><a href="#services"  onclick="toggleCheckbox();">Service</a></li>
+          <li><a href="#service"  onclick="toggleCheckbox();">Service</a></li>
           <li><a href="#contact"  onclick="toggleCheckbox();">Contact</a></li>
           <li><a href="signup.html">Sign Up</a></li>
           <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginmod" id="li">Log-in</a></li>
       </ul>
   </nav>
-  <script>
-    function toggleCheckbox() {
-      // Get the checkbox element
-      var checkbox = document.getElementById("check");
-
-      // Toggle the checkbox
-      checkbox.checked = !checkbox.checked;
-    }
-    </script>
+ 
 <div class="container-fluid">
   <!-- Modal login-->
   <div class="modal fade" id="loginmod" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -49,11 +49,11 @@
        
           <div class="px-4">
             <div class="form-floating mb-3">
-            <input type="text" class="form-control border-0 border-bottom border-5 rounded-0" name="un" id="emaillog" placeholder="name@example.com" autocomplete="off" required>
+            <input type="text" class="form-control border-0 border-bottom border-5 rounded-0" name="un" id="emaillog" placeholder="name@example.com" required>
             <label for="email">Username</label>
             </div>
             <div class="form-floating">
-            <input type="password" class="form-control border-0 border-bottom border-5 rounded-0" name="pw" id="passwordlog" placeholder="Password" required autocomplete="new-password">
+            <input type="password" class="form-control border-0 border-bottom border-5 rounded-0" name="pw" id="passwordlog" placeholder="Password" required>
             <label for="contact">Password</label>
             </div>
           </div>
@@ -70,10 +70,12 @@
               <section id="home">
                 <div class="bg-home">
                 </div>
+                
+                
                 <!-- <img src="images/bghome.jpg" alt="..." class="homebg"> -->
                   <div class="hometext mb-3">
                     <h1 class="fw-bold mb-4">Welcome to Paws-Connect!</h1>
-                    <h3 class="fw-bold">Take your</h3>
+                    <h3 class="fw-bold">Take yours</h3>
                     <h3 class="fw-bold">new best friend</h3>
                     <span>Start your journey towards unconditional love today!</span>
                   </div>
@@ -123,11 +125,21 @@
                         </div>
                       </div>
                   </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                  <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                  </svg>
               </section>
 
-                <section>
+                <section id="service">
+                <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+              </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                  <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                  </svg>
                   <div class="reveal">
-                  <h1>Available Pets</h1>
+                  
+                  <h1 class="h1-bg">Available Pets</h1>
                   <div class="container">
                     <div class="row d-flex justify-content-center">
                       <div class="col-md-3 pet-card bg-danger rounded m-2" data-bs-toggle="modal"  data-bs-target="#pet-info"></div>
@@ -138,10 +150,15 @@
                       <div class="col-md-3 pet-card-d bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
                       <div class="col-md-3 pet-card bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
                       <div class="col-md-3 pet-card-d bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
+                      
                     </div>
+                    </div>
+                    
                   </div>
-                  </div>
+                  
                   </section>
+                  
+                  
                    <!-- Modal pet-info-->
               <div class="modal fade" id="pet-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -166,8 +183,14 @@
               
 
               <section id="about" style=" min-height:100vh; height: auto !important;">
+              <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+              </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                  <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                  </svg>
                 <div class="reveal">
-                <h1 class="aboutus">About us</h1>
+                <h1 class="aboutus h1-bg">About us</h1>
                 <div class="container about-con">
                   <div class="row">
                   <div class="col-md-4 mb-5">
@@ -196,41 +219,6 @@
                 </div>
               </section>
 
-              <section id="services" style="height: auto !important;">
-                <div class="reveal">
-                  <h1 class="service-title">Planning to Adopt a Pet?</h1>
-                  <div class="service-content">
-                    <div class="d-flex justify-content-evenly align-items-center flex-wrap">
-                      <div class="row mx-2">
-                        <div class="col-md-4 p-3">
-                          <div class="card-service">
-                            <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                               <img src="images/cat.jpg" alt="">
-                            </div>
-                              <div class="bottom-left">Adopt a Cat?</div>
-                          </div>
-                        </div>
-                        <div class="col-md-4 p-3">
-                          <div class="card-service">
-                            <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                              <img src="images/dog.jpg" alt="">
-                           </div>
-                        <div class="bottom-left">Adopt a Dog?</div>
-                      </div>
-                        </div>
-                        <div class="col-md-4 p-3">
-                          <div class="card-service">
-                            <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                              <img src="images/catdog.jpg" alt="">
-                           </div>
-                        <div class="bottom-left">Donate?</div>
-                      </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
 
               <!-- Modal -->
               <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -267,8 +255,17 @@
                 </div>
               </div>
 
+             
+
+
               <section id="adoption-process">
-                <h1>How to Adopt from Paws-Connect?</h1>
+              <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+              </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                  <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                  </svg>
+                <h1 class="h1-bg">How to Adopt from Paws-Connect?</h1>
                 <h3>Paws-Connect Adoption Process</h3>
                 <div class="row d-flex justify-content-center ">
                   
@@ -290,7 +287,13 @@
               </section>
 
               <section id="faq">
-                <h1>FAQs</h1>
+              <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+              </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                  <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                  </svg>
+                <h1 class="h1-bg">FAQs</h1>
                 <p>Got Questions? We've got answers.</p>
                 <div class="container">
                   <div class="row justify-content-center">
@@ -322,11 +325,17 @@
                   </div>
                 </div>
               </section>
-              <hr class="m-3">
-              <section id="contact">
+              
+        <section id="contact">
+        <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+        </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
 
-            <div class="card text-center border-0">
-            <h1>Message Us!</h1>
+            <h1 class="h1-bg">Message Us!</h1>
+            <div class="card text-center border-0 mu-card">
             <div class="card-body">
               <div class="row">
                   <div class="col-md-6">
@@ -353,23 +362,25 @@
                       </form>
                       <button type="button" id="sendmsg" class="btn btn-success w-100 rounded-pill p-3">Send Message</button>
                     </div>
-              </div>
-            </div>
-
+                  </div>
+                </div>
+                
+              </section>
   
   <footer>
-    <div class="footer-container">
-        <div class="footer-column">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
             <h3>About Us</h3>
             <p>Paws-Connect aims to streamline the pet adoption process, promote responsible pet ownership, and provide a platform for pets in need to find loving homes.</p>
         </div>
-        <div class="footer-column">
+        <div class="col-md-4">
             <h3>Contact Us</h3>
             <p>Email: Paws-Connectofficial@gmail.com</p>
             <p>Phone: +63 9384221257</p>
             <p>Address: Sitio Bayante, Pinagtung-ulan, San Jose, Batangas</p>
         </div>
-        <div class="footer-column">
+        <div class="col-md-4">
             <h3>Follow Us</h3>
             <ul class="social-icons">
                 <li><a href="#"><i class="fab fa-facebook"></i></a></li>
@@ -378,14 +389,13 @@
                 <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
             </ul>
         </div>
+        </div>
     </div>
       <div class="copyright">
             <p>&copy; 2024 Paws-Connect. All Rights Reserved.</p>
         </div>
         </footer>
-        
         </div>
-    </section>
     </div>
     <script type="text/javascript">
       window.addEventListener('scroll', reveal);
@@ -565,7 +575,8 @@
     </script> -->
     </form>  
   </body>
-  </html>
+  
+    </html>
 
 <?php
 include_once 'Class/User.php';
@@ -578,6 +589,7 @@ if(isset($_POST['login'])){
         if($row['role']=='admin'){
             echo '
               <script>
+                alert("ADMIN"); 
                 window.location="adminhomepage.html";
               </script>  
             ';

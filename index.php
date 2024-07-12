@@ -294,9 +294,10 @@
                 <h1 class="h1-bg">FAQs</h1>
                 <p>Got Questions? We've got answers.</p>
                 <div class="container">
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-8 text-start">
-                      <h3>General Questions</h3>
+                      <h3>General Questionss</h3>
                       <p class="fw-bold p-3 faq-q">Q: What is Paws-Connect? </p>
                       <p class="p-3 faq-a">A: Paws-Connect is a platform designed to help connect found pets with their rightful owners and facilitate the adoption of pets needing new homes.</p>
                       

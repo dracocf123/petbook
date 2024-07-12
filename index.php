@@ -434,10 +434,17 @@ if(isset($_POST['login'])){
         if($row['role']=='admin'){
             echo '
               <script>
-                alert("ADMIN"); 
-                window.location="adminhomepage.html";
+                alert("Welcome Admin!"); 
+                window.location="Admin/adminhome.php";
               </script>  
             ';
+        }else{
+          echo '
+          <script>
+            alert("Login Success!"); 
+            window.location="User/home.php";
+          </script>  
+        ';
         }
     }else{
         echo '

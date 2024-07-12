@@ -32,7 +32,7 @@
           <li><a href="#about"  onclick="toggleCheckbox();">About</a></li>
           <li><a href="#service"  onclick="toggleCheckbox();">Service</a></li>
           <li><a href="#contact"  onclick="toggleCheckbox();">Contact</a></li>
-          <li><a href="signup.html">Sign Up</a></li>
+          <li><a href="signup.php">Sign Up</a></li>
           <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginmod" id="li">Log-in</a></li>
       </ul>
   </nav>
@@ -291,13 +291,15 @@
               <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
               </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                  <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                  </svg>
                 <h1 class="h1-bg">FAQs</h1>
                 <p>Got Questions? We've got answers.</p>
                 <div class="container">
-                  
                   <div class="row justify-content-center">
                     <div class="col-md-8 text-start">
-                      <h3>General Questionss</h3>
+                      <h3>General Questions</h3>
                       <p class="fw-bold p-3 faq-q">Q: What is Paws-Connect? </p>
                       <p class="p-3 faq-a">A: Paws-Connect is a platform designed to help connect found pets with their rightful owners and facilitate the adoption of pets needing new homes.</p>
                       
@@ -326,7 +328,6 @@
               </section>
               
         <section id="contact">
-
             <h1 class="h1-bg">Message Us!</h1>
             <div class="card text-center border-0 mu-card">
             <div class="card-body">
@@ -428,7 +429,7 @@ if(isset($_POST['login'])){
     $un = $_POST['un'];
     $pw = $_POST['pw'];
     $u = new User();
-    $data = $u->login($un, $pw);
+    $data = $u->login($un, $pw); 
     if($row=$data->fetch_assoc()){
         if($row['role']=='admin'){
             echo '

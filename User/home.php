@@ -9,7 +9,7 @@
    <style>
    	 @font-face {
       font-family: "Poppins Medium";
-      src: url(Poppins/Poppins-Medium.ttf);
+      src: url(../Poppins/Poppins-Medium.ttf);
       }
       body{
         font-family: "Poppins Medium";
@@ -36,43 +36,13 @@
           <a class="nav-link" id="signoutbtn" href="#">Logout</a>
         </li>
       </ul>
-       <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
     </div>
   </div>
 </nav>
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-  <div class="container">
-    <a class="navbar-brand" href="#">PetBook</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav justify-content-center">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Settings
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Account</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav> -->
-
 	<div class="container">
 		<div>
 			<h1 class="text-center"> WELCOME <span id="dname"></span>! </h1>
       <div id="user-info">
-        <p><strong>Email:</strong> <span id="email"></span></p>
     </div>
 		</div>
 	</div>

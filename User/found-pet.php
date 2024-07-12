@@ -9,7 +9,7 @@
    <style>
    	 @font-face {
       font-family: "Poppins Medium";
-      src: url(Poppins/Poppins-Medium.ttf);
+      src: url(../Poppins/Poppins-Medium.ttf);
       }
       body{
         font-family: "Poppins Medium";
@@ -76,91 +76,5 @@
          </div>
       </div>
 	</div>
-    // Import the functions you need from the SDKs you need
-          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-          import { getDatabase, ref, update, set, get, child } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
-          import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-          // TODO: Add SDKs for Firebase products that you want to use
-          // https://firebase.google.com/docs/web/setup#available-libraries
-  
-          // Your web app's Firebase configuration
-          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-          const firebaseConfig = {
-            apiKey: "AIzaSyDIKgIRcoTWgWKocJ-sSI1J5uN44My0rhc",
-            authDomain: "petbook-69b1e.firebaseapp.com",
-            databaseURL: "https://petbook-69b1e-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "petbook-69b1e",
-            storageBucket: "petbook-69b1e.appspot.com",
-            messagingSenderId: "287346842196",
-            appId: "1:287346842196:web:bf0783523ca3880fd32bc1",
-            measurementId: "G-CDQD87KGXE"
-          };
-  
-          // Initialize Firebase
-          const app = initializeApp(firebaseConfig);
-          const db = getDatabase(app);
-          const auth = getAuth();
-  
-          // const user = auth.currentUser;
-          // if (user !== null) {
-          //   // The user object has basic properties such as display name, email, etc.
-          //   document.getElementById('firstname').textContent = user.firstname || 'N/A';
-          //   document.getElementById('lastname').textContent = user.lastname || 'N/A';
-          //   document.getElementById('email').textContent = user.email || 'N/A';
-          //   document.getElementById('uid').textContent = user.uid;
-          // }  
-  
-          onAuthStateChanged(auth, (user) => {
-
-              if (user) {
-                  console.log("user-info", user);
-                  if(user.uid == "A69gRKhnmOfhMy72QPaQXWoXVMB3"){
-                    window.location.href = "index.html";
-                  }
-              }else if(user == null){
-                  // No user is signed in, redirect to login page
-                  window.location.href = "index.html";
-              } 
-          })
-
-         const user = firebase.auth().currentUser; // Get the current user
-         if (user) {
-         const dbref = firebase.database().ref(); // Get a reference to the database root
-         const userRef = dbref.child('signup/' + user.uid); // Construct the path to user data
-
-         get(userRef).then((snapshot) => {
-            if (snapshot.exists()) {
-               // User data exists, update the UI
-               const userData = snapshot.val();
-               document.getElementById("dname").innerText = userData.firstname + " " + userData.lastname; // Corrected typo
-               document.getElementById("email").innerText = userData.email;
-               document.getElementById("uid").innerText = user.uid;
-            } else {
-               // User data doesn't exist
-               alert("User not found");
-            }
-         }).catch((error) => {
-            // Handle errors
-            alert("Error fetching user data");
-            console.log(error);
-         });
-         } else {
-         // User is not signed in
-         alert("User is not signed in");
-         }
-
-          signoutbtn.addEventListener('click', (e) => {
-            signOut(auth)
-             .then(() => {
-                 alert('User logged out');
-                 window.location.href = "index.html";
-             })
-             .catch((error) => {
-                 console.error("Error signing out:", error);
-                 // Handle sign-out errors
-              });
-            });
-          
-  </script> -->
 </body>
 </html>

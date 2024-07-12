@@ -141,6 +141,7 @@ if(isset($_POST['signupbtn'])){
    echo '
       <script>
       alert("'.$u->signup($fn, $ln, $un, $pw).'");
+      window.location="../index.php";
       </script>
    ';
 }

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -85,7 +86,7 @@
                       <div class="row d-flex justify-content-center mx-2">
                         <div class="col-md-3">
                           <div class="p-1">
-                          <div class="card card-home text-center p-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          <div class="card card-home text-center p-2" data-bs-toggle="modal" data-bs-target="#modcat">
                             <div class="card-body">
                               <h1 class="card-title"><i class="fa-solid fa-cat"></i></h1>
                               <p>Cat adoption</p>
@@ -95,7 +96,7 @@
                         </div>
                         <div class="col-md-3">
                           <div class="p-1">
-                          <div class="card card-home text-center p-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          <div class="card card-home text-center p-2" data-bs-toggle="modal" data-bs-target="#moddog">
                             <div class="card-body">
                               <h1 class="card-title"><i class="fa-solid fa-dog"></i></h1>
                               <p>Dog adoption</p>
@@ -117,7 +118,7 @@
                         </div>
                         <div class="col-md-3">
                           <div class="p-1">
-                          <div class="card card-home text-center p-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          <div class="card card-home text-center p-2" data-bs-toggle="modal" data-bs-target="#moddonate">
                             <div class="card-body">
                               <h1 class="card-title"><i class="fa-solid fa-hand-holding-heart"></i></h1>
                               <p>Donate</p>
@@ -222,32 +223,36 @@
               </section>
 
 
-              <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <!-- Modal for Cat-->
+              <div class="modal fade" id="modcat" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h2>Planning to Adopt a Pet?</h2>
+                      <p>Planning to Adopt a Cat?</p>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <p class="p-2"><i class="fa-solid fa-arrow-down"></i> Fill up the form bellow <i class="fa-solid fa-arrow-down"></i></p>
-                      <form>
-                      <div class="border border-3 text-start p-3 bg-secondary text-white overflow-auto h-75">
-                        <label for="">First Name:</label>
-                        <input type="text" class="form-control form-control-sm mb-3">
-                        <label for="">Last Name:</label>
-                        <input type="text" class="form-control form-control-sm mb-3">
-                        <label for="">Address:</label>
-                        <input type="text" class="form-control form-control-sm mb-3">
-                        <label for="">Email:</label>
-                        <input type="text" class="form-control form-control-sm mb-3">
-                        <label for="">Contact:</label>
-                        <input type="text" class="form-control form-control-sm mb-3">
-                        <label for="">Age:</label>
-                        <input type="text" class="form-control mb-3">
-                  </div>
-                </form>
+                      <div class="container">
+                        <div class="row row-cols-2 g-2">
+                      <?php
+                        include_once 'Class/User.php';
+                        $u = new User();
+                        $ptype = "Cat"; 
+                        $pets = $u->petdisplay($ptype);
+                          while($row = $pets->fetch_assoc()){
+                            echo '
+                            <div class="col">
+                            <div class="border">
+                              <h3>'.$row['pet_name'].'</h3>
+                              <p>'.$row['pet_type'].'</p>
+                              <p>'.$row['pet_gender'].'</p>
+                            </div>
+                            </div>
+                            ';
+                          }
+                      ?> 
+                      </div>
+                      </div>
                     </div>
                     <div class="modal-footer">
                       <button class="btn btn-dark text-white" type="button">Register</button>
@@ -257,8 +262,62 @@
                 </div>
               </div>
 
-             
+              <!-- Modal for Dog-->
+              <div class="modal fade" id="moddog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h2>Planning to Adopt a Cat?</h2>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <div class="container">
+                        <div class="row row-cols-2 g-2">
+                      <?php
+                        include_once 'Class/User.php';
+                        $u = new User();
+                        $ptype = "Dog"; 
+                        $pets = $u->petdisplay($ptype);
+                          while($row = $pets->fetch_assoc()){
+                            echo '
+                            <div class="col">
+                            <div class="border">
+                              <h3>'.$row['pet_name'].'</h3>
+                              <p>'.$row['pet_type'].'</p>
+                              <p>'.$row['pet_gender'].'</p>
+                            </div>
+                            </div>
+                            ';
+                          }
+                      ?> 
+                      </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-dark text-white" type="button">Register</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+              <!-- Modal for Donate-->
+              <div class="modal fade" id="moddonate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5>Donate? Scan the Gcash QR Code</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                    <img src="images/Gcash-payment.jpg" height="400px" alt="">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <section id="adoption-process">
               <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -425,24 +484,23 @@
     </html>
 
 <?php
-include_once 'Class/User.php';
+
 if(isset($_POST['login'])){
-    $un = $_POST['un'];
-    $pw = $_POST['pw'];
-    $u = new User();
-    $data = $u->login($un, $pw); 
-    if($row=$data->fetch_assoc()){
+  $un = $_POST['un'];
+  $pw = $_POST['pw'];
+  $data = $u->login($un, $pw);    
+    if($row = $data->fetch_assoc()){
+      $_SESSION['role'] = $row['role'];
+      $_SESSION['id_num'] = $row['id_number'];
         if($row['role']=='admin'){
             echo '
               <script>
-                alert("Welcome Admin!"); 
-                window.location="Admin/adminhome.php";
+                window.open("Admin/adminhome.php","_self");  
               </script>  
             ';
         }else{
           echo '
           <script>
-            alert("Login Success!"); 
             window.location="User/home.php";
           </script>  
         ';

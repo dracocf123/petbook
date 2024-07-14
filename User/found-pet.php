@@ -1,3 +1,14 @@
+<?php session_start();
+if(!isset($_SESSION['id_num'])){
+    header('location:../logout.php');
+}
+if($_SESSION['role']!="user"){
+    header('location:../index.php');
+    echo $_SESSION['role'];
+}
+$uid = $_SESSION['id_num'];
+include_once 'usernav.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +25,7 @@
       body{
         font-family: "Poppins Medium";
         background-color:white;
+        margin-top: 60px;
       }
       .post-pet{
          border: black solid 1px;
@@ -23,58 +35,55 @@
    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-black">
-  <div class="container">
-    <a class="navbar-brand" href="#">Paws-Connect</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="home.php">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="found-pet.php">Post a Found Pet</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" id="signoutbtn" href="donate.php">Donate</a>
-        </li>
-      </ul>
-       <form class="d-flex">
-      <button class="btn btn-outline-light" type="button" id="signoutbtn">Log-out</button>
-    </form>
-    </div>
-  </div>
-</nav>
+<form method="POST">
 	<div class="container">
 		<div>
 			<h1 class="text-center"> WELCOME <span id="dname"></span>! </h1>
-            <div id="user-info">
-               <p><strong>Email:</strong> <span id="email"></span></p>
-            </div>
 		</div>
       <div class="post-pet bg-light">
          <h1>Found a Pet?</h1>
-         <h5>Fill up Details</h5>
+         <h5>Fill up Details</h5><Br>
+         <div class="row">
+            <div class="col-md-4">
+               <label for="">Name of Pet:</label>
+               <input type="text" name="name" class="form-control">
+            </div>
+         </div>
          <div class="row">
             <div class="col-md-4">
                <label for="">Type:</label>
-               <select name="" id="" class="form-control">
+               <select name="type" id="" class="form-control">
                   <option value="Cat">Cat</option>
                   <option value="Dog">Dog</option>
                </select>
             </div>
-            <div class="col-md-4">
-               <label for="">Breed:</label>
-               <input type="text" class="form-control">
-            </div>
-            <div class="col-md-4">
-               <label for="">Type:</label>
-               <input type="text" class="form-control">
+         </div>
+         <div class="row">
+            <div class="col-md-2">
+               <label for="">Gender:</label>
+               <select name="gender" id="" class="form-control">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+               </select>
             </div>
          </div>
+         <button type="submit" name="petreg" class="btn btn-primary">Post</button>
       </div>
 	</div>
+   </form>
 </body>
 </html>
+<?php
+include_once '../Class/User.php';
+if(isset($_POST['petreg'])){
+   $u = new User();
+   $pname = $_POST['name'];
+   $ptype = $_POST['type'];
+   $pgender = $_POST['gender'];
+   echo '
+      <script>
+      alert("'.$u->petreg($uid, $pname, $ptype, $pgender).'");
+      </script>
+   ';
+}
+?>

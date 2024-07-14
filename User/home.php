@@ -1,3 +1,13 @@
+<?php 
+session_start();
+if(!isset($_SESSION['id_num'])){
+  header('location:userlogout.php');
+}
+if($_SESSION['role']!="user"){
+  header('location:userlogout.php');
+}
+include_once 'usernav.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,37 +24,22 @@
       body{
         font-family: "Poppins Medium";
         background-color:white;
+        margin-top: 60px;
+      }
+      .sec{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #fafafc;
       }
    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-black">
-  <div class="container">
-    <a class="navbar-brand" href="#">Paws-Connect</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="home.php">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="found-pet.php">Post a Found Pet</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="signoutbtn" href="#">Logout</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-	<div class="container">
-		<div>
-			<h1 class="text-center"> WELCOME <span id="dname"></span>! </h1>
+	<div class="sec">
+			<h1> WELCOME <span id="dname"></span>! </h1>
       <div id="user-info">
     </div>
-		</div>
 	</div>
 </body>
 </html>

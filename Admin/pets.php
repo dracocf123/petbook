@@ -29,26 +29,18 @@ include_once 'topnavbar.php';
                   $u = new User();
                   $allpet = $u->petalldisplay();
                   while($row = $allpet->fetch_assoc()){
-                     $ptype = $row['pet_type'];
-                     if($ptype == 'Dog'){
-                        $img = '../images/dog.jpg';
-                     }else if($ptype == 'Cat'){
-                        $img = '../images/cat.jpg';
-                     }
                      echo '
                      <div class="col">
                      <div class="card shadow" style="width:100%;">
-                     <img src="'.$img.'" class="card-img-top" alt="...">
+                     <img src="../images/'.$row['pet_image'].'" class="card-img-top" alt="...">
                      <div class="card-body">
                         Name: '.$row['pet_name'].'<br>Type: '.$row['pet_type'].'<br>Gender: '.$row['pet_gender'].'
                      </div>
                      </div>
                      </div>
                      ';
-                     
                   }
                 ?>
-            
         </div>
     </div>
   </main>

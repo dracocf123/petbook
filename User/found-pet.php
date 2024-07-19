@@ -37,28 +37,25 @@ include_once 'usernav.php';
 <body>
 <form method="POST" action="addpet.php" enctype="multipart/form-data">
 	<div class="container">
-		<div>
-			<h1 class="text-center"> WELCOME <span id="dname"></span>! </h1>
-		</div>
       <div class="post-pet bg-light">
-         <h1>Found a Pet?</h1>
-         <h5>Fill up Details</h5><Br>
+         <h5>Found a Pet?</h5>
          <div class="row">
             <div class="col-md-4">
                <label for="">Image:</label>
-               <input type="file" name="img" class="form-control">
+               <div class="m-2" id="preview"></div>
+               <input type="file" name="img" class="form-control form-control-sm" onchange="getImagePreview(event)">
             </div>
          </div>
          <div class="row">
             <div class="col-md-4">
                <label for="">Name of Pet:</label>
-               <input type="text" name="name" class="form-control">
+               <input type="text" name="name" class="form-control form-control-sm">
             </div>
          </div>
          <div class="row">
             <div class="col-md-4">
                <label for="">Type:</label>
-               <select name="type" id="" class="form-control">
+               <select name="type" id="" class="form-control form-control-sm">
                   <option value="Cat">Cat</option>
                   <option value="Dog">Dog</option>
                </select>
@@ -77,5 +74,16 @@ include_once 'usernav.php';
       </div>
 	</div>
    </form>
+   <script>
+      function getImagePreview(event){
+         var image=URL.createObjectURL(event.target.files[0]);
+         var imagediv= document.getElementById('preview');
+         var newimg=document.createElement('img');
+         imagediv.innerHTML='';
+         newimg.src=image;
+         newimg.width="300";
+         imagediv.appendChild(newimg);
+      }
+   </script>
 </body>
 </html>

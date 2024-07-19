@@ -22,7 +22,7 @@ if(isset($_POST['petreg'])){
 
    if(in_array($fileActualExt, $allowed)){
       if($fileError === 0){
-         if($fileSize < 1000000){
+         if($fileSize < 5000000){
             $fileNameNew = uniqid('', true).".".$fileActualExt;
             $fileDestination = '../images/'.$fileNameNew;
             move_uploaded_file($fileTmpName, $fileDestination);

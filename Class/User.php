@@ -32,5 +32,10 @@ Class User extends Database{
       $data = $this->conn->query($sql);
       return $data;
    }
+   public function petalldisplay(){
+      $sql = "select * from tbl_pet";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
 }
 ?>

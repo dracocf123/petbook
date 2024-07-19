@@ -37,5 +37,10 @@ Class User extends Database{
       $data = $this->conn->query($sql);
       return $data;
    }
+   public function dtp(){
+      $sql = "select count(pet_id) as pidc,pet_type as ptc from tbl_pet group by pet_type";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
 }
 ?>

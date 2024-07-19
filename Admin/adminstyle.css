@@ -50,3 +50,6 @@ body{
  img:hover{
     cursor: pointer;
  }
+ .title{
+  margin-top: 70px;
+ }

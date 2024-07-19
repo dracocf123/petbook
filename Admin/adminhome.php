@@ -21,11 +21,24 @@ include_once 'topnavbar.php';
 </head>
 <body>
 <main >
-    <div class="container text-center">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                MOST PET ADOPTED:
-            </div>
+<div class="container text-center">
+        <h1 class="title">Available Pets</h1>
+        <div class="row row-cols-4 justify-content-center">
+            <?php
+                include_once '../Class/User.php';
+                $u = new User();
+                $displaytotalpets = $u->dtp(); 
+                while($row = $displaytotalpets->fetch_assoc()){
+                    echo '
+                    <div class="col">
+                        <div class="bg-primary text-white p-4 rounded shadow">
+                            <h3>'.$row['ptc'].'</h3>
+                            <h4>'.$row['pidc'].'</h4>
+                        </div>
+                    </div>
+                    ';
+                }
+            ?>
         </div>
     </div>
   </main>

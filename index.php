@@ -152,9 +152,9 @@
                   while($row = $allpet->fetch_assoc()){
                      echo '
                      <div class="col">
-                     <div class="card shadow" style="width:100%;">
-                     <img src="images/'.$row['pet_image'].'" class="card-img-top" alt="...">
-                     <div class="card-body">
+                     <div class="card shadow" style="height:100%;">
+                     <img src="images/'.$row['pet_image'].'" class="card-img-top" alt="..." height="100%">
+                     <div class="card-body text-start">
                         Name: '.$row['pet_name'].'<br>Type: '.$row['pet_type'].'<br>Gender: '.$row['pet_gender'].'
                      </div>
                      </div>

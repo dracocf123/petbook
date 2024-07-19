@@ -8,65 +8,9 @@ if(isset($_POST['petreg'])){
     $ptype = $_POST['type'];
     $pgender = $_POST['gender'];
 
-    $file = $_FILES['img'];
-
-    $fileName = $file['name'];
-    $fileTmpName = $file['tmp_name'];
-    $fileSize = $file['size'];
-    $fileError = $file['error'];
-    $fileType = $file['type'];
-
-    $fileExt = explode('.', $fileName);
-    $fileActualExt = strtolower(end($fileExt));
-
-    $allowed = array('jpg','jpeg','png','pdf');
-
-    if(in_array($fileActualExt, $allowed)){
-        if($fileError === 0){
-            if($fileSize < 5000000){
-                $fileNameNew = uniqid('', true).".".$fileActualExt;
-                $fileDestination = '../images/'.$fileNameNew;
-                if(move_uploaded_file($fileTmpName, $fileDestination)){
-                    $img = $fileNameNew;
-                    try {
-                        $a = new User();
-                        $a->petreg($uid, $pname, $ptype, $pgender, $img);
-                    } catch (Exception $e) {
-                        error_log($e->getMessage());
-                        echo '
-                        <script>
-                           alert("There was an error with the database operation!")
-                        </script>
-                        ';
-                    }
-                } else {
-                    echo '
-                    <script>
-                       alert("Failed to move uploaded file.")
-                    </script>
-                    ';
-                }
-            } else {
-                echo '
-                <script>
-                   alert("Your file is too big.")
-                </script>
-                ';
-            }
-        } else {
-            echo '
-            <script>
-               alert("There was an error uploading your file.")
-            </script>
-            ';
-        }
-    } else {
-        echo '
-        <script>
-           alert("You cannot upload this type of file.")
-        </script>
-        ';
-    }
+    $a = new User();
+   $a->petreg($uid, $pname, $ptype, $pgender, $img);
+    
 }
 ?>
 <!DOCTYPE html>

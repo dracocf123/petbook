@@ -27,9 +27,8 @@ if(isset($_POST['petreg'])){
             $fileDestination = '../images/'.$fileNameNew;
             move_uploaded_file($fileTmpName, $fileDestination);
             $img=$fileNameNew;
-            $a = new user();
+            $a = new User();
             $a->petreg($uid, $pname, $ptype, $pgender, $img);
-            header("location:addpet.php?success");
          }else{
             echo '
             <script>

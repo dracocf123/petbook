@@ -128,35 +128,43 @@
                         </div>
                       </div>
                   </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
                   <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
                   </svg>
               </section>
 
                 <section id="service">
-                <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
                 <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
               </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
                   <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
                   </svg>
                   <div class="reveal">
                   
                   <h1 class="h1-bg">Available Pets</h1>
                   <div class="container">
-                    <div class="row d-flex justify-content-center">
-                      <div class="col-md-3 pet-card bg-danger rounded m-2" data-bs-toggle="modal"  data-bs-target="#pet-info"></div>
-                      <div class="col-md-3 pet-card-d bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
-                      <div class="col-md-3 pet-card bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
+                  <div class="row row-cols-4 g-2">
+                  <?php
+                  include_once 'Class/User.php';
+                  $u = new User();
+                  $allpet = $u->petalldisplay();
+                  while($row = $allpet->fetch_assoc()){
+                     echo '
+                     <div class="col">
+                     <div class="card shadow" style="width:100%;">
+                     <img src="images/'.$row['pet_image'].'" class="card-img-top" alt="...">
+                     <div class="card-body">
+                        Name: '.$row['pet_name'].'<br>Type: '.$row['pet_type'].'<br>Gender: '.$row['pet_gender'].'
+                     </div>
+                     </div>
+                     </div>
+                        ';
+                        
+                      }
+                          ?>
+                      </div>
                     </div>
-                    <div class="row d-flex justify-content-center">
-                      <div class="col-md-3 pet-card-d bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
-                      <div class="col-md-3 pet-card bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
-                      <div class="col-md-3 pet-card-d bg-danger rounded m-2" data-bs-toggle="modal" data-bs-target="#pet-info"></div>
-                      
-                    </div>
-                    </div>
-                    
                   </div>
                   
                   </section>
@@ -183,13 +191,11 @@
                 </div>
               </div>
                 
-              
-
               <section id="about" style=" min-height:100vh; height: auto !important;">
-              <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+              <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
                 <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
               </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
                   <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
                   </svg>
                 <div class="reveal">
@@ -241,18 +247,21 @@
                         $pets = $u->petdisplay($ptype);
                           while($row = $pets->fetch_assoc()){
                             echo '
-                            <div class="col">
+                            <div class="col rounded">
                             <div class="border">
-                              <h3>'.$row['pet_name'].'</h3>
-                              <p>'.$row['pet_type'].'</p>
-                              <p>'.$row['pet_gender'].'</p>
-                              <img src="images/'.$row['pet_image'].'" width="100%;" height="200px">
+                            <a href="#" class="click">
+                            <img src="images/'.$row['pet_image'].'" width="100%;" height="200px">
+                              <div class="card-text1">Name: '.$row['pet_name'].'</div>
+                              <div class="card-text1">Type: '.$row['pet_type'].'</div>
+                              <div class="card-text1">Gender: '.$row['pet_gender'].'</div>
+                              </a>
                             </div>
                             </div>
                             ';
                           }
                       ?> 
                       </div>
+                      
                       </div>
                     </div>
                     <div class="modal-footer">
@@ -268,14 +277,14 @@
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <p>Planning to Adopt a Dog?</p>
+                      <p>Planning to Adopt a dog?</p>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                     <div class="container">
                         <div class="row row-cols-2 g-2">
                       <?php
-                        include_once 'Class/User.php';
+                      include_once 'Class/User.php';
                         $u = new User();
                         $ptype = "Dog"; 
                         $pets = $u->petdisplay($ptype);
@@ -321,10 +330,10 @@
               </div>
 
               <section id="adoption-process">
-              <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+              <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
                 <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
               </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
                   <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
                   </svg>
                 <h1 class="h1-bg">How to Adopt from Paws-Connect?</h1>
@@ -349,10 +358,10 @@
               </section>
 
               <section id="faq">
-              <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+              <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
                 <path fill="#FC4100" fill-opacity="1" d="M0,256L60,261.3C120,267,240,277,360,240C480,203,600,117,720,117.3C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
               </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
                   <path fill="#FC4100" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,250.7C384,256,480,224,576,181.3C672,139,768,85,864,101.3C960,117,1056,203,1152,202.7C1248,203,1344,117,1392,74.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
                   </svg>
                 <h1 class="h1-bg">FAQs</h1>

@@ -290,11 +290,14 @@
                         $pets = $u->petdisplay($ptype);
                           while($row = $pets->fetch_assoc()){
                             echo '
-                            <div class="col">
+                            <div class="col rounded">
                             <div class="border">
-                              <h3>'.$row['pet_name'].'</h3>
-                              <p>'.$row['pet_type'].'</p>
-                              <p>'.$row['pet_gender'].'</p>
+                            <a href="#" class="click">
+                            <img src="images/'.$row['pet_image'].'" width="100%;" height="200px">
+                              <div class="card-text1">Name: '.$row['pet_name'].'</div>
+                              <div class="card-text1">Type: '.$row['pet_type'].'</div>
+                              <div class="card-text1">Gender: '.$row['pet_gender'].'</div>
+                              </a>
                             </div>
                             </div>
                             ';

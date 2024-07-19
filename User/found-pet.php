@@ -35,7 +35,7 @@ include_once 'usernav.php';
    </style>
 </head>
 <body>
-<form method="POST" action="addpet1.php" enctype="multipart/form-data">
+<form method="POST" action="addpet.php" enctype="multipart/form-data">
 	<div class="container">
 		<div>
 			<h1 class="text-center"> WELCOME <span id="dname"></span>! </h1>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../Class/user.php';
+include_once '../Class/User.php';
 if(isset($_POST['petreg'])){
    $uid = $_SESSION['id_num'];
    $pname = $_POST['name'];

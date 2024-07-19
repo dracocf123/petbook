@@ -246,6 +246,7 @@
                               <h3>'.$row['pet_name'].'</h3>
                               <p>'.$row['pet_type'].'</p>
                               <p>'.$row['pet_gender'].'</p>
+                              <img src="images/'.$row['pet_image'].'" width="100%;" height="200px">
                             </div>
                             </div>
                             ';

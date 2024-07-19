@@ -53,7 +53,7 @@
    }
    .labelline{
       position: absolute;
-      font-size: 15px;
+      font-size: 13px;
       padding: 0;
       margin: 0 15px;
       background-color: white;
@@ -69,8 +69,8 @@
       color: red;
       height: 30px;
       line-height: 30px;
-      padding: 0 8px;
-      transform: translate(-15px,-13px) scale(0.88);
+      padding: 0 5px;
+      transform: translate(-13px,-13px) scale(0.75);
       z-index: 1111;
    }
    button{
@@ -96,7 +96,7 @@
          </div>
          <div class="login-card-2">
             <input type="text" required>
-            <div class="labelline">Username</div>
+            <div class="labelline">Password</div>
          </div>
       </div>
       <button type="button">LOGIN</button>

@@ -18,9 +18,9 @@ Class User extends Database{
            return $this->conn->error;
         }
    }
-   public function petreg($uid, $pname, $ptype, $pgender){
+   public function petreg($uid, $pname, $ptype, $pgender, $img){
          $pid = strtoupper('PT00'.uniqid());
-         $sql = "insert into tbl_pet values(NULL,'$pid','$uid','$pname','$ptype','$pgender')";
+         $sql = "insert into tbl_pet values(NULL,'$pid','$uid','$pname','$ptype','$pgender','$img')";
         if($this->conn->query($sql)){
            return 'Register Success!';
         }else{

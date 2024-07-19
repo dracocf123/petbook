@@ -35,7 +35,7 @@ include_once 'usernav.php';
    </style>
 </head>
 <body>
-<form method="POST">
+<form method="POST" action="addpet.php" enctype="multipart/form-data">
 	<div class="container">
 		<div>
 			<h1 class="text-center"> WELCOME <span id="dname"></span>! </h1>
@@ -43,6 +43,12 @@ include_once 'usernav.php';
       <div class="post-pet bg-light">
          <h1>Found a Pet?</h1>
          <h5>Fill up Details</h5><Br>
+         <div class="row">
+            <div class="col-md-4">
+               <label for="">Image:</label>
+               <input type="file" name="img" class="form-control">
+            </div>
+         </div>
          <div class="row">
             <div class="col-md-4">
                <label for="">Name of Pet:</label>
@@ -74,16 +80,16 @@ include_once 'usernav.php';
 </body>
 </html>
 <?php
-include_once '../Class/User.php';
-if(isset($_POST['petreg'])){
-   $u = new User();
-   $pname = $_POST['name'];
-   $ptype = $_POST['type'];
-   $pgender = $_POST['gender'];
-   echo '
-      <script>
-      alert("'.$u->petreg($uid, $pname, $ptype, $pgender).'");
-      </script>
-   ';
-}
+// include_once '../Class/User.php';
+// if(isset($_POST['petreg'])){
+//    $u = new User();
+//    $pname = $_POST['name'];
+//    $ptype = $_POST['type'];
+//    $pgender = $_POST['gender'];
+//    echo '
+//       <script>
+//       alert("'.$u->petreg($uid, $pname, $ptype, $pgender).'");
+//       </script>
+//    ';
+// }
 ?>

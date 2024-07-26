@@ -28,7 +28,9 @@
                 <hr class="dropdown-divider"/>
                 <a href="pets.php" class="nav-link px-3 active"><i class="fa-solid fa-building-shield"></i> Shelter Panel</a>
                 <hr class="dropdown-divider"/>
-                <a href="pets.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> View Reports</a>
+                <a href="breed.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> Add Breed</a>
+                <hr class="dropdown-divider"/>
+                <a href="status.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> Status</a>
                 <hr class="dropdown-divider"/>
                 <a href="pets.php" class="nav-link px-3 active"><i class="fa-solid fa-key"></i> Change Password</a>
                 <a href="adminlogout.php" class="nav-link child active p-3 log"><i class="fa-solid fa-right-from-bracket"></i> Log out</a> 

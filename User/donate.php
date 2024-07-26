@@ -6,7 +6,7 @@ if($_SESSION['role']!="user"){
     header('location:../index.php');
 }
 include_once 'usernav.php';
-$cid = $_SESSION['id_num'];
+$uid = $_SESSION['id_num'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,13 +30,8 @@ $cid = $_SESSION['id_num'];
 </head>
 <body>
 	<div class="container">
-		<div>
-			<h1 class="text-center"> WELCOME <?= $cid; ?></h1>
-		</div>
-    <hr>
       <div class="text-center">
-         <h1>Donate?</h1>
-         <h5>Gcash Payment</h5>
+         <h5>Gcash for Donation</h5>
          <img src="../images/Gcash-payment.jpg" alt="" height="500px">
       </div>
 	</div>

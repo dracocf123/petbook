@@ -30,12 +30,12 @@
       
       <label class="logo"><img src="images/logo.png" height="25px"> Paws-Connect</label>
       <ul>
-          <li><a href="#home"  onclick="toggleCheckbox();">Home</a></li>
-          <li><a href="#about"  onclick="toggleCheckbox();">About</a></li>
-          <li><a href="#service"  onclick="toggleCheckbox();">Service</a></li>
-          <li><a href="#contact"  onclick="toggleCheckbox();">Contact</a></li>
-          <li><a href="signup.php">Sign Up</a></li>
-          <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginmod" id="li">Log-in</a></li>
+          <li><a class="nav-l" href="#home"  onclick="toggleCheckbox();">Home</a></li>
+          <li><a class="nav-l" href="#about"  onclick="toggleCheckbox();">About</a></li>
+          <li><a class="nav-l" href="#service"  onclick="toggleCheckbox();">Service</a></li>
+          <li><a class="nav-l" href="#contact"  onclick="toggleCheckbox();">Contact</a></li>
+          <li><a class="nav-l" href="signup.php">Sign Up</a></li>
+          <li><a class="nav-l" href="#" data-bs-toggle="modal" data-bs-target="#loginmod" id="li">Log-in</a></li>
       </ul>
   </nav>
  
@@ -69,13 +69,8 @@
     </div>
   </div> 
  
- 
               <section id="home">
-                <div class="bg-home">
-                </div>
                 
-                
-                <!-- <img src="images/bghome.jpg" alt="..." class="homebg"> -->
                   <div class="hometext mb-3">
                     <h1 class="fw-bold mb-4">Welcome to Paws-Connect!</h1>
                     <h3 class="fw-bold">Take yours</h3>
@@ -107,7 +102,7 @@
                         <div class="col-md-3">
                           <div class="p-1">
                           <div class="card card-home text-center p-2">
-                            <a href="#faq">
+                            <a class="nav-l" href="#faq">
                             <div class="card-body">
                               <h1 class="card-title"><i class="fa-regular fa-circle-question"></i></h1>
                               <p>FAQ! Need Help?</p>
@@ -143,53 +138,33 @@
                   <div class="reveal">
                   
                   <h1 class="h1-bg">Available Pets</h1>
-                  <div class="container">
-                  <div class="row row-cols-4 g-2">
-                  <?php
-                  include_once 'Class/User.php';
-                  $u = new User();
-                  $allpet = $u->petalldisplay();
-                  while($row = $allpet->fetch_assoc()){
-                     echo '
-                     <div class="col">
-                     <div class="card shadow" style="height:100%;">
-                     <img src="images/'.$row['pet_image'].'" class="card-img-top" alt="..." height="100%">
-                     <div class="card-body text-start">
-                        Name: '.$row['pet_name'].'<br>Type: '.$row['pet_type'].'<br>Gender: '.$row['pet_gender'].'
+
+                  <div class="d-flex flex-column align-items-center petpage">
+                     <div class="filter-container-css">
+                        <select id="filter-dropdown">
+                              <option value="">All</option>
+                              <option value="Cat">Cat</option>
+                              <option value="Dog">Dog</option>
+                              <!-- Add more filter options as needed -->
+                        </select>
+                        <input type="text" id="filter-input" placeholder="Search...">
+                        <button id="apply-filter">Search</button>
                      </div>
+                     
+                     <div class="card-container-css" id="card-container">
+                        <!-- Cards will be inserted here dynamically -->
                      </div>
+
+                     <div class="pagination-css">
+                        <button id="prev" onclick="prevPage()">Prev</button>
+                        <span id="page-info"></span>
+                        <button id="next" onclick="nextPage()">Next</button>
                      </div>
-                        ';
-                        
-                      }
-                          ?>
-                      </div>
-                    </div>
+                     
                   </div>
-                  
+
+                  </div>
                   </section>
-                  
-                  
-                   <!-- Modal pet-info-->
-              <div class="modal fade" id="pet-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h2>Planning to Adopt a Pet?</h2>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <img src="images/cat.jpg" alt="" width="100%">
-                      <p>Ditto</p>
-                      <p>pusa pusa pusa pusa pusa pusapusa pusa pusapusa pusa pusapusa pusa pusapusa pusa pusa</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button class="btn btn-dark text-white" type="button">Register</button>
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
                 
               <section id="about" style=" min-height:100vh; height: auto !important;">
               <svg class="up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319">
@@ -234,7 +209,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <p>Planning to Adopt a Cat?</p>
+                      <p class="m-0">Planning to Adopt a Cat?</p>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -246,16 +221,20 @@
                         $ptype = "Cat"; 
                         $pets = $u->petdisplay($ptype);
                           while($row = $pets->fetch_assoc()){
+                            if($row['pet_gender'] == 'Male' ){
+                              $gicon = '<i class="fa-solid fa-mars text-primary"></i>';
+                            }else{
+                              $gicon = '<i class="fa-solid fa-venus text-danger"></i>';
+                            }
                             echo '
-                            <div class="col rounded">
-                            <div class="border">
-                            <a href="#" class="click">
-                            <img src="images/'.$row['pet_image'].'" width="100%;" height="200px">
-                              <div class="card-text1">Name: '.$row['pet_name'].'</div>
-                              <div class="card-text1">Type: '.$row['pet_type'].'</div>
-                              <div class="card-text1">Gender: '.$row['pet_gender'].'</div>
-                              </a>
-                            </div>
+                            <div class="col">
+                              <div class="pet-card-link" onclick="openNewPageWithUrl(&quot;'.$row['pet_id'].'&quot;)">
+                              <div class="pet-card">
+                                <div class="gradient"></div>
+                                <img src="images/'.$row['pet_image'].'" class="card-img-top" alt="..." height="230px">
+                                <div class="bottom-left">'.$row['pet_name'].' '.$gicon.'</div>
+                              </div>
+                              </div>
                             </div>
                             ';
                           }
@@ -277,7 +256,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <p>Planning to Adopt a dog?</p>
+                      <p class="m-0">Planning to Adopt a dog?</p>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -289,16 +268,20 @@
                         $ptype = "Dog"; 
                         $pets = $u->petdisplay($ptype);
                           while($row = $pets->fetch_assoc()){
+                            if($row['pet_gender'] == 'Male' ){
+                              $gicon = '<i class="fa-solid fa-mars text-primary"></i>';
+                            }else{
+                              $gicon = '<i class="fa-solid fa-venus text-danger"></i>';
+                            }
                             echo '
-                            <div class="col rounded">
-                            <div class="border">
-                            <a href="#" class="click">
-                            <img src="images/'.$row['pet_image'].'" width="100%;" height="200px">
-                              <div class="card-text1">Name: '.$row['pet_name'].'</div>
-                              <div class="card-text1">Type: '.$row['pet_type'].'</div>
-                              <div class="card-text1">Gender: '.$row['pet_gender'].'</div>
-                              </a>
-                            </div>
+                            <div class="col">
+                              <div class="pet-card-link" onclick="openNewPageWithUrl(&quot;'.$row['pet_id'].'&quot;)">
+                              <div class="pet-card">
+                                <div class="gradient"></div>
+                                <img src="images/'.$row['pet_image'].'" class="card-img-top" alt="..." height="230px">
+                                <div class="bottom-left">'.$row['pet_name'].' '.$gicon.'</div>
+                              </div>
+                              </div>
                             </div>
                             ';
                           }
@@ -372,29 +355,70 @@
                 <div class="container">
                   <div class="row justify-content-center">
                     <div class="col-md-8 text-start">
-                      <h3>General Questions</h3>
-                      <p class="fw-bold p-3 faq-q">Q: What is Paws-Connect? </p>
-                      <p class="p-3 faq-a">A: Paws-Connect is a platform designed to help connect found pets with their rightful owners and facilitate the adoption of pets needing new homes.</p>
+                  <h4>General Questions</h4>
+                  <div class="accordion-css">
+                    <div class="accordion-item-css">
+                        <button class="accordion-header-css d-flex justify-content-between">
+                          <div>Q: What is Paws-Connect? </div>
+                          <div class="accordion-plus-btn">+</div>
+                        </button>
+                        <div class="accordion-content-css">
+                            <p>A: Paws-Connect is a platform designed to help connect found pets with their rightful owners and facilitate the adoption of pets needing new homes.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item-css">
+                        <button class="accordion-header-css d-flex justify-content-between">
+                          <div>Q: How do I sign up? </div>
+                          <div class="accordion-plus-btn">+</div>
+                        </button>
+                        <div class="accordion-content-css">
+                            <p>A: To sign up, click on the 'Sign Up' button on the homepage and fill in the required details.</p>
+                        </div>
+                    </div>
+                  </div>
+                  <h4 class="pt-3">For Finders</h4>
+                  <div class="accordion-css">
+                    <div class="accordion-item-css">
+                        <button class="accordion-header-css d-flex justify-content-between">
+                          <div>Q: How do I post about a found pet? </div>
+                          <div class="accordion-plus-btn">+</div>
+                        </button>
+                        <div class="accordion-content-css">
+                            <p>A: To post about a found pet, log in to your account, navigate to the 'Post a Found Pet' section, and fill in the details about the pet. Make sure to include a clear photo and as much information as possible.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item-css">
+                        <button class="accordion-header-css d-flex justify-content-between">
+                          <div>Q: What information should I include in a found pet post?</div>
+                          <div class="accordion-plus-btn">+</div>
+                        </button>
+                        <div class="accordion-content-css">
+                            <p>A: Include a clear photo of the pet, its description (such as breed, color, age), where and when it was found, and any distinguishing features. The more details you provide, the easier it will be for the owner to identify their pet.</p>
+                        </div>
+                    </div>
+                  </div>
+                  <h4 class="pt-3">For Adopters</h4>
+                  <div class="accordion-css">
+                    <div class="accordion-item-css">
+                        <button class="accordion-header-css d-flex justify-content-between">
+                          <div>Q: How do I search for pets available for adoption?</div>
+                          <div class="accordion-plus-btn">+</div>
+                        </button>
+                        <div class="accordion-content-css">
+                            <p>A: To search for pets available for adoption, go to the 'Adopt a Pet' section and use the search filters to find pets that match your preferences (e.g., species, breed, age, location).</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item-css">
+                        <button class="accordion-header-css d-flex justify-content-between">
+                          <div>Q: How do I apply to adopt a pet?</div>
+                          <div class="accordion-plus-btn">+</div>
+                        </button>
+                        <div class="accordion-content-css">
+                            <p>A: To apply to adopt a pet, click on the pet's profile and select 'Apply for Adoption.' Fill in the adoption application form and submit it. The finder or admin will review your application and contact you with the next steps.</p>
+                        </div>
+                    </div>
+                  </div>
                       
-                      <p class="fw-bold p-3 faq-q">Q: How do I sign up? </p>
-                      <p class="p-3 faq-a">A: To sign up, click on the 'Sign Up' button on the homepage and fill in the required details.</p>
-                      
-                      <h3 class="pt-3">For Finders</h3>
-                      
-                      <p class="fw-bold p-3 faq-q">Q: How do I post about a found pet? </p>
-                      <p class="p-3 faq-a">A: To post about a found pet, log in to your account, navigate to the 'Post a Found Pet' section, and fill in the details about the pet. Make sure to include a clear photo and as much information as possible.</p>
-                      
-                      <p class="fw-bold p-3 faq-q">Q: What information should I include in a found pet post?</p>
-                      <p class="p-3 faq-a">A: Include a clear photo of the pet, its description (such as breed, color, age), where and when it was found, and any distinguishing features. The more details you provide, the easier it will be for the owner to identify their pet.</p>
-                      
-                      <h3 class="pt-3">For Adopters</h3>
-
-                      <p class="fw-bold p-3 faq-q">Q: How do I search for pets available for adoption?</p>
-                      <p class="p-3 faq-a">A: To search for pets available for adoption, go to the 'Adopt a Pet' section and use the search filters to find pets that match your preferences (e.g., species, breed, age, location).</p>
-
-                      <p class="fw-bold p-3 faq-q">Q: How do I apply to adopt a pet?</p>
-                      <p class="p-3 faq-a">A: To apply to adopt a pet, click on the pet's profile and select 'Apply for Adoption.' Fill in the adoption application form and submit it. The finder or admin will review your application and contact you with the next steps.</p>
-
                     </div>
                   </div>
                 </div>
@@ -465,6 +489,128 @@
         </div>
     </div>
     <script type="text/javascript">
+      const cardContainer = document.getElementById('card-container');
+    const pageInfo = document.getElementById('page-info');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+    const filterDropdown = document.getElementById('filter-dropdown');
+    const filterInput = document.getElementById('filter-input');
+    const applyFilterButton = document.getElementById('apply-filter');
+
+    let cards = [];
+    let filteredCards = [];
+    const cardsPerPage = 8;
+    let currentPage = 1;
+
+    function fetchCards() {
+        fetch('paginationdata.php')
+            .then(response => response.json())
+            .then(data => {
+                cards = data;
+                filteredCards = cards; // Initialize filteredCards with all cards
+                renderCards();
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    function applyFilter() {
+        const selectedFilter = filterDropdown.value;
+        const searchText = filterInput.value.toLowerCase();
+
+        filteredCards = cards.filter(card => {
+            const matchesType = selectedFilter === '' || card.type === selectedFilter;
+            const matchesSearch = card.name.toLowerCase().includes(searchText);
+            return matchesType && matchesSearch;
+        });
+
+        currentPage = 1; // Reset to first page when applying filter
+        animateCards();
+    }
+
+    function animateCards() {
+        // Add class to fade out old cards
+        const existingCards = document.querySelectorAll('.card-css');
+        existingCards.forEach(card => {
+            card.classList.remove('show');
+            card.classList.add('fade-out');
+        });
+
+        // Wait for fade-out to complete before rendering new cards
+        setTimeout(() => {
+            renderCards(); // Render new cards
+        }, 500); // Match this duration with CSS fade-out duration
+
+        // Remove fade-out class after the animation
+        setTimeout(() => {
+            const cardsToShow = cardContainer.querySelectorAll('.card-css');
+            cardsToShow.forEach(card => {
+                card.classList.remove('fade-out');
+            });
+        }, 1000); // Allow time for cards to fade in
+    }
+
+    function renderCards() {
+        cardContainer.innerHTML = ''; // Clear container
+
+        const start = (currentPage - 1) * cardsPerPage;
+        const end = start + cardsPerPage;
+        const cardsToShow = filteredCards.slice(start, end);
+
+        cardsToShow.forEach(cardData => {
+            const card = document.createElement('div');
+            const cardimg = document.createElement('img');
+            card.className = 'card-css show'; // Add 'show' class to make it visible
+            cardimg.src = cardData.petimage;
+            cardimg.className = 'cardimg';
+            card.appendChild(cardimg);
+            cardContainer.appendChild(card);
+
+            card.onclick = () => {
+                openNewPageWithUrl(cardData.petid);
+            };
+        });
+
+        updatePagination();
+    }
+
+    function openNewPageWithUrl(petid) {
+        const newPageUrl = `petview.php?pet_id=${encodeURIComponent(petid)}`;
+        window.open(newPageUrl, '_blank');
+    }
+
+    function updatePagination() {
+        const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages;
+    }
+
+    function nextPage() {
+        if (currentPage < Math.ceil(filteredCards.length / cardsPerPage)) {
+            currentPage++;
+            animateCards();
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            animateCards();
+        }
+    }
+
+    // Add event listeners
+    applyFilterButton.addEventListener('click', applyFilter);
+    filterInput.addEventListener('input', applyFilter);
+    filterDropdown.addEventListener('change', applyFilter);
+
+    document.addEventListener('DOMContentLoaded', fetchCards);
+
+
+      function petview(pid){
+        window.open("petview.php?pet_id="+pid,"_new");
+      }
+
       window.addEventListener('scroll', reveal);
 
       function reveal(){
@@ -489,6 +635,31 @@
          var header = document.querySelector("nav");
          header.classList.toggle("sticky", window.scrollY > 0);
       })
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var acc = document.querySelectorAll('.accordion-header-css');
+
+        acc.forEach(function(header) {
+            header.addEventListener('click', function() {
+                var content = this.nextElementSibling;
+
+                // Close all other accordion items
+                var allContents = document.querySelectorAll('.accordion-content-css');
+                allContents.forEach(function(item) {
+                    if (item !== content) {
+                        item.style.maxHeight = null;
+                    }
+                });
+
+                // Toggle the current accordion item
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+      });
       
     </script>
     </form>  

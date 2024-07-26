@@ -1,5 +1,5 @@
 :root {
-   --offcanvas-width:250px;
+   --offcanvas-width:200px;
    --topNavbarHeight: 56px;
  }@font-face {
   font-family: "Poppins Medium";
@@ -7,13 +7,14 @@
 }
 body{
   font-family: "Poppins Medium";
+  padding: 20px;
 }
  .sidebar-nav{
    width: var(--offcanvas-width);
    font-size: 14px;
    transition: all ease;
  }
- @media (min-width:992px) {
+ @media (min-width:992px){
    body{
        overflow: auto !important;
    }
@@ -31,6 +32,11 @@ body{
        top:var(--topNavbarHeight);
        height: calc(100%-var(--topNavbarHeight));
    }
+ }
+ @media(max-width: 991px){
+    main{
+      margin-top: var(--topNavbarHeight);
+    }
  }
  .sidelink > a{
    text-align: start;
@@ -50,6 +56,87 @@ body{
  img:hover{
     cursor: pointer;
  }
- .title{
-  margin-top: 70px;
+
+ .card-container-css {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 1200px; /* Adjust to your preference */
+  position: relative;
+  overflow: hidden; /* Hide any overflow during the animation */
+}
+
+.card-css {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+  height: 180px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0; /* Start with cards hidden */
+  border-radius: 10px;
+}
+
+.petpage{
+  font-size: 12px;
+}
+.card-css img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.card-css.show {
+ opacity: 1; /* Show cards */
+}
+
+.card-css.fade-out {
+ opacity: 0;
+ transition: opacity 0.5s ease-in-out;
+}
+.pagination-css {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #cccccc;
+}
+
+@media (max-width: 600px) {
+    .card-container-css {
+       grid-template-columns: 1fr; /* 1 column for small screens */
+       justify-content: center;
+    }
  }
+
+.filter-container-css {
+ margin-bottom: 10px;
+ display: flex;
+ gap: 10px;
+}
+
+.filter-container-css select, .filter-container-css input {
+ padding: 5px;
+ border-radius: 5px;
+ border: 1px solid #ccc;
+}

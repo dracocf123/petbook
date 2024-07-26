@@ -6,15 +6,21 @@
     </button>
     
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-3 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="home.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="found-pet.php">Post a Found Pet</a>
+          <a class="nav-link active" aria-current="page" href="found-pet.php">Post Pet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="petreq.php">Adoption process</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" id="signoutbtn" href="donate.php">Donate</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="profile.php">Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" id="signoutbtn" href="userlogout.php">Logout</a>

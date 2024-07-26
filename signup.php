@@ -20,6 +20,7 @@
       }
       body{
         font-family: "Poppins Medium";
+        background-color:whitesmoke;
       }
       section{
          display: flex;
@@ -27,18 +28,20 @@
          align-items: center;
          text-align: center;
          height: 100vh;
-         
       }
       .signup-content{
-         box-shadow: 0px 4px 8px  rgb(0, 0, 0, 0.3);
-         padding: 25px;
+         box-shadow: -5px -5px 5px rgb(255, 255, 255, 0.5), 5px 5px 5px rgb(0, 0, 0, 0.3);
+         padding: 10px;
          border-radius: 10px;
+         max-width: 500px;
+         margin: 10px;
       }
       #passwordMatchMessage {
          color: red;
          font-size: 12px;
          position: absolute;
          left: 0;
+         right: 0;
       }
       .back{
          position: absolute;
@@ -48,54 +51,80 @@
          border-radius: 0 0 0 10px;
          padding: 10px;
          text-decoration: none;
-         box-shadow: 0px 3px 5px  rgb(0, 0, 0, 0.3);
       }
-      
+      .passmess{
+         position: relative;
+         margin-bottom: 20px;
+      }
+      .form-control{
+         font-size: 14px;
+         padding-left: 35px;
+      }
+      .bday-form{
+         border-top-left-radius: 50rem;
+         border-bottom-left-radius: 50rem;
+      }
+      .bday-input{
+         border-top-right-radius: 50rem;
+         border-bottom-right-radius: 50rem;
+      }
+      .form-box{
+         position: relative;
+      }
+      .form-icon{
+         position: absolute;
+         bottom: 10px;
+         left: 15px;
+      }
    </style>
 </head>
 <body>
    <form method="POST">
    <section>
-      <div class="container">
-         <div class="row d-flex justify-content-center">
-            <div class="col-md-6">
-               <div class="signup-content">
-                  <a href="index.php" class=" text-white back"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
-                  <h1>Register</h1>
-                  <form id="signupform">
-                        <div class="form-floating mb-3">
-                           <input type="text" class="form-control border-0 border-bottom border-4 rounded-0" id="firstname" name="fname" placeholder="name@example.com" autocomplete="off" required>
-                           <label for="firstname" class="text-muted">First Name</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                           <input type="text" class="form-control border-0 border-bottom border-4 rounded-0" id="lastname" name="lname" placeholder="name@example.com" autocomplete="off" required>
-                           <label for="lastname" class="text-muted">last Name</label>
-                        </div>
-                        
-                        <div class="form-floating mb-3">
-                           <input type="text" name="uname" class="form-control border-0 border-bottom border-4 rounded-0" id="email" placeholder="name@example.com" autocomplete="off" required>
-                           <label for="uname" class="text-muted">Username</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                           <input type="password" class="form-control border-0 border-bottom border-4 rounded-0" id="password" name="pword" placeholder="name@example.com" autocomplete="new-password" required>
-                           <label for="password" class="text-muted">Password</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                           <input type="password" class="form-control border-0 border-bottom border-4 rounded-0" id="confpassword" name="cpword" placeholder="name@example.com" autocomplete="new-password" required>
-                           <label for="confirmpassword" class="text-muted">Confirm Password</label>
-                           <span id="passwordMatchMessage"></span>
-                        </div>
-                         <!-- <input type="text" class="form-control" name="fn" id="firstname" required>
-                         <input type="text" class="form-control" name="ln" id="lastname" required>
-                         <input type="email" class="form-control" name="email" id="email" required autocomplete="off">
-                         <input type="password" class="form-control" name="password" id="password" required autocomplete="new-password">
-                         <input type="password" class="form-control" name="confpassword" id="confpassword" required autocomplete="new-password"> -->
-                     </form>
-                  <button type="submit" id="signup" name="signupbtn" class="btn btn-primary mt-3"><i class="fa-solid fa-right-to-bracket"></i> Sign Up </button>
-               </div>
-            </div>
+      <div class="signup-content">
+         <a href="index.php" class=" text-white back"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
+            <h1>Sign Up</h1>
+               <form id="signupform">
+                  <div class="container ">
+                  <div class="row row-cols-2 g-2">
+                  <div class="col form-box">
+                     <input type="text" class="form-control rounded-pill" id="firstname" name="fname" autocomplete="off" required placeholder="First Name">
+                     <i class="fa-solid fa-pen form-icon"></i>
+                  </div>
+                  <div class="col form-box">
+                     <input type="text" class="form-control rounded-pill" id="lastname" name="lname" autocomplete="off" required placeholder="Last Name">
+                     <i class="fa-solid fa-pen form-icon"></i>
+                  </div>
+                  <div class="col-12 form-box">
+                     <input type="text" class="form-control rounded-pill" id="address" name="address" autocomplete="off" required placeholder="Address">
+                     <i class="fa-solid fa-location-dot form-icon ps-1 pe-1 text-danger"></i>
+                     </div>
+                  <div class="col-4 form-box">
+                     <input type="Text" class="form-control bday-form" id="address" autocomplete="off" required placeholder="Birthday" disabled>
+                     <i class="fa-solid fa-cake-candles form-icon text-warning"></i>
+                     </div>
+                  <div class="col-8 form-box">
+                     <input type="Date" class="form-control bday-input" id="address" name="bday" autocomplete="off" required placeholder="Birthday">
+                     </div>
+                  <div class="col-12 form-box">
+                     <input type="text" class="form-control rounded-pill" id="email" name="uname" autocomplete="off" required placeholder="Username">
+                     <i class="fa-solid fa-user form-icon text-primary"></i>
+                     </div>
+                     <div class="col-12 form-box">
+                     <input type="password" class="form-control rounded-pill" id="password" name="pword" autocomplete="new-password" required placeholder="Password">
+                     <i class="fa-solid fa-key form-icon text-success"></i>
+                     </div>
+                     <div class="col-12 passmess form-box">
+                     <input type="password" class="form-control rounded-pill" id="confpassword" name="cpword" autocomplete="new-password" required placeholder="Re-Password">
+                     <i class="fa-solid fa-key form-icon text-success"></i>
+                     <span id="passwordMatchMessage"></span>
+                  </div>
+                  </div>
+                  </div>
+               </form>
+            <button type="submit" id="signup" name="signupbtn" class="btn btn-primary mt-3"><i class="fa-solid fa-right-to-bracket"></i> Sign Up </button>
          </div>
-      </div>
+            
       
    </section>
    </form>
@@ -136,12 +165,14 @@ if(isset($_POST['signupbtn'])){
    $u = new User();
    $fn = $_POST['fname'];
    $ln = $_POST['lname'];
+   $ad = $_POST['address'];
+   $bday = $_POST['bday'];
    $un = $_POST['uname'];
    $pw = $_POST['pword'];
    echo '
       <script>
-      alert("'.$u->signup($fn, $ln, $un, $pw).'");
-      window.location="../index.php";
+      alert("'.$u->signup($fn, $ln, $ad, $bday, $un, $pw).'");
+      window.location="index.php";
       </script>
    ';
 }

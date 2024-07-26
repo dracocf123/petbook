@@ -15,7 +15,7 @@ while($row = $profile->fetch_assoc()){
   $lname = $row['last_name'];
   $pic = '../images/'.$row['profile_image'];
 }
-
+$pid = $_GET['pet_id'];
 include_once 'usernav.php';
 ?>
 <!DOCTYPE html>
@@ -87,44 +87,66 @@ include_once 'usernav.php';
    </style>
 </head>
 <body>
+   <form method="POST">
 	<div class="container">
-			<div class="row row-cols-2">
-        <div class="col-4 h-25 d-flex align-items-center p-2">
-          <img class="pfpic" src="<?= $pic;?>" alt="">
-          <p class="pfname m-0 ms-2"><?= strtoupper($fname.' '.$lname);?></p>
-        </div>
-        <div class="col-8">
-          <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-2">
-                  <?php
-                  $allpet = $u->userhomedisplay($uid); 
-                  while($row = $allpet->fetch_assoc()){
-                    if($row['pet_gender'] == 'Male' ){
-                      $gicon = '<i class="fa-solid fa-mars text-primary"></i>';
-                    }else{
-                      $gicon = '<i class="fa-solid fa-venus text-danger"></i>';
-                    }
+      <div class="row row-cols-2">
+         <div class="col-4 h-25 p-2">
+            <div class="row">
+               <div class="col d-flex align-items-center">
+               <img class="pfpic" src="<?= $pic;?>" alt="">
+               <p class="pfname m-0 ms-2"><?= strtoupper($fname.' '.$lname);?></p>
+               </div>
+            </div>
+            <div class="row">
+            <div class="pet-adoption-info">
+               <input type="checkbox" name="" id=""> <label>asdasd</label><br>
+               <input type="checkbox" name="" id=""> <label>asdasd</label><br>
+               <input type="checkbox" name="" id=""> <label>asdasd</label><br>
+               <input type="checkbox" name="" id=""> <label>asdasd</label><br>
+               <input type="checkbox" name="" id=""> <label>asdasd</label><br>
+               <input type="checkbox" name="" id=""> <label>asdasd</label><br>
+            </div>
+            </div>
+            <button class="btn btn-success" type="submit" name="adoptbtn">Adopt</button>
+         </div>
+         <div class="col-8">
+               <div class="col">
+               <?php
+                  $petdetails = $u->petviewinfo($pid);
+                  while($row = $petdetails->fetch_assoc()){
+                     $fuid = $row['user_id'];
+                     if($row['pet_gender'] == 'Male'){
+                        $gicon = '<i class="fa-solid fa-mars text-primary"></i>';
+                     }else{
+                        $gicon = '<i class="fa-solid fa-venus text-danger"></i>';
+                     }
                      echo '
-                     <div class="col">
-                      <div class="pet-card-link">
-                      <div class="pet-card" onclick="petview(&quot;'.$row['pet_id'].'&quot;)">
+                     <div class="pet-card-link">
+                      <div class="pet-card">
                         <div class="gradient"></div>
-                        <img src="../images/'.$row['pet_image'].'" class="card-img-top" alt="..." height="230px">
+                        <img src="../images/'.$row['pet_image'].'" class="card-img-top" alt="..." height="500px">
                         <div class="bottom-left">'.$row['pet_name'].' '.$gicon.'</div>
                         <input type="hidden" id="pet_id" value="'.$row['pet_id'].'">
                       </div>
                       </div>
-                     </div>
-                        '; 
-                      }
-                          ?>
-                      </div>
+                     ';
+                  }
+                  ?>
+               </div>
         </div>
       </div>
 	</div>
-  <script>
-    function petview(pid){
-        window.open("adoption.php?pet_id="+pid,"_new");
-      }
-  </script>
+   </form>
 </body>
 </html>
+<?php
+   if(isset($_POST['adoptbtn'])){
+      $auid = $uid;
+      echo '
+         <script>
+            alert("'.$u->adoptionrequest($fuid, $auid, $pid).'");
+            window.location="home.php";
+         </script>
+      '; 
+   }
+?>

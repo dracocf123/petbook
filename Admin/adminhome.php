@@ -17,30 +17,60 @@ include_once 'topnavbar.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
    <link rel="stylesheet" href="adminstyle.css">
 </head>
 <body>
 <main >
-<div class="container text-center">
-        <h1 class="title">Available Pets</h1>
-        <div class="row row-cols-4 justify-content-center">
-            <?php
-                include_once '../Class/User.php';
-                $u = new User();
-                $displaytotalpets = $u->dtp(); 
-                while($row = $displaytotalpets->fetch_assoc()){
-                    echo '
-                    <div class="col">
-                        <div class="bg-primary text-white p-4 rounded shadow">
-                            <h3>'.$row['ptc'].'</h3>
-                            <h4>'.$row['pidc'].'</h4>
-                        </div>
-                    </div>
-                    ';
-                }
-            ?>
-        </div>
+    <div class="container text-center">
+    <div style="width: 50%; margin: auto;">
+        <canvas id="myPieChart"></canvas>
+    </div>
     </div>
   </main>
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+    fetch('scriptdata/piedata.php')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById('myPieChart').getContext('2d');
+            const config = {
+                type: 'pie',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return data.labels[tooltipItem.dataIndex] + ': ' + data.datasets[0].data[tooltipItem.dataIndex];
+                                }
+                            }
+                        },
+                        datalabels: {
+                            color: 'black',
+                            formatter: (value, context) => {
+                                return value;
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 16
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // Register the datalabels plugin
+            };
+
+            new Chart(ctx, config);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});
+
+  </script>
 </body>
 </html>

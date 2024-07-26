@@ -1,21 +1,16 @@
 <?php
 session_start();
 include_once '../Class/User.php';
-if(isset($_POST['petreg'])){
+if(isset($_POST['profileupdate'])){
    $uid = $_SESSION['id_num'];
-   $pname = $_POST['name'];
-   $ptype = $_POST['type'];
-   $pgender = $_POST['gender'];
-   $breed = $_POST['breed'];
-   $des = $_POST['description'];
 
-   $file = $_FILES['img'];
+   $file = $_FILES['pfimg'];
 
-   $fileName = $_FILES['img']['name'];
-   $fileTmpName = $_FILES['img']['tmp_name'];
-   $fileSize = $_FILES['img']['size'];
-   $fileError = $_FILES['img']['error'];
-   $fileType = $_FILES['img']['type'];
+   $fileName = $_FILES['pfimg']['name'];
+   $fileTmpName = $_FILES['pfimg']['tmp_name'];
+   $fileSize = $_FILES['pfimg']['size'];
+   $fileError = $_FILES['pfimg']['error'];
+   $fileType = $_FILES['pfimg']['type'];
 
    $fileExt = explode('.', $fileName);
    $fileActualExt = strtolower(end($fileExt));
@@ -30,16 +25,27 @@ if(isset($_POST['petreg'])){
             move_uploaded_file($fileTmpName, $fileDestination);
             $img=$fileNameNew;
             $a = new User();
-            $a->petreg($uid, $pname, $ptype, $breed, $pgender, $img, $des);
-            $message = 'Upload Success!';
+            $a->updateimage($uid, $img); 
          }else{
-            $message = 'Upload Failed! Your File is Too Big';
+            echo '
+            <script>
+               alert("Your File is Too Big")
+            </script>
+            ';
          }
       }else{
-         $message = "There was an error!";
+         echo '
+            <script>
+               alert("There was an error!")
+            </script>
+            ';
       }
    }else{
-      $message = "YOU CANNOT UPLOAD THIS TYPE OF FILE!";
+      echo '
+            <script>
+               alert("YOU CANNOT UPLOAD THIS TYPE OF FILE!")
+            </script>
+            ';
    }
 }
 ?>
@@ -48,7 +54,7 @@ if(isset($_POST['petreg'])){
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Pet Upload</title>
+   <title>Profile Upload</title>
    <style>
       section{
          display: flex;
@@ -74,8 +80,8 @@ if(isset($_POST['petreg'])){
 </head>
 <body>
    <section>
-   <h1><?= $message; ?></h1>
-   <a href="found-pet.php"><h3>Back</h3></a>
+   <h1>Upload Success!</h1>
+   <a href="profile.php"><h3>Back to home</h3></a>
    </section>
 </body>
-</html>
+</html> 

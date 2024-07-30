@@ -80,7 +80,7 @@ include_once '../Class/User.php';
                        $daysDifference = daysFromNowTo($date_reg);
 
                   echo '
-                  <tr>
+                  <tr class="align-middle">
                      <td>'.$row['pet_id'].'</td>
                      <td>'.$row['status'].'</td>
                      <td>'.$formattedDate.'</td>
@@ -117,7 +117,7 @@ include_once '../Class/User.php';
                     $daysDifference = daysFromNowTo1($date_reg);
 
                echo '
-               <tr>
+               <tr class="align-middle">
                   <td>'.$row['pet_id'].'</td>
                   <td>'.$row['status'].'</td>
                   <td>'.$formattedDate.'</td>

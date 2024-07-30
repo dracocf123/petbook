@@ -23,6 +23,11 @@ Class User extends Database{
       $data = $this->conn->query($sql);
       return $data;
    }
+   public function displayallshelter(){
+      $sql = "select * from tbl_pet_status where status = 'Shelter'";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
    public function petdisplay($ptype){
       $sql = "select tbl_pet.pet_id, tbl_pet.pet_image, tbl_pet.pet_gender, tbl_pet.pet_name 
       from tbl_pet inner join
@@ -82,11 +87,11 @@ Class User extends Database{
       return $data;
    }
    public function mypetposted($uid){
-      $sql = "select tbl_pet.pet_id,tbl_pet.pet_image,tbl_pet.pet_name,tbl_pet.pet_gender,tbl_pet.pet_breed,tbl_pet.pet_image 
+      $sql = "select tbl_pet.pet_id,tbl_pet.pet_image,tbl_pet.pet_name,tbl_pet.pet_gender,tbl_pet.pet_breed
       FROM tbl_pet 
         INNER JOIN tbl_pet_status ON tbl_pet.pet_id = tbl_pet_status.pet_id
         INNER JOIN tbl_user_info ON tbl_pet.user_id = tbl_user_info.user_id
-        WHERE tbl_pet.user_id = '$uid' and tbl_pet_status.status = 'Inviewing'";
+        WHERE tbl_pet.user_id = '$uid' and tbl_pet_status.status = 'Inviewing' group by tbl_pet.pet_id";
       $data = $this->conn->query($sql);
       return $data;
    }
@@ -201,6 +206,14 @@ Class User extends Database{
       $sql = "update tbl_adoption set status='Adopted' where adoption_id='$aid'";
      if($this->conn->query($sql)){
         return 'Request Accepted!';
+     }else{
+        return $this->conn->error;
+     }
+   }  
+   public function changetoshelter($pid){
+      $sql = "update tbl_pet_status set status='Shelter' where pet_id='$pid'";
+     if($this->conn->query($sql)){
+        return 'Pet Moved To Shelter!';
      }else{
         return $this->conn->error;
      }

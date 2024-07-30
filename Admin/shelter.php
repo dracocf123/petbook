@@ -30,19 +30,28 @@ include_once 'topnavbar.php';
 <?php
 include_once '../Class/User.php';
  $u = new User();
+ if(isset($_POST['shelterbtn'])){
+   $pid = $_POST['petidshelter'];
+      echo '<script>
+               alert("'.$u->changetoshelter($pid).'"); 
+            </script>';
+ }
 ?>
+
 <body>
 <main >
    <form method="POST">
       <div class="container">
          <div class="row p-2">
             <div class="col d-flex flex-column align-items-center">
+               <input type="text" name="petidshelter" id="idforshelter">
                <table class="table table-sm table-bordered">
                   <tr class="table-dark">
                      <th>Pet ID</th>
                      <th>Pet Status</th>
                      <th>Pet Registered</th>
                      <th>Duration</th>
+                     <th>Option</th>
                      </tr>
                   <?php
                      $display = $u->displayforshelterpet();
@@ -76,9 +85,49 @@ include_once '../Class/User.php';
                      <td>'.$row['status'].'</td>
                      <td>'.$formattedDate.'</td>
                      <td>'.$daysDifference.' Days No Progress</td>
+                     <td><button type="submit" name="shelterbtn" onclick="
+                     shelterfunc(&quot;'.$row['pet_id'].'&quot;)
+                     ">To Shelter</button></td>
                   </tr>
                   ';
                   }
+                  $display2 = $u->displayallshelter();
+                  while($row = $display2->fetch_assoc()){
+                     $date_reg = $row['date_reg'];
+                     $date = new DateTime($date_reg);
+
+                     // Format the date into a readable format, e.g., 'F j, Y' for 'July 20, 2024'
+                     $formattedDate = $date->format('F j, Y');
+                     function daysFromNowTo1($date_reg) {
+                        // Create a DateTime object for the current date
+                        $currentDate = new DateTime();
+                        
+                        // Create a DateTime object for the given date
+                        $givenDate = new DateTime($date_reg);
+                        
+                        // Calculate the difference between the two dates
+                        $interval = $currentDate->diff($givenDate);
+                        
+                        // Return the difference in days (use abs() to ensure a positive number)
+                        return $interval->days;
+                    }
+                    
+                    // Example usage
+                     // Replace with your date_reg value
+                    $daysDifference = daysFromNowTo1($date_reg);
+
+               echo '
+               <tr>
+                  <td>'.$row['pet_id'].'</td>
+                  <td>'.$row['status'].'</td>
+                  <td>'.$formattedDate.'</td>
+                  <td>'.$daysDifference.' Days No Progress</td>
+                  <td><button type="submit" name="shelterbtn" onclick="
+                  shelterfunc(&quot;'.$row['pet_id'].'&quot;)
+                  ">To Shelter</button></td>
+               </tr>
+               ';
+               }
                ?>
                </table>
             </div>
@@ -86,5 +135,10 @@ include_once '../Class/User.php';
       </div>
     </form>
   </main>
+  <script>
+   function shelterfunc(pid){
+      document.getElementById("idforshelter").value = pid;
+   }
+  </script>
 </body>
 </html>

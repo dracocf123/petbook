@@ -28,13 +28,19 @@
          align-items: center;
          text-align: center;
          height: 100vh;
+         flex-direction: column;
       }
       .signup-content{
-         box-shadow: -5px -5px 5px rgb(255, 255, 255, 0.5), 5px 5px 5px rgb(0, 0, 0, 0.3);
-         padding: 10px;
+         border: 1px solid rgb(255,255,255,0.18);
+         box-shadow: 0 8px 32px rgb(0,0,0,0.37);
+         padding: 30px;
          border-radius: 10px;
          max-width: 500px;
          margin: 10px;
+         background: linear-gradient(135deg, rgb(255,255,255,0));
+         backdrop-filter: blur(10px);
+         -webkit-backdrop-filter: blur(10px);
+         position: relative;
       }
       #passwordMatchMessage {
          color: red;
@@ -47,7 +53,7 @@
          position: absolute;
          right: 0;
          top: 0;
-         background-color: black;
+         background-color: #FC4100;
          border-radius: 0 0 0 10px;
          padding: 10px;
          text-decoration: none;
@@ -74,40 +80,78 @@
       .form-icon{
          position: absolute;
          bottom: 10px;
-         left: 15px;
+         left: 17px;
+      }
+      body{
+         background: url("images/signupbg.jpg");
+         height: 100vh;
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: 50%;
+      }
+      h1{
+         color: #FC4100;
+      }
+      .top{
+         width: 50px;
+         height: 50px;
+         position: absolute;
+         top: -25px;
+         margin-right: auto;
+         margin-left: auto;
+         left: calc(50% - 25px);
+         text-shadow: 1px 2px 3px white;
       }
    </style>
 </head>
 <body>
+<div class="image"></div>
    <form method="POST">
    <section>
+      <a href="index.php"class=" text-white back"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
       <div class="signup-content">
-         <a href="index.php" class=" text-white back"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
-            <h1>Sign Up</h1>
+         <img src="images/logo.png" height="40px" class="top"> 
+         <h1>Paws-Connect </h1>
+            <h2 class="pb-2 text-white">Sign Up</h2>
                <form id="signupform">
                   <div class="container ">
-                  <div class="row row-cols-2 g-2">
+                  <div class="row row-cols-2 g-3">
                   <div class="col form-box">
-                     <input type="text" class="form-control rounded-pill" id="firstname" name="fname" autocomplete="off" required placeholder="First Name">
+                     <input type="text" class="form-control rounded-pill" name="fname" autocomplete="off" required placeholder="First Name">
                      <i class="fa-solid fa-pen form-icon"></i>
                   </div>
                   <div class="col form-box">
-                     <input type="text" class="form-control rounded-pill" id="lastname" name="lname" autocomplete="off" required placeholder="Last Name">
+                     <input type="text" class="form-control rounded-pill" name="lname" autocomplete="off" required placeholder="Last Name">
                      <i class="fa-solid fa-pen form-icon"></i>
                   </div>
                   <div class="col-12 form-box">
-                     <input type="text" class="form-control rounded-pill" id="address" name="address" autocomplete="off" required placeholder="Address">
+                     <input type="text" class="form-control rounded-pill"  name="address" autocomplete="off" required placeholder="Address">
                      <i class="fa-solid fa-location-dot form-icon ps-1 pe-1 text-danger"></i>
                      </div>
-                  <div class="col-4 form-box">
-                     <input type="Text" class="form-control bday-form" id="address" autocomplete="off" required placeholder="Birthday" disabled>
+                  <div class="col-12 form-box">
+                     <input type="email" class="form-control rounded-pill" name="email" autocomplete="off" required placeholder="Email">
+                     <i class="fa-solid fa-at form-icon"></i>
+                     </div>
+                  <div class="col-6 form-box">
+                     <input type="text" class="form-control bday-form" name="contact" autocomplete="off" required placeholder="Contact Number">
+                     <i class="fa-solid fa-address-book form-icon"></i>
+                     </div>
+                  <div class="col-6 form-box">
+                     <select class="form-control bday-input" name="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                     </select>
+                     <i class="fa-solid fa-venus-mars form-icon"></i>
+                     </div>
+                  <div class="col-6 form-box">
+                     <input type="Text" class="form-control bday-form" autocomplete="off" required placeholder="Birthday" disabled>
                      <i class="fa-solid fa-cake-candles form-icon text-warning"></i>
                      </div>
-                  <div class="col-8 form-box">
-                     <input type="Date" class="form-control bday-input" id="address" name="bday" autocomplete="off" required placeholder="Birthday">
+                  <div class="col-6 form-box">
+                     <input type="Date" class="form-control bday-input" name="bday" autocomplete="off" required placeholder="Birthday">
                      </div>
                   <div class="col-12 form-box">
-                     <input type="text" class="form-control rounded-pill" id="email" name="uname" autocomplete="off" required placeholder="Username">
+                     <input type="text" class="form-control rounded-pill" name="uname" autocomplete="off" required placeholder="Username">
                      <i class="fa-solid fa-user form-icon text-primary"></i>
                      </div>
                      <div class="col-12 form-box">
@@ -122,7 +166,7 @@
                   </div>
                   </div>
                </form>
-            <button type="submit" id="signup" name="signupbtn" class="btn btn-primary mt-3"><i class="fa-solid fa-right-to-bracket"></i> Sign Up </button>
+            <button type="submit" id="signup" name="signupbtn" class="btn btn-primary mt-2 rounded-pill"><i class="fa-solid fa-right-to-bracket"></i> Sign Up </button>
          </div>
             
       
@@ -166,12 +210,15 @@ if(isset($_POST['signupbtn'])){
    $fn = $_POST['fname'];
    $ln = $_POST['lname'];
    $ad = $_POST['address'];
+   $em = $_POST['email'];
+   $cn = $_POST['contact'];
+   $gen = $_POST['gender'];
    $bday = $_POST['bday'];
    $un = $_POST['uname'];
    $pw = $_POST['pword'];
    echo '
       <script>
-      alert("'.$u->signup($fn, $ln, $ad, $bday, $un, $pw).'");
+      alert("'.$u->signup($fn, $ln, $ad, $gen, $bday, $em, $cn, $un, $pw).'");
       window.location="index.php";
       </script>
    ';

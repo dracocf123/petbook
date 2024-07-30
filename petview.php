@@ -35,24 +35,27 @@ while($row = $petview->fetch_assoc()){
          padding: 20px;
          transition: .3s ease;
          cursor: pointer;
-         box-shadow: -5px -5px 5px rgba(255,255,255,0.2), 15px 15px 15px rgba(0,0,0,0.1),
-         inset -5px -5px 5px rgba(255,255,255,0.2), 5px 5px 5px rgba(0,0,0,0.1);
+         box-shadow: 1px 1px 2px black;
       }
-      
+      .pet-details{
+         font-size: 25px;
+      }
       </style>
 </head>
 <body>
    <div class="container mt-5">
-      <div class="row">
-         <div class="col-6">
-            <img src="images/<?= $pimage;?>" alt="" height="200px" width="200px">
+      <div class="row p-5 bg-light rounded">
+         <div class="col-auto">
+            <img src="images/<?= $pimage;?>" alt="" height="300px" width="300px">
+         </div>
+         <div class="col">
+         <div class="pet-details"><b>Name </b><?=$pname ?></div>
+            <div class="pet-details"><b>Type </b><?=$ptype?></div>
+            <div class="pet-details"><b>Breed </b><?=$breed ?></div>
+            <div class="pet-details"><b>Gender </b><?=$pgender ?></div>
+            <a href="signup.php">Register to Adopt</a>
          </div>
       </div>
-      <br>
-      <div class=""><?=$pname ?></div>
-      <div class=""><?=$ptype?></div>
-      <div class=""><?=$breed ?></div>
-      <div class=""><?=$pgender ?></div>
    </div>
 </body>
 </html>

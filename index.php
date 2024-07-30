@@ -141,14 +141,19 @@
 
                   <div class="d-flex flex-column align-items-center petpage">
                      <div class="filter-container-css">
-                        <select id="filter-dropdown">
+                      
+                        <select id="filter-dropdown" class="align-self-center">
                               <option value="">All</option>
                               <option value="Cat">Cat</option>
                               <option value="Dog">Dog</option>
                               <!-- Add more filter options as needed -->
                         </select>
-                        <input type="text" id="filter-input" placeholder="Search...">
-                        <button id="apply-filter">Search</button>
+                        <div class="d-flex flex-wrap justify-content-center">
+                        <input type="text" id="filter-input" class="m-1" placeholder="Search...">
+                        <input type="text" id="breed-input" class="m-1" placeholder="Search by breed">
+                        </div>
+                        
+                        <button id="apply-filter" class="align-self-center">Search</button>
                      </div>
                      
                      <div class="card-container-css" id="card-container">
@@ -384,7 +389,7 @@
                           <div class="accordion-plus-btn">+</div>
                         </button>
                         <div class="accordion-content-css">
-                            <p>A: To post about a found pet, log in to your account, navigate to the 'Post a Found Pet' section, and fill in the details about the pet. Make sure to include a clear photo and as much information as possible.</p>
+                            <p>A: To post about a found pet, log in to your account, navigate to the 'Post Pet' section, and fill in the details about the pet. Make sure to include a clear photo and as much information as possible.</p>
                         </div>
                     </div>
                     <div class="accordion-item-css">
@@ -393,7 +398,7 @@
                           <div class="accordion-plus-btn">+</div>
                         </button>
                         <div class="accordion-content-css">
-                            <p>A: Include a clear photo of the pet, its description (such as breed, color, age), where and when it was found, and any distinguishing features. The more details you provide, the easier it will be for the owner to identify their pet.</p>
+                            <p>A: Include a clear photo of the pet, its description (such as breed), where and when it was found, and any distinguishing features. The more details you provide, the easier it will be for the owner to identify their pet.</p>
                         </div>
                     </div>
                   </div>
@@ -405,7 +410,7 @@
                           <div class="accordion-plus-btn">+</div>
                         </button>
                         <div class="accordion-content-css">
-                            <p>A: To search for pets available for adoption, go to the 'Adopt a Pet' section and use the search filters to find pets that match your preferences (e.g., species, breed, age, location).</p>
+                            <p>A: To search for pets available for adoption, go to the 'Adopt a Pet' section and use the search filters to find pets that match your preferences (e.g., species, breed, location).</p>
                         </div>
                     </div>
                     <div class="accordion-item-css">
@@ -423,7 +428,8 @@
                   </div>
                 </div>
               </section>
-              
+              </form>  
+
         <section id="contact">
             <h1 class="h1-bg">Message Us!</h1>
             <div class="card text-center border-0 mu-card">
@@ -437,21 +443,21 @@
                    </div>
                   </div>
                   <div class="col-md-6">
-                      <form id="contactform">
+                    <form method="POST">
                       <div class="form-floating mb-3">
-                      <input type="email" class="form-control" id="email1" placeholder="name@example.com" autocomplete="off">
+                      <input type="email" name="em" class="form-control" id="email1" placeholder="name@example.com" autocomplete="off">
                       <label for="email1">Email</label>
                       </div>
                       <div class="form-floating mb-3">
-                      <input type="number" class="form-control" id="contact1" maxlength="11" placeholder="contact">
+                      <input type="number" name="cn" class="form-control"  placeholder="contact">
                       <label for="contact1">Contact</label>
                       </div>
                       <div class="form-floating mb-3">
-                      <textarea class="form-control" placeholder="Leave a comment here" id="comment" style="height: 100px"></textarea>
+                      <textarea class="form-control" name="mess" placeholder="Leave a comment here" id="comment" style="height: 100px"></textarea>
                       <label for="comment">Comments</label>
                       </div>
-                      </form>
-                      <button type="button" id="sendmsg" class="btn btn-success w-100 rounded-pill p-3">Send Message</button>
+                      <button type="submit" name="sendmess" class="btn btn-success w-100 rounded-pill p-3">Send Message</button>
+                    </form> 
                     </div>
                   </div>
                 </div>
@@ -490,12 +496,13 @@
     </div>
     <script type="text/javascript">
       const cardContainer = document.getElementById('card-container');
-    const pageInfo = document.getElementById('page-info');
-    const prevButton = document.getElementById('prev');
-    const nextButton = document.getElementById('next');
-    const filterDropdown = document.getElementById('filter-dropdown');
-    const filterInput = document.getElementById('filter-input');
-    const applyFilterButton = document.getElementById('apply-filter');
+      const pageInfo = document.getElementById('page-info');
+      const prevButton = document.getElementById('prev');
+      const nextButton = document.getElementById('next');
+      const filterDropdown = document.getElementById('filter-dropdown');
+      const filterInput = document.getElementById('filter-input');
+      const breedInput = document.getElementById('breed-input');
+      const applyFilterButton = document.getElementById('apply-filter');
 
     let cards = [];
     let filteredCards = [];
@@ -516,11 +523,13 @@
     function applyFilter() {
         const selectedFilter = filterDropdown.value;
         const searchText = filterInput.value.toLowerCase();
+        const breedSearchText = breedInput.value.toLowerCase();
 
         filteredCards = cards.filter(card => {
             const matchesType = selectedFilter === '' || card.type === selectedFilter;
             const matchesSearch = card.name.toLowerCase().includes(searchText);
-            return matchesType && matchesSearch;
+            const matchesBreed = card.breed.toLowerCase().includes(breedSearchText);
+            return matchesType && matchesSearch && matchesBreed;
         });
 
         currentPage = 1; // Reset to first page when applying filter
@@ -600,9 +609,10 @@
     }
 
     // Add event listeners
-    applyFilterButton.addEventListener('click', applyFilter);
-    filterInput.addEventListener('input', applyFilter);
     filterDropdown.addEventListener('change', applyFilter);
+    filterInput.addEventListener('input', applyFilter);
+    breedInput.addEventListener('input', applyFilter);
+    applyFilterButton.addEventListener('click', applyFilter);
 
     document.addEventListener('DOMContentLoaded', fetchCards);
 
@@ -662,7 +672,7 @@
       });
       
     </script>
-    </form>  
+ 
   </body>
   
     </html>
@@ -676,26 +686,36 @@ if(isset($_POST['login'])){
     if($row = $data->fetch_assoc()){
       $_SESSION['role'] = $row['role'];
       $_SESSION['id_num'] = $row['id_number'];
-        if($row['role']=='admin'){
-            echo '
-              <script>
-                window.open("Admin/adminhome.php","_self");  
-              </script>  
-            ';
-        }else{
+        if($row['role']=='user'){
           echo '
-          <script>
-            window.location="User/home.php";
-          </script>  
-        ';
-        }
+            <script>
+              window.location="User/home.php";
+            </script>  
+          ';
     }else{
         echo '
         <script>
-          alert("WRONG PASSWORD"); 
+          alert("iNVALID ACCOUNT"); 
           window.location="index.php";
         </script>  
       ';
     }
+  }else{
+    echo '
+    <script>
+      alert("WRONG PASSWORD or USERNAME"); 
+      window.location="index.php";
+    </script>  
+  ';
+}
+}else if(isset($_POST['sendmess'])){
+  $em = $_POST['em'];
+  $cn = $_POST['cn'];
+  $mess = $_POST['mess'];
+    echo '
+        <script>
+          alert("'.$sendfeedback = $u->contactus($em, $cn, $mess).'");  
+        </script>  
+      ';
 }
 ?>

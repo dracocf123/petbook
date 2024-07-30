@@ -2,9 +2,9 @@
 session_start();
 if(!isset($_SESSION['id_num'])){
    header('location:adminlogout.php');
- }
+}
 if($_SESSION['role']!="admin"){
-    header('location:adminlogout.php');
+    header('location:../index.php');
 }
 include_once 'topnavbar.php';
 ?>
@@ -14,30 +14,38 @@ include_once 'topnavbar.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Home Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-   <link rel="stylesheet" href="adminstyle.css">
+    <link rel="stylesheet" href="adminstyle.css">
 </head>
 <body>
-<main >
+<main>
     <div class="container text-center">
-    <div style="width: 50%; margin: auto;">
-        <canvas id="myPieChart"></canvas>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Number of Pets Posted</h3>
+                <canvas id="petsPostedChart"></canvas>
+            </div>
+            <div class="col-md-6">
+                <h3>Number of Pets by Status</h3>
+                <canvas id="petsStatusChart"></canvas>
+            </div>
+        </div>
     </div>
-    </div>
-  </main>
-  <script>
-   document.addEventListener('DOMContentLoaded', () => {
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
     fetch('scriptdata/piedata.php')
         .then(response => response.json())
         .then(data => {
-            const ctx = document.getElementById('myPieChart').getContext('2d');
-            const config = {
+            // Pets Posted Chart
+            const ctxPosted = document.getElementById('petsPostedChart').getContext('2d');
+            new Chart(ctxPosted, {
                 type: 'pie',
-                data: data,
+                data: data.posted,
                 options: {
                     responsive: true,
                     plugins: {
@@ -47,7 +55,7 @@ include_once 'topnavbar.php';
                         tooltip: {
                             callbacks: {
                                 label: function(tooltipItem) {
-                                    return data.labels[tooltipItem.dataIndex] + ': ' + data.datasets[0].data[tooltipItem.dataIndex];
+                                    return data.posted.labels[tooltipItem.dataIndex] + ': ' + data.posted.datasets[0].data[tooltipItem.dataIndex];
                                 }
                             }
                         },
@@ -64,13 +72,43 @@ include_once 'topnavbar.php';
                     }
                 },
                 plugins: [ChartDataLabels] // Register the datalabels plugin
-            };
+            });
 
-            new Chart(ctx, config);
+            // Pets Status Chart
+            const ctxStatus = document.getElementById('petsStatusChart').getContext('2d');
+            new Chart(ctxStatus, {
+                type: 'pie',
+                data: data.status,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return data.status.labels[tooltipItem.dataIndex] + ': ' + data.status.datasets[0].data[tooltipItem.dataIndex];
+                                }
+                            }
+                        },
+                        datalabels: {
+                            color: 'black',
+                            formatter: (value, context) => {
+                                return value;
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 16
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // Register the datalabels plugin
+            });
         })
         .catch(error => console.error('Error fetching data:', error));
 });
-
-  </script>
+</script>
 </body>
 </html>

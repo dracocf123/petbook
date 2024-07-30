@@ -4,7 +4,7 @@ if(!isset($_SESSION['id_num'])){
   header('location:userlogout.php');
 }
 if($_SESSION['role']!="user"){
-  header('location:userlogout.php');
+  header('location:../index.php');
 }
 include_once '../Class/User.php';
 $u = new User();
@@ -27,101 +27,159 @@ include_once 'usernav.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-   <style>
-   	 @font-face {
-      font-family: "Poppins Medium";
-      src: url(../Poppins/Poppins-Medium.ttf);
-      }
-      body{
-        font-family: "Poppins Medium";
-        background-color:white;
-        margin-top: 60px;
-      }
-      img{
-        object-fit: cover;
-      }
-
-      .pet-card{
-          position: relative;
-          transition: 0.2s ease;
-          box-shadow: 0px 4px 8px  rgb(0, 0, 0, 0.5);
-      }
-
-      .gradient{
-          height: 50%;
-          width: 100%;
-          background-image: linear-gradient(to top,black, transparent);
-          opacity: .9;
-          position: absolute;
-          bottom:0;
-          left: 0;
-      }
-      .bottom-left{
-          position: absolute;
-          bottom: 8px;
-          left: 14px;
-      }
-
-      div.pet-card-link{
-          color: white;
-      }
-      .pet-card:hover{
-          transform: translateY(-3px);
-          cursor: pointer;
-      }
-      .pfname{
-        cursor: pointer;
-        padding: 10px;
-        transition: .1s ease;
-        border-radius: 10px;
-      }
-      .pfname:hover{
-        background-color:darkgray;
-        padding: 10px;
-      }
-      .pfpic{
-        height: 40px;
-        border-radius: 100px;
-        border: 3px gray solid;
-      }
-   </style>
+    <link rel="stylesheet" href="user.css">
 </head>
 <body>
 	<div class="container">
-			<div class="row row-cols-2">
-        <div class="col-4 h-25 d-flex align-items-center p-2">
-          <img class="pfpic" src="<?= $pic;?>" alt="">
-          <p class="pfname m-0 ms-2"><?= strtoupper($fname.' '.$lname);?></p>
-        </div>
-        <div class="col-8">
-          <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-2">
-                  <?php
-                  $allpet = $u->userhomedisplay($uid); 
-                  while($row = $allpet->fetch_assoc()){
-                    if($row['pet_gender'] == 'Male' ){
-                      $gicon = '<i class="fa-solid fa-mars text-primary"></i>';
-                    }else{
-                      $gicon = '<i class="fa-solid fa-venus text-danger"></i>';
-                    }
-                     echo '
-                     <div class="col">
-                      <div class="pet-card-link">
-                      <div class="pet-card" onclick="petview(&quot;'.$row['pet_id'].'&quot;)">
-                        <div class="gradient"></div>
-                        <img src="../images/'.$row['pet_image'].'" class="card-img-top" alt="..." height="230px">
-                        <div class="bottom-left">'.$row['pet_name'].' '.$gicon.'</div>
-                        <input type="hidden" id="pet_id" value="'.$row['pet_id'].'">
-                      </div>
-                      </div>
-                     </div>
-                        '; 
-                      }
-                          ?>
-                      </div>
-        </div>
+    <div class="d-flex flex-column align-items-center petpage donation-card">
+      <div class="filter-container-css">
+          <select id="filter-dropdown" class="align-self-center">
+                <option value="">All</option>
+                <option value="Cat">Cat</option>
+                <option value="Dog">Dog</option>
+                <!-- Add more filter options as needed -->
+          </select>
+          <div class="d-flex flex-wrap justify-content-center">
+          <input type="text" id="filter-input" class="m-1" placeholder="Search...">
+          <input type="text" id="breed-input" class="m-1" placeholder="Search by breed">
+          </div>
+          <button id="apply-filter" class="align-self-center">Search</button>
       </div>
-	</div>
+      
+      <div class="card-container-css" id="card-container">
+          <!-- Cards will be inserted here dynamically -->
+      </div>
+
+      <div class="pagination-css">
+          <button id="prev" onclick="prevPage()">Prev</button>
+          <span id="page-info"></span>
+          <button id="next" onclick="nextPage()">Next</button>
+      </div>
+      
+    </div>
+  </div>
   <script>
+    const cardContainer = document.getElementById('card-container');
+      const pageInfo = document.getElementById('page-info');
+      const prevButton = document.getElementById('prev');
+      const nextButton = document.getElementById('next');
+      const filterDropdown = document.getElementById('filter-dropdown');
+      const filterInput = document.getElementById('filter-input');
+      const breedInput = document.getElementById('breed-input');
+      const applyFilterButton = document.getElementById('apply-filter');
+
+    let cards = [];
+    let filteredCards = [];
+    const cardsPerPage = 8;
+    let currentPage = 1;
+
+    function fetchCards() {
+        fetch('userpagination.php')
+            .then(response => response.json())
+            .then(data => {
+                cards = data;
+                filteredCards = cards; // Initialize filteredCards with all cards
+                renderCards();
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    function applyFilter() {
+        const selectedFilter = filterDropdown.value;
+        const searchText = filterInput.value.toLowerCase();
+        const breedSearchText = breedInput.value.toLowerCase();
+
+        filteredCards = cards.filter(card => {
+            const matchesType = selectedFilter === '' || card.type === selectedFilter;
+            const matchesSearch = card.name.toLowerCase().includes(searchText);
+            const matchesBreed = card.breed.toLowerCase().includes(breedSearchText);
+            return matchesType && matchesSearch && matchesBreed;
+        });
+
+        currentPage = 1; // Reset to first page when applying filter
+        animateCards();
+    }
+
+    function animateCards() {
+        // Add class to fade out old cards
+        const existingCards = document.querySelectorAll('.card-css');
+        existingCards.forEach(card => {
+            card.classList.remove('show');
+            card.classList.add('fade-out');
+        });
+
+        // Wait for fade-out to complete before rendering new cards
+        setTimeout(() => {
+            renderCards(); // Render new cards
+        }, 500); // Match this duration with CSS fade-out duration
+
+        // Remove fade-out class after the animation
+        setTimeout(() => {
+            const cardsToShow = cardContainer.querySelectorAll('.card-css');
+            cardsToShow.forEach(card => {
+                card.classList.remove('fade-out');
+            });
+        }, 1000); // Allow time for cards to fade in
+    }
+
+    function renderCards() {
+        cardContainer.innerHTML = ''; // Clear container
+
+        const start = (currentPage - 1) * cardsPerPage;
+        const end = start + cardsPerPage;
+        const cardsToShow = filteredCards.slice(start, end);
+
+        cardsToShow.forEach(cardData => {
+            const card = document.createElement('div');
+            const cardimg = document.createElement('img');
+            card.className = 'card-css show'; // Add 'show' class to make it visible
+            cardimg.src = cardData.petimage;
+            cardimg.className = 'cardimg';
+            card.appendChild(cardimg);
+            cardContainer.appendChild(card);
+
+            card.onclick = () => {
+                openNewPageWithUrl(cardData.petid);
+            };
+        });
+
+        updatePagination();
+    }
+
+    function openNewPageWithUrl(petid) {
+        const newPageUrl = `adoption.php?pet_id=${encodeURIComponent(petid)}`;
+        window.open(newPageUrl, '_self');
+    }
+
+    function updatePagination() {
+        const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages;
+    }
+
+    function nextPage() {
+        if (currentPage < Math.ceil(filteredCards.length / cardsPerPage)) {
+            currentPage++;
+            animateCards();
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            animateCards();
+        }
+    }
+
+    // Add event listeners
+    filterDropdown.addEventListener('change', applyFilter);
+    filterInput.addEventListener('input', applyFilter);
+    breedInput.addEventListener('input', applyFilter);
+    applyFilterButton.addEventListener('click', applyFilter);
+
+    document.addEventListener('DOMContentLoaded', fetchCards);
+
     function petview(pid){
         window.open("adoption.php?pet_id="+pid,"_new");
       }

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,8 +44,7 @@
       width: 100%;
       outline: none;
       font-size: 14px;
-      padding: 0 15px;
-      line-height: 40px;
+      padding: 9px 15px;
       border-radius: 10px;
       border: 2px black solid;
       background: transparent;
@@ -53,7 +53,7 @@
    }
    .labelline{
       position: absolute;
-      font-size: 13px;
+      font-size: 14px;
       padding: 0;
       margin: 0 15px;
       background-color: white;
@@ -70,15 +70,14 @@
       height: 30px;
       line-height: 30px;
       padding: 0 5px;
-      transform: translate(-13px,-13px) scale(0.75);
+      transform: translate(-10px,-13px) scale(0.75);
       z-index: 1111;
    }
    button{
       padding: 10px;
       border-radius: 10px;
       background-color: #0077b6;
-      position: absolute;
-      bottom: 20px;
+      margin-top: 30px;
       color: white;
       width: 120px;
    }
@@ -87,19 +86,41 @@
    }
 </style>
 <body>
-   <div class="container">
-   <h1>Admin Panel</h1>
-      <div class="card">
-         <div class="login-card">
-            <input type="text" required>
-            <div class="labelline">Username</div>
+   <form method="POST">
+      <div class="container">
+         <h1>Admin Panel</h1>
+         <div class="card">
+            <div class="login-card">
+               <input type="text" name="un" required>
+               <div class="labelline">Username</div>
+            </div>
+            <div class="login-card-2">
+               <input type="password" name="pw" required>
+               <div class="labelline">Password</div>
+            </div>
          </div>
-         <div class="login-card-2">
-            <input type="text" required>
-            <div class="labelline">Password</div>
-         </div>
+         <button type="submit" name="btnlogin">LOGIN</button>
       </div>
-      <button type="button">LOGIN</button>
-   </div>
+   </form>
 </body>
 </html>
+<?php
+include_once 'Class/User.php';
+$u = new User();
+if(isset($_POST['btnlogin'])){
+ $un = $_POST['un'];
+ $pw = $_POST['pw'];
+ $data = $u->login($un, $pw);    
+   if($row = $data->fetch_assoc()){
+     $_SESSION['role'] = $row['role'];
+     $_SESSION['id_num'] = $row['id_number'];
+       if($row['role']=='admin'){
+           echo '
+             <script>
+               window.open("Admin/adminhome.php","_self");  
+             </script>  
+           ';
+      }  
+   }  
+}
+?>

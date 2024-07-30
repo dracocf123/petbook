@@ -25,29 +25,11 @@ include_once 'topnavbar.php';
          border-radius: 10px;
          box-shadow: 1px 2px 3px rgb(0,0,0,0.2), -1px 1px 3px rgb(0,0,0,0.2) ;
          }
-         .stat-loc{
-            position: relative;
-         }
-         .stat-x{
-            position: absolute;
-            top: 0;
-            right: 0;
-            font-size: 20px;
-         }
    </style>
 </head>
 <?php
 include_once '../Class/User.php';
  $u = new User();
-   if(isset($_POST['statusbtn'])){
-      $stat = $_POST['status'];
-      echo '
-         <script>
-            alert("'.$u -> addstatus($stat).'"); 
-         </script>
-      ';
-      header('Location: status.php');
-   }
 ?>
 <body>
 <main >
@@ -55,26 +37,53 @@ include_once '../Class/User.php';
       <div class="container">
          <div class="row p-2">
             <div class="col d-flex flex-column align-items-center">
+               <table class="table table-sm table-bordered">
+                  <tr class="table-dark">
+                     <th>Pet ID</th>
+                     <th>Pet Status</th>
+                  </tr>
                <?php
-                  $display = $u->displayallstatus(); 
-                  $color = array("warning", "success", "danger", "primary", "secondary", "dark", "info");
-                  $i = 0;
-                  while($row = $display->fetch_assoc()){
-                     $bgcol = $color[$i];
-                     echo '
-                     <div class="stat-loc">
-                        <div class="status-card text-white m-2 bg-'.$bgcol.'">'.$row['status'].'</div>
-                        <div class="text-black stat-x border-1"><i class="fa-solid fa-circle-xmark"></i></div>
-                     </div>
-                     ';
-                     $i++;
-                  }
+                   
+                     if(isset($_POST['statusbtn'])){
+                        $stat = $_POST['status'];
+                        $display = $u->displaytable2($stat); 
+                        while($row = $display->fetch_assoc()){
+                           echo '
+                           <tr>
+                              <td>'.$row['pet_id'].'</td>
+                              <td>'.$row['status'].'</td>
+                           </tr>
+                           ';
+                        }
+                     }else{
+                        $display = $u->displaytable1(); 
+                           while($row = $display->fetch_assoc()){
+                        echo '
+                        <tr>
+                           <td>'.$row['pet_id'].'</td>
+                           <td>'.$row['status'].'</td>
+                        </tr>
+                        ';
+                        }
+                     }
                ?>
+               </table>
             </div>
             <div class="col">
                <label for="status">Input Status:</label>
-               <input type="text" name="status" class="form-control form-control-sm border border-2 border-dark mb-2">
-               <button type="submit" name="statusbtn" class="btn btn-success">Add Status</button>
+               <select type="text" name="status" class="form-control form-control-sm mb-2">
+                  <?php
+                  $display = $u->displayallstatus(); 
+                  while($row = $display->fetch_assoc()){
+                     $bgcol = $color[$i];
+                     echo '
+                        <option value="'.$row['status'].'">'.$row['status'].'</option>
+                     ';
+                     $i++;
+                  }
+                  ?>
+               </select>
+               <button type="submit" name="statusbtn" class="btn btn-success">View</button>
             </div>
          </div>
       </div>

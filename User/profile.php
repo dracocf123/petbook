@@ -51,6 +51,11 @@ include_once 'usernav.php';
       echo '<script>
                 alert("'.$u->coordinationaccept($petaccept).'");
             </script>';
+   }else if(isset($_POST['cancelreq'])){
+      $petaccept = $_POST['petadoptval'];
+      echo '<script>
+                alert("'.$u->coordinationcancel($petaccept).'");
+            </script>';
    }else if(isset($_POST['donepicking'])){
       $adoptedpet = $_POST['adoptedpet'];
       echo '<script>
@@ -62,7 +67,7 @@ include_once 'usernav.php';
    
    <form method="POST">
       <!-- Modal Coordinating-->
-         <div class="modal fade" id="requestmod" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal fade" id="requestmod" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                <div class="modal-content">
                   <div class="modal-header">
@@ -87,7 +92,7 @@ include_once 'usernav.php';
                   </div>
                   <div class="modal-footer">
                      <button type="submit" class="btn btn-primary" name="acceptreq">Accept</button>
-                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                     <button type="submit" class="btn btn-secondary" name="cancelreq">Cancel</button>
                   </div>
                </div>
             </div>

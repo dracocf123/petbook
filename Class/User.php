@@ -214,6 +214,15 @@ Class User extends Database{
         return $this->conn->error;
      }
    }  
+   public function coordinationcancel($petaccept){
+      $sql = "update tbl_adoption set status='Inviewing' where pet_id='$petaccept';";
+      $sql.= "update tbl_pet_status set status='Inviewing' where pet_id='$petaccept'";
+     if($this->conn->multi_query($sql)){
+        return 'Request Canceled!';
+     }else{
+        return $this->conn->error;
+     }
+   }  
    public function adopted($adoptedpet){
       $sql = "update tbl_adoption set status='Adopted' where pet_id='$adoptedpet';";
       $sql.= "update tbl_pet_status set status='Adopted' where pet_id='$adoptedpet'";

@@ -39,33 +39,38 @@ include_once '../Class/User.php';
             <div class="col d-flex flex-column align-items-center">
                <table class="table table-sm table-bordered">
                   <tr class="table-dark">
+                     <th>#</th>
                      <th>Pet ID</th>
                      <th>Pet Status</th>
                   </tr>
                <?php
-                   
-                     if(isset($_POST['statusbtn'])){
-                        $stat = $_POST['status'];
-                        $display = $u->displaytable2($stat); 
-                        while($row = $display->fetch_assoc()){
-                           echo '
-                           <tr>
-                              <td>'.$row['pet_id'].'</td>
-                              <td>'.$row['status'].'</td>
-                           </tr>
-                           ';
-                        }
-                     }else{
-                        $display = $u->displaytable1(); 
-                           while($row = $display->fetch_assoc()){
-                        echo '
-                        <tr>
-                           <td>'.$row['pet_id'].'</td>
-                           <td>'.$row['status'].'</td>
-                        </tr>
-                        ';
-                        }
-                     }
+                   $i = 1;
+                   if(isset($_POST['statusbtn'])){
+                      $stat = $_POST['status'];
+                      $display = $u->displaytable2($stat); 
+                      while($row = $display->fetch_assoc()){
+                         echo '
+                         <tr>
+                            <td>'.$i.'</td>
+                            <td>'.$row['pet_id'].'</td>
+                            <td>'.$row['status'].'</td>
+                         </tr>
+                         ';
+                         $i++;
+                      }
+                   }else{
+                      $display = $u->displaytable1(); 
+                         while($row = $display->fetch_assoc()){
+                      echo '
+                      <tr>
+                         <td>'.$i.'</td>
+                         <td>'.$row['pet_id'].'</td>
+                         <td>'.$row['status'].'</td>
+                      </tr>
+                      ';
+                      $i++;
+                      }
+                   }
                ?>
                </table>
             </div>

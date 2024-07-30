@@ -197,6 +197,7 @@ include_once 'usernav.php';
                      <th colspan="3">Pet for adoption</th>
                   </tr>
                   <?php
+                  $u = new User();
                      $mypostedpet = $u->mypetposted($uid);
                      while($row = $mypostedpet->fetch_assoc()){
                         echo '

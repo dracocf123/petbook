@@ -70,7 +70,7 @@ include_once 'usernav.php';
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                     <input type="text" id="petadopt" name="petadoptval">
+                     <input type="hidden" id="petadopt" name="petadoptval">
                      <div class="row">
                         <div class="col-auto">
                            <img src="" id="img" alt="" width="200px" height="200px" class="rounded">
@@ -103,7 +103,7 @@ include_once 'usernav.php';
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                     <input type="text" id="petadopt1" name="adoptedpet">
+                     <input type="hidden" id="petadopt1" name="adoptedpet">
                      <div class="row">
                         <div class="col-auto">
                            <img src="" id="img1" alt="" width="200px" height="200px" class="rounded">

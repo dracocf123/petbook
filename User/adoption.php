@@ -28,7 +28,6 @@ while($row = $petview->fetch_assoc()){
    $ownerpic = $row['profile_image'];
    $des = $row['pet_description'];
 }
-
 include_once 'usernav.php';
 ?>
 <!DOCTYPE html>
@@ -67,6 +66,10 @@ include_once 'usernav.php';
             <img src="../images/<?= $ownerpic;?>" alt="" width="50px" height="50px" style="border:1px solid black;border-radius:50%;"><br><?= $owner ?>
                <table class="mt-3">
                   <tr>
+                     <td class="text-primary">Pet ID: </td>
+                     <td id="petid"><?=$pid ?></td>
+                  </tr>
+                  <tr>
                      <td class="text-primary">Pet Name: </td>
                      <td><?=$pname ?></td>
                   </tr>
@@ -87,24 +90,17 @@ include_once 'usernav.php';
                      <td><?= $des ?></td>
                   </tr>
                </table>
-               <button class="inquire-btn mt-2" type="submit" name="adoptbtn">Apply for Adoption</button>
+               <button class="inquire-btn mt-2" type="button" name="adoptbtn" onclick="adoptapplication()">Apply for Adoption</button>
             </div>
          </div>
-
       </div>
 	</div>
-   
    </form>
 </body>
 </html>
-<?php
-   if(isset($_POST['adoptbtn'])){
-      $auid = $uid;
-      echo '
-         <script>
-            alert("'.$u->adoptionrequest($fuid, $auid, $pid).'");
-            window.location="home.php";
-         </script>
-      '; 
+<script>
+   function adoptapplication(pid){
+      var pid = document.getElementById("petid").innerHTML; 
+      window.open("applicationform.php?petid="+pid,"_new");
    }
-?>
+</script>

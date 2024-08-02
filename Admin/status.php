@@ -45,32 +45,32 @@ include_once '../Class/User.php';
                   </tr>
                <?php
                    $i = 1;
-                   if(isset($_POST['statusbtn'])){
-                      $stat = $_POST['status'];
-                      $display = $u->displaytable2($stat); 
-                      while($row = $display->fetch_assoc()){
-                         echo '
-                         <tr>
-                            <td>'.$i.'</td>
-                            <td>'.$row['pet_id'].'</td>
-                            <td>'.$row['status'].'</td>
-                         </tr>
-                         ';
-                         $i++;
-                      }
-                   }else{
-                      $display = $u->displaytable1(); 
-                         while($row = $display->fetch_assoc()){
-                      echo '
-                      <tr>
-                         <td>'.$i.'</td>
-                         <td>'.$row['pet_id'].'</td>
-                         <td>'.$row['status'].'</td>
-                      </tr>
-                      ';
-                      $i++;
-                      }
-                   }
+                     if(isset($_POST['statusbtn'])){
+                        $stat = $_POST['status'];
+                        $display = $u->displaytable2($stat); 
+                        while($row = $display->fetch_assoc()){
+                           echo '
+                           <tr>
+                              <td>'.$i.'</td>
+                              <td>'.$row['pet_id'].'</td>
+                              <td>'.$row['status'].'</td>
+                           </tr>
+                           ';
+                           $i++;
+                        }
+                     }else{
+                        $display = $u->displaytable1(); 
+                           while($row = $display->fetch_assoc()){
+                        echo '
+                        <tr>
+                           <td>'.$i.'</td>
+                           <td>'.$row['pet_id'].'</td>
+                           <td>'.$row['status'].'</td>
+                        </tr>
+                        ';
+                        $i++;
+                        }
+                     }
                ?>
                </table>
             </div>

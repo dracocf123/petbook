@@ -44,7 +44,7 @@ include_once '../Class/User.php';
       <div class="container">
          <div class="row p-2">
             <div class="col d-flex flex-column align-items-center">
-               <input type="hidden" name="petidshelter" id="idforshelter">
+               <input type="text" name="petidshelter" id="idforshelter">
                <table class="table table-sm table-bordered">
                   <tr class="table-dark">
                      <th>Pet ID</th>
@@ -117,7 +117,7 @@ include_once '../Class/User.php';
                     $daysDifference = daysFromNowTo1($date_reg);
 
                echo '
-               <tr class="align-middle">
+               <tr>
                   <td>'.$row['pet_id'].'</td>
                   <td>'.$row['status'].'</td>
                   <td>'.$formattedDate.'</td>

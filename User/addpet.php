@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once '../Class/User.php';
+
 if(isset($_POST['petreg'])){
    $uid = $_SESSION['id_num'];
    $pname = $_POST['name'];
@@ -9,37 +10,55 @@ if(isset($_POST['petreg'])){
    $breed = $_POST['breed'];
    $des = $_POST['description'];
 
-   $file = $_FILES['img'];
-
-   $fileName = $_FILES['img']['name'];
-   $fileTmpName = $_FILES['img']['tmp_name'];
-   $fileSize = $_FILES['img']['size'];
-   $fileError = $_FILES['img']['error'];
-   $fileType = $_FILES['img']['type'];
-
-   $fileExt = explode('.', $fileName);
-   $fileActualExt = strtolower(end($fileExt));
-
+   // Process files
    $allowed = array('jpg','jpeg','png','pdf');
+   $uploads = [];
+   $files = ['petImage' => 'petImagePreview', 'govId' => 'govIdPreview', 'selfie' => 'selfiePreview'];
 
-   if(in_array($fileActualExt, $allowed)){
-      if($fileError === 0){
-         if($fileSize < 5000000){
-            $fileNameNew = uniqid('', true).".".$fileActualExt;
-            $fileDestination = '../images/'.$fileNameNew;
-            move_uploaded_file($fileTmpName, $fileDestination);
-            $img=$fileNameNew;
-            $a = new User();
-            $a->petreg($uid, $pname, $ptype, $breed, $pgender, $img, $des);
-            $message = 'Upload Success!';
-         }else{
-            $message = 'Upload Failed! Your File is Too Big';
+   foreach ($files as $inputName => $previewId) {
+      if (isset($_FILES[$inputName])) {
+         $file = $_FILES[$inputName];
+         $fileName = $file['name'];
+         $fileTmpName = $file['tmp_name'];
+         $fileSize = $file['size'];
+         $fileError = $file['error'];
+         $fileType = $file['type'];
+
+         $fileExt = explode('.', $fileName);
+         $fileActualExt = strtolower(end($fileExt));
+
+         if (in_array($fileActualExt, $allowed)) {
+            if ($fileError === 0) {
+               if ($fileSize < 15000000) {
+                  $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+                  $fileDestination = '../images/' . $fileNameNew;
+                  if (move_uploaded_file($fileTmpName, $fileDestination)) {
+                     $uploads[$inputName] = $fileNameNew;
+                  } else {
+                     $message = 'Error moving uploaded file';
+                     break;
+                  }
+               } else {
+                  $message = 'Upload Failed! Your file is too big';
+                  break;
+               }
+            } else {
+               $message = 'There was an error uploading your file';
+               break;
+            }
+         } else {
+            $message = 'You cannot upload files of this type';
+            break;
          }
-      }else{
-         $message = "There was an error!";
       }
-   }else{
-      $message = "YOU CANNOT UPLOAD THIS TYPE OF FILE!";
+   }
+
+   if (count($uploads) == 3) {
+      $a = new User(); 
+      $a->petreg($uid, $pname, $ptype, $breed, $pgender, $uploads['petImage'], $uploads['govId'], $uploads['selfie'], $des);
+      $message = 'Upload Success!';
+   } else {
+      $message = $message ?? 'Upload Failed!';
    }
 }
 ?>
@@ -48,34 +67,10 @@ if(isset($_POST['petreg'])){
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Pet Upload</title>
-   <style>
-      section{
-         display: flex;
-         height: 100vh;
-         justify-content: center;
-         align-items: center;
-         flex-direction: column;
-      }
-      *{
-         font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-         text-decoration: none;
-         margin: 0;
-         padding: 0;
-      }
-      a{
-         background-color: #FC4100;
-         padding: 20px;
-         border-radius: 10px;
-         color: white;
-         margin-top: 20px;
-      }
-   </style>
+   <title>Upload Status</title>
 </head>
 <body>
-   <section>
    <h1><?= $message; ?></h1>
-   <a href="found-pet.php"><h3>Back</h3></a>
-   </section>
+   <a href="postpet.php">Back</a>
 </body>
 </html>

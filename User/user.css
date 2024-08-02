@@ -109,9 +109,12 @@
      border-radius: 100px;
      border: 3px gray solid;
    }
-   table{
+   table.pet-table{
       font-size: 12px;
     }
+   table.adoptionform tr td{
+      padding: 10px;
+   }
 
     .post-pet{
       border: black solid 1px;

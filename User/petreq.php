@@ -23,14 +23,6 @@ $uid = $_SESSION['id_num'];
 <?php
 include_once '../Class/User.php';
 $u = new User();
-if(isset($_POST['acceptreq'])){
-    $aid = $_POST['petadoptval'];
-    echo '
-        <script>
-            alert("'.$u->requestaccepted($aid).'");
-        </script>';
-    
-}
 ?>
 	<div class="container">
       <div class="row donation-card">
@@ -39,25 +31,20 @@ if(isset($_POST['acceptreq'])){
             <table class="table table-sm">
                 <thead class="table table-dark">
                     <th>Pet</th>
-                    <th>Breed</th>
-                    <th>Foster</th>
-                    <th>Email</th>
-                    <th>Contact</th>
-                    <th>Location</th>
+                    <th>Date of Application</th>
                     <th>Status</th>
+                    <th></th>
                 </thead>
                 <?php
-                $displayprocess = $u -> petadoptionrequest($uid); 
+                $u = new User();
+                $displayprocess = $u -> myadoptionrequest($uid); 
                 while($row = $displayprocess->fetch_assoc()){
                     echo '
                         <tr>
-                            <td>'.$row['pet_name'].'</td>
-                            <td>'.$row['pet_breed'].'</td>
-                            <td>'.$row['first_name'].' '.$row['last_name'].'</td>
-                            <td>'.$row['email'].'</td>
-                            <td>'.$row['contact'].'</td>
-                            <td>'.$row['address'].'</td>
+                            <td>'.$row['pet_id'].'</td>
+                            <td>'.$row['date'].'</td>
                             <td>'.$row['status'].'</td>
+                            <td><button type="button" onclick="sendmessage(&quot;'.$row['user_id'].'&quot;)"><i class="fa-regular fa-comments"></i></button></td>
                         </tr>
                     ';
                 }
@@ -69,6 +56,9 @@ if(isset($_POST['acceptreq'])){
     <script>
     function requestaccept(aid) {
         document.getElementById("petadopt").value = aid;
+    }
+    function sendmessage(rid){
+        window.open("index.php?reciever="+rid,"_new");
     }
     </script>
 </body>

@@ -24,6 +24,10 @@
             <li class="sidelink mt-4">
                 <a href="adminhome.php" class="nav-link px-3 active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
                 <hr class="dropdown-divider"/>
+                <a href="application.php" class="nav-link px-3 active"><i class="fa-solid fa-paw"></i> Application</a>
+                <hr class="dropdown-divider"/>
+                <a href="donatedpet.php" class="nav-link px-3 active"><i class="fa-solid fa-paw"></i> Donated Pets</a>
+                <hr class="dropdown-divider"/>
                 <a href="pets.php" class="nav-link px-3 active"><i class="fa-solid fa-paw"></i> Pets</a>
                 <hr class="dropdown-divider"/>
                 <a href="shelter.php" class="nav-link px-3 active"><i class="fa-solid fa-building-shield"></i> Shelter Panel</a>

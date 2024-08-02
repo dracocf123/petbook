@@ -42,7 +42,7 @@ $uid = $_SESSION['id_num'];
             <div class="col-auto">
                 <div class="text-center donation-card">
                     <h3>Gcash for Donation</h3>
-                    <img class="donation-img" src="../images/gcash.jpg" alt="" width="" height="400px">
+                    <img class="donation-img" src="../images/Gcash.jpg" alt="" width="" height="400px">
                 </div>
             </div>
         </div>

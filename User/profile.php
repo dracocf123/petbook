@@ -46,118 +46,98 @@ include_once 'usernav.php';
    <link rel="stylesheet" href="user.css">
 </head>
 <?php
-   if(isset($_POST['acceptreq'])){
-      $petaccept = $_POST['petadoptval'];
-      echo '<script>
-                alert("'.$u->coordinationaccept($petaccept).'");
-            </script>';
-   }else if(isset($_POST['cancelreq'])){
-      $petaccept = $_POST['petadoptval'];
-      echo '<script>
-                alert("'.$u->coordinationcancel($petaccept).'");
-            </script>';
-   }else if(isset($_POST['donepicking'])){
-      $adoptedpet = $_POST['adoptedpet'];
-      echo '<script>
-                alert("'.$u->adopted($adoptedpet).'");
-            </script>';
-   }
-   ?>
+if(isset($_POST['acceptreq'])){
+   $apptopick = $_POST['apptopickup1'];
+   $pettopick = $_POST['pettopickup1'];
+   echo '<script>
+             alert("'.$u->coordinationaccept($apptopick, $pettopick).'");
+         </script>';
+}else if(isset($_POST['deletepet'])){
+   $petaccept = $_POST['petdelete'];
+   echo '<script>
+             alert("'.$u->cancelpet($petaccept).'");
+         </script>';
+}else if(isset($_POST['donepicking'])){
+   $apptopick = $_POST['apptopickup3'];
+   $pettopick = $_POST['pettopickup3'];
+   echo '<script>
+             alert("'.$u->adopted($apptopick, $pettopick).'");
+         </script>';
+}
+?>
 <body>
    
    <form method="POST">
-      <!-- Modal Coordinating-->
-      <div class="modal fade" id="requestmod" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
+      <!-- Modal Cancel Pet-->
+         <div class="modal fade" id="requestmod" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                <div class="modal-content">
                   <div class="modal-header">
-                     <h5 class="modal-title" id="staticBackdropLabel">Adoption Request</h5>
+                     <h5 class="modal-title" id="staticBackdropLabel">Cancel Post Submission?</h5>
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                     <input type="hidden" id="petadopt" name="petadoptval">
                      <div class="row">
                         <div class="col-auto">
-                           <img src="" id="img" alt="" width="200px" height="200px" class="rounded">
+                           <img src="" id="petimg" alt="" width="200px" height="200px" class="rounded">
                         </div>
                         <div class="col-auto">
-                           <h5>Request By: <span id="adopter"></span></h5>
-                           <h6>Address: <span id="address"></span></h6>
-                           <h6>Birthdate: <span id="bday"></span></h6>
-                           <h6>Gender: <span id="gen"></span></h6>
-                           <h6>Email: <span id="em"></span></h6>
-                           <h6>Contact Number: <span id="cn"></span></h6>
+                           <input type="hidden" name="petdelete" id="pidforcancel">
                         </div>
                         </div>
                   </div>
                   <div class="modal-footer">
-                     <button type="submit" class="btn btn-primary" name="acceptreq">Accept</button>
-                     <button type="submit" class="btn btn-secondary" name="cancelreq">Cancel</button>
+                     <button type="submit" class="btn btn-primary" name="deletepet">Delete</button>
                   </div>
                </div>
             </div>
          </div>
 
-
          <!-- Modal Pickup-->
          <div class="modal fade" id="pickupdelivery" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
                <div class="modal-content">
                   <div class="modal-header">
                      <h5 class="modal-title" id="staticBackdropLabel">Pick up or Delivery</h5>
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                     <input type="hidden" id="petadopt1" name="adoptedpet">
+                     <input type="hidden" id="apptopickup" name="apptopickup1">
+                     <input type="hidden" id="pettopickup" name="pettopickup1">
                      <div class="row">
-                        <div class="col-auto">
-                           <img src="" id="img1" alt="" width="200px" height="200px" class="rounded">
-                        </div>
-                        <div class="col-auto">
-                           <h5>Request By: <span id="adopter1"></span></h5>
-                           <h6>Address: <span id="address1"></span></h6>
-                           <h6>Birthdate: <span id="bday1"></span></h6>
-                           <h6>Gender: <span id="gen1"></span></h6>
-                           <h6>Email: <span id="em1"></span></h6>
-                           <h6>Contact Number: <span id="cn1"></span></h6>
-                        </div>
-                        </div>
+                     </div>
                   </div>
                   <div class="modal-footer">
-                     <button type="submit" class="btn btn-primary" name="donepicking">Accept</button>
+                     <button type="submit" class="btn btn-primary" name="acceptreq">Confirm</button>
                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                   </div>
                </div>
             </div>
          </div>
-   </form>
-      <div class="modal fade" id="viewpetmod" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">View Pet Details</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-               </div>
-               <div class="modal-body">
-                  <div class="row">
-                     <div class="col-auto">
-                        <img src="" id="petimg" alt="" width="200px" height="200px" class="rounded">
-                     </div>
-                     <div class="col-auto">
-                        <input type="hidden" id="petpostid">
-                        <b>Name </b><div class="text-muted" id="petname"></div><br>
-                        <b>Gender </b><div class="text-muted" id="petgender"></div><br>
-                        <b>Breed </b><div class="text-muted" id="petbreed"></div>
+
+         <!-- Modal Adopted-->
+         <div class="modal fade" id="pickupdone" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="staticBackdropLabel">Pick up/ Deliver Done</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                     <input type="text" id="apptopickup2" name="apptopickup3">
+                     <input type="text" id="pettopickup2" name="pettopickup3">
+                     <div class="row">
                      </div>
                   </div>
+                  <div class="modal-footer">
+                     <button type="submit" class="btn btn-primary" name="donepicking">Confirm</button>
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  </div>
                </div>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" name="deletepet">Delete</button>
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-               </div>
-            </div>   
+            </div>
          </div>
-      </div>
+
+   </form>
         <div class="container">
             <div class="row profile-card mb-2">
                <a class="btn btn-sm m-2 lobtn rounded-pill border border-dark" type="button" href="userlogout.php"><i class="fa-solid fa-door-open"></i> Logout</a>
@@ -192,79 +172,71 @@ include_once 'usernav.php';
                <h4 class="text-center">My Pets</h4>
                <div class="row">
                   <div class="col">
-                  <table class="table text-center table-bordered text-nowrap">
+                  <table class="table text-center table-bordered text-nowrap pet-table">
                   <tr class="table-dark">
-                     <th colspan="3">Pet for adoption</th>
+                     <th colspan="4">Pet for adoption</th>
+                  </tr>
+                  <?php
+                     $u = new User();
+                     $mypostedpet1 = $u->mypetposted($uid);
+                     while($row = $mypostedpet1->fetch_assoc()){
+                        echo '
+                           <tr class="align-middle">
+                              <td><img src="../images/'.$row['pet_image'].'" height="50px"></td>
+                              <td>'.$row['pet_name'].'</td>
+                              <td>'.$row['status'].'</td>
+                              <td><button data-bs-toggle="modal" data-bs-target="#requestmod" 
+                              onclick="cancelpost(
+                              &quot;'.$row['pet_id'].'&quot;,
+                              &quot;'.$row['pet_image'].'&quot;
+                              )">Cancel</button></td>
+                           </tr>
+                        ';
+                     }
+                  ?>
+                  <tr>
+                     <td colspan="4">No More Data</td>
+                  </tr>
+               </table>
+                  </div>
+                  <div class="col">
+                  <table class="table text-center table-bordered text-nowrap pet-table">
+                  <tr class="table-dark">
+                     <th colspan="6">Adoption Request</th>
                   </tr>
                   <?php
                   $u = new User();
-                     $mypostedpet = $u->mypetposted($uid);
-                     while($row = $mypostedpet->fetch_assoc()){
+                     $adopterform = $u->adopterform($uid);
+                     while($row = $adopterform->fetch_assoc()){
                         echo '
                            <tr class="align-middle">
-                              <td><img src="../images/'.$row['pet_image'].'" height="50px"></td>
-                              <td>'.$row['pet_name'].'</td>
-                              <td><button data-bs-toggle="modal" data-bs-target="#viewpetmod"
-                              onclick="petviewdetails(&quot;'.$row['pet_id'].'&quot;,&quot;'.$row['pet_name'].'&quot;,&quot;'.$row['pet_gender'].'&quot;,&quot;'.$row['pet_breed'].'&quot;,&quot;'.$row['pet_image'].'&quot;)"
-                              >View Pet</button></td>
-                           </tr>
-                        ';
-                     }
-                  ?>
-                  <tr>
-                     <td colspan="3">No More Data</td>
-                  </tr>
-               </table>
-                  </div>
-                  <div class="col">
-                  <table class="table text-center table-bordered text-nowrap">
-                  <tr class="table-dark">
-                     <th colspan="3">Adoption Request</th>
-                  </tr>
-                  <?php
-                     $mypostedpet = $u->mypetpostedrequest($uid);
-                     while($row = $mypostedpet->fetch_assoc()){
-                        echo '
-                           <tr class="align-middle">
-                              <td><img src="../images/'.$row['pet_image'].'" height="50px"></td>
-                              <td>'.$row['pet_name'].'</td>
+                              <td>'.$row['apid'].'</td>
+                               <td><img src="../images/'.$row['pet_image'].'" height="50px"></td>
+                              <td>'.$row['pname'].'</td>
+                              <td>'.$row['fname'].'</td>
+                              <td>'.$row['status'].'</td>
                               <td>
-                                 <button type="button" data-bs-toggle="modal" data-bs-target="#requestmod"
-                                    onclick="requestaccept(&quot;'.$row['pet_id'].'&quot;,&quot;'.$row['first_name'].' '.$row['last_name'].'&quot;,&quot;'.$row['address'].'&quot;,&quot;'.$row['birthday'].'&quot;
-                                    ,&quot;'.$row['gender'].'&quot;
-                                    ,&quot;'.$row['email'].'&quot;
-                                    ,&quot;'.$row['contact'].'&quot;
-                                    ,&quot;'.$row['profile_image'].'&quot;)">'.$row['status'].'
-                                 </button>
+                                 <button type="button" 
+                                 onclick="viewapplication(
+                                 &quot;'.$row['apid'].'&quot;,
+                                 &quot;'.$row['petid'].'&quot;,
+                                 &quot;'.$row['adopterid'].'&quot;)">Review</button>
                               </td>
                            </tr>
                         ';
                      }
-                  ?>
-                  <tr>
-                     <td colspan="7">No More Data</td>
-                  </tr>
-               </table>
-                  </div>
-                  <div class="col">
-                  <table class="table text-center table-bordered text-nowrap">
-                  <tr class="table-dark">
-                     <th colspan="3">Pick up/Delivery</th>
-                  </tr>
-                  <?php
-                     $mypostedpet = $u->mypetpostedpickup($uid);
-                     while($row = $mypostedpet->fetch_assoc()){
+                     $mypostedpet3 = $u->mypetpostedpickup1($uid);
+                     while($row = $mypostedpet3->fetch_assoc()){
                         echo '
                            <tr class="align-middle">
-                              <td><img src="../images/'.$row['pet_image'].'" height="50px"></td>
-                              <td>'.$row['pet_name'].'</td>
+                               <td><img src="../images/'.$row['pet_image'].'" height="50px"></td>
+                              <td>'.$row['pname'].'</td>
+                              <td>'.$row['fname'].' '.$row['lname'].'</td>
+                              <td>'.$row['status'].'</td>
+                              <td><button type="button" onclick="sendmessage(&quot;'.$row['rid'].'&quot;)"><i class="fa-regular fa-comments"></i></button></td>
                               <td>
                                  <button type="button" data-bs-toggle="modal" data-bs-target="#pickupdelivery"
-                                    onclick="pickup(&quot;'.$row['pet_id'].'&quot;,&quot;'.$row['first_name'].' '.$row['last_name'].'&quot;,&quot;'.$row['address'].'&quot;,&quot;'.$row['birthday'].'&quot;
-                                    ,&quot;'.$row['gender'].'&quot;
-                                    ,&quot;'.$row['email'].'&quot;
-                                    ,&quot;'.$row['contact'].'&quot;
-                                    ,&quot;'.$row['profile_image'].'&quot;)">'.$row['status'].'
+                                    onclick="pickup(&quot;'.$row['apid'].'&quot;,&quot;'.$row['petid'].'&quot;)">Update
                                  </button>
                               </td>
                            </tr>
@@ -273,6 +245,34 @@ include_once 'usernav.php';
                   ?>
                   <tr>
                      <td colspan="7">No More Data</td>
+                  </tr>
+               </table>
+                  </div>
+                  <div class="col">
+                  <table class="table text-center table-bordered text-nowrap pet-table">
+                  <tr class="table-dark">
+                     <th colspan="5">Pick Up/Deliver</th>
+                  </tr>
+                  <?php
+                     $mypostedpet3 = $u->mypetpostedpickup($uid);
+                     while($row = $mypostedpet3->fetch_assoc()){
+                        echo '
+                           <tr class="align-middle">
+                              <td>'.$row['apid'].'</td>
+                               <td><img src="../images/'.$row['pet_image'].'" height="50px"></td>
+                              <td>'.$row['pname'].'</td>
+                              <td>'.$row['status'].'</td>
+                              <td>
+                                 <button type="button" data-bs-toggle="modal" data-bs-target="#pickupdone"
+                                    onclick="pickupdone(&quot;'.$row['apid'].'&quot;,&quot;'.$row['petid'].'&quot;)">Update
+                                 </button>
+                              </td>
+                           </tr>
+                        ';
+                     }
+                  ?>
+                  <tr>
+                     <td colspan="5">No More Data</td>
                   </tr>
                </table>
                   </div>
@@ -281,6 +281,13 @@ include_once 'usernav.php';
         </div>
    
     <script>
+         function sendmessage(rid){
+         window.open("index.php?reciever="+rid,"_new");
+      }
+         function cancelpost(pid,petimg){
+            document.getElementById("pidforcancel").value = pid;
+            document.getElementById("petimg").src = '../images/'+petimg;
+         }
         function getImagePreview(event) {
             var image = URL.createObjectURL(event.target.files[0]);
             var profilePicture = document.getElementById('profile-picture');
@@ -288,35 +295,15 @@ include_once 'usernav.php';
             profilePicture.src = image;
             uploadButton.style.display = 'block';
         }
-        function requestaccept(aid, adopter, location,bday,gen,em,cn, img) {
-         function formatDate(dateStr) {
-               const options = { year: 'numeric', month: 'long', day: 'numeric' };
-               const date = new Date(dateStr);
-               return date.toLocaleDateString(undefined, options);
-            }
-            document.getElementById("petadopt").value = aid;
-            document.getElementById("adopter").innerHTML = adopter;
-            document.getElementById("address").innerHTML = location;
-            document.getElementById("bday").innerHTML = formatDate(bday);
-            document.getElementById("gen").innerHTML = gen;
-            document.getElementById("em").innerHTML = em;
-            document.getElementById("cn").innerHTML = cn;
-            document.getElementById("img").src = '../images/'+img;
+        function pickup(appid, pid, rid) {
+         document.getElementById("apptopickup").value = appid;
+         document.getElementById("pettopickup").value = pid;
+         document.getElementById("reciever").value = rid;
          } 
-        function pickup(aid, adopter, location,bday,gen,em,cn, img) {
-         function formatDate(dateStr) {
-               const options = { year: 'numeric', month: 'long', day: 'numeric' };
-               const date = new Date(dateStr);
-               return date.toLocaleDateString(undefined, options);
-            }
-            document.getElementById("petadopt1").value = aid;
-            document.getElementById("adopter1").innerHTML = adopter;
-            document.getElementById("address1").innerHTML = location;
-            document.getElementById("bday1").innerHTML = formatDate(bday);
-            document.getElementById("gen1").innerHTML = gen;
-            document.getElementById("em1").innerHTML = em;
-            document.getElementById("cn1").innerHTML = cn;
-            document.getElementById("img1").src = '../images/'+img;
+        function pickupdone(appid, pid,rid) {
+         document.getElementById("apptopickup2").value = appid;
+         document.getElementById("pettopickup2").value = pid;
+        
          } 
         function petviewdetails(pid,pname,pgen,pbreed,pimg){
            document.getElementById("petpostid").value = pid;
@@ -325,7 +312,11 @@ include_once 'usernav.php';
            document.getElementById("petbreed").innerHTML = pbreed;
            document.getElementById("petimg").src = '../images/'+pimg;
       } 
+      function viewapplication(apid,pid,uid){
+         window.open("reviewapplication.php?apid="+apid+"&&pid="+pid+"&&uid="+uid,"_new")
+      }
     </script>
 </body>
 </html>
+
 

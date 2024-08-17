@@ -31,7 +31,7 @@ function formatDate($dateString) {
    <div class="container">
       <div class="row">
          <div class="col">
-         <table class="table border">
+         <table class="table border table-admin">
                     <tr class="table-dark">
                         <th>Pet ID</th>
                         <th>Pet Name</th>

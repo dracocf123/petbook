@@ -37,7 +37,7 @@ include_once '../Class/User.php';
       <div class="container">
          <div class="row p-2">
             <div class="col d-flex flex-column align-items-center">
-               <table class="table table-sm table-bordered">
+               <table class="table table-sm table-bordered table-admin">
                   <tr class="table-dark">
                      <th>#</th>
                      <th>Pet ID</th>

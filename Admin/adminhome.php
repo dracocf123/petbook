@@ -22,6 +22,25 @@ include_once 'topnavbar.php';
     <link rel="stylesheet" href="adminstyle.css">
 </head>
 <body>
+    <!-- Modal -->
+<div class="modal fade" id="chartModal" tabindex="-1" aria-labelledby="chartModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="chartModalLabel">Chart Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="modalContent">Loading...</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
 <main>
     <div class="container text-center">
         <div class="row">
@@ -37,14 +56,14 @@ include_once 'topnavbar.php';
     </div>
 </main>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+   document.addEventListener('DOMContentLoaded', () => {
     fetch('scriptdata/piedata.php')
         .then(response => response.json())
         .then(data => {
             // Pets Posted Chart
             const ctxPosted = document.getElementById('petsPostedChart').getContext('2d');
-            new Chart(ctxPosted, {
-                type: 'pie',
+            const postedChart = new Chart(ctxPosted, {
+                type: 'doughnut',
                 data: data.posted,
                 options: {
                     responsive: true,
@@ -66,8 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             },
                             font: {
                                 weight: 'bold',
-                                size: 16
+                                size: 25
                             }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length) {
+                            const index = elements[0].index;
+                            const clickedLabel = data.posted.labels[index];
+                            showModal('posted', clickedLabel);
                         }
                     }
                 },
@@ -76,8 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Pets Status Chart
             const ctxStatus = document.getElementById('petsStatusChart').getContext('2d');
-            new Chart(ctxStatus, {
-                type: 'pie',
+            const statusChart = new Chart(ctxStatus, {
+                type: 'doughnut',
                 data: data.status,
                 options: {
                     responsive: true,
@@ -99,7 +125,102 @@ document.addEventListener('DOMContentLoaded', () => {
                             },
                             font: {
                                 weight: 'bold',
-                                size: 16
+                                size: 25
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length) {
+                            const index = elements[0].index;
+                            const clickedLabel = data.status.labels[index];
+                            showModal('status', clickedLabel);
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // Register the datalabels plugin
+            });
+
+            // Show modal function with chart type and clicked label
+            function showModal(chartType, label) {
+                fetch(`scriptdata/${chartType}Details.php?label=${encodeURIComponent(label)}`)
+                    .then(response => response.text())
+                    .then(content => {
+                        document.getElementById('modalContent').innerHTML = content;
+                        var myModal = new bootstrap.Modal(document.getElementById('chartModal'));
+                        myModal.show();
+                    })
+                    .catch(error => console.error('Error fetching modal data:', error));
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});
+
+</script>
+
+<!-- <script>
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('scriptdata/piedata.php')
+        .then(response => response.json())
+        .then(data => {
+            // Pets Posted Chart
+            const ctxPosted = document.getElementById('petsPostedChart').getContext('2d');
+            new Chart(ctxPosted, {
+                type: 'doughnut',
+                data: data.posted,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return data.posted.labels[tooltipItem.dataIndex] + ': ' + data.posted.datasets[0].data[tooltipItem.dataIndex];
+                                }
+                            }
+                        },
+                        datalabels: {
+                            color: 'black',
+                            formatter: (value, context) => {
+                                return value;
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 25
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // Register the datalabels plugin
+            });
+
+            // Pets Status Chart
+            const ctxStatus = document.getElementById('petsStatusChart').getContext('2d');
+            new Chart(ctxStatus, {
+                type: 'doughnut',
+                data: data.status,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return data.status.labels[tooltipItem.dataIndex] + ': ' + data.status.datasets[0].data[tooltipItem.dataIndex];
+                                }
+                            }
+                        },
+                        datalabels: {
+                            color: 'black',
+                            formatter: (value, context) => {
+                                return value;
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 25
                             }
                         }
                     }
@@ -109,6 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error fetching data:', error));
 });
-</script>
+</script> -->
 </body>
 </html>

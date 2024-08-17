@@ -686,6 +686,7 @@ if(isset($_POST['login'])){
     if($row = $data->fetch_assoc()){
       $_SESSION['role'] = $row['role'];
       $_SESSION['id_num'] = $row['id_number'];
+      $_SESSION['rc'] = $row['request_count'];
         if($row['role']=='user'){
           echo '
             <script>

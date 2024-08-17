@@ -28,7 +28,7 @@ include_once 'topnavbar.php';
       </div>
          <div class="row">
             <div class="col-6">
-               <table class="table table-bordered table-sm">
+               <table class="table table-bordered table-sm table-admin">
                   <tr class="table-dark">
                      <th>Breed Type For Dog:</th>
                   </tr>
@@ -48,7 +48,7 @@ include_once 'topnavbar.php';
                </table>
             </div>
             <div class="col-6">
-               <table class="table table-bordered table-sm">
+               <table class="table table-bordered table-sm table-admin">
                   <tr class="table-dark">
                      <th>Breed Type for Cat:</th>
                   </tr>

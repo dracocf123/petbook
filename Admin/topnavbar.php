@@ -36,6 +36,10 @@
                 <hr class="dropdown-divider"/>
                 <a href="status.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> Status</a>
                 <hr class="dropdown-divider"/>
+                <a href="report.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> Report</a>
+                <hr class="dropdown-divider"/>
+                <a href="transaction.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> Transaction</a>
+                <hr class="dropdown-divider"/>
                 <a href="adminlogout.php" class="nav-link child active p-3 log"><i class="fa-solid fa-right-from-bracket"></i> Log out</a> 
             </li>
         </ul>

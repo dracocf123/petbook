@@ -33,7 +33,12 @@ function formatDate($dateString) {
     <div class="container text-center">
         <div class="row">
             <div class="col">
-                <table class="table border">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table border table-admin">
                     <tr class="table-dark">
                         <th>Adoption ID</th>
                         <th>Pet ID</th>

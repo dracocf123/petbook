@@ -44,8 +44,8 @@ include_once '../Class/User.php';
       <div class="container">
          <div class="row p-2">
             <div class="col d-flex flex-column align-items-center">
-               <input type="text" name="petidshelter" id="idforshelter">
-               <table class="table table-sm table-bordered">
+               <input type="hidden" name="petidshelter" id="idforshelter">
+               <table class="table table-sm table-bordered table-admin">
                   <tr class="table-dark">
                      <th>Pet ID</th>
                      <th>Pet Status</th>

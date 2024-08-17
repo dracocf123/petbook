@@ -8,6 +8,7 @@
 body{
   font-family: "Poppins Medium";
   padding: 20px;
+  background-color:whitesmoke;
 }
  .sidebar-nav{
    width: var(--offcanvas-width);
@@ -40,6 +41,7 @@ body{
  }
  .sidelink > a{
    text-align: start;
+   padding: 5px;
  }
    .sidelink > a:hover{
    background: #FC4100;
@@ -139,4 +141,21 @@ button:disabled {
  padding: 5px;
  border-radius: 5px;
  border: 1px solid #ccc;
+}
+
+.table-admin{
+  font-size: 12px;
+}
+li a{
+  font-size: 11px;
+}
+.card-pet{
+  background-color: white; 
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgb(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 10px;
+}
+img{
+  object-fit: cover;
 }

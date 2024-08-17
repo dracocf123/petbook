@@ -9,6 +9,11 @@ if($_SESSION['role']!="user"){
 include_once '../Class/User.php';
 $u = new User();
 $uid = $_SESSION['id_num'];
+
+$reqc = $u->reqcount($uid);
+while($row = $reqc->fetch_assoc()){
+  $rc = $row['request_count'];
+}
 $profile = $u->userinfo($uid);
 while($row = $profile->fetch_assoc()){
   $fname = $row['first_name'];
@@ -33,17 +38,17 @@ include_once 'usernav.php';
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="user.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="user.css">
 </head>
 <body>
    <form method="POST">
-	<div class="container">
+  <div class="container">
       <div class="row row-cols-1 row-cols-md-2">
          <div class="col p-2">
                <?php
@@ -90,16 +95,22 @@ include_once 'usernav.php';
                      <td><?= $des ?></td>
                   </tr>
                </table>
-               <button class="inquire-btn mt-2" type="button" name="adoptbtn" onclick="adoptapplication()">Apply for Adoption</button>
+               <?php
+               $disabled = ($rc > 1 ) ? 'disabled' : '';
+               ?>
+               <button class="inquire-btn mt-2" type="button" name="adoptbtn" onclick="adoptapplication()" <?= $disabled ?>>Apply for Adoption</button>
+               <?php if ($rc > 1): ?>
+                  <p class="text-danger mt-2">You have reached the limit for adoption requests.</p>
+               <?php endif; ?>
             </div>
          </div>
       </div>
-	</div>
+  </div>
    </form>
 </body>
 </html>
 <script>
-   function adoptapplication(pid){
+   function adoptapplication(){
       var pid = document.getElementById("petid").innerHTML; 
       window.open("applicationform.php?petid="+pid,"_new");
    }

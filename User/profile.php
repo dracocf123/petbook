@@ -120,14 +120,13 @@ if(isset($_POST['acceptreq'])){
             <div class="modal-dialog modal-dialog-centered modal-sm">
                <div class="modal-content">
                   <div class="modal-header">
-                     <h5 class="modal-title" id="staticBackdropLabel">Pick up/ Deliver Done</h5>
+                     <h5 class="modal-title" id="staticBackdropLabel">Pick up/ Deliver Done?</h5>
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                     <input type="text" id="apptopickup2" name="apptopickup3">
-                     <input type="text" id="pettopickup2" name="pettopickup3">
-                     <div class="row">
-                     </div>
+                     <input type="hidden" id="apptopickup2" name="apptopickup3">
+                     <input type="hidden" id="pettopickup2" name="pettopickup3">
+                     Confirmation
                   </div>
                   <div class="modal-footer">
                      <button type="submit" class="btn btn-primary" name="donepicking">Confirm</button>
@@ -210,7 +209,6 @@ if(isset($_POST['acceptreq'])){
                      while($row = $adopterform->fetch_assoc()){
                         echo '
                            <tr class="align-middle">
-                              <td>'.$row['apid'].'</td>
                                <td><img src="../images/'.$row['pet_image'].'" height="50px"></td>
                               <td>'.$row['pname'].'</td>
                               <td>'.$row['fname'].'</td>
@@ -233,7 +231,8 @@ if(isset($_POST['acceptreq'])){
                               <td>'.$row['pname'].'</td>
                               <td>'.$row['fname'].' '.$row['lname'].'</td>
                               <td>'.$row['status'].'</td>
-                              <td><button type="button" onclick="sendmessage(&quot;'.$row['rid'].'&quot;)"><i class="fa-regular fa-comments"></i></button></td>
+                              <td>
+                              <button type="button" onclick="sendmessage(&quot;'.$row['rid'].'&quot;)"><i class="fa-regular fa-comments"></i></button></td>
                               <td>
                                  <button type="button" data-bs-toggle="modal" data-bs-target="#pickupdelivery"
                                     onclick="pickup(&quot;'.$row['apid'].'&quot;,&quot;'.$row['petid'].'&quot;)">Update
@@ -254,14 +253,14 @@ if(isset($_POST['acceptreq'])){
                      <th colspan="5">Pick Up/Deliver</th>
                   </tr>
                   <?php
-                     $mypostedpet3 = $u->mypetpostedpickup($uid);
+                     $mypostedpet3 = $u->mypetpostedpickup($uid); 
                      while($row = $mypostedpet3->fetch_assoc()){
                         echo '
                            <tr class="align-middle">
-                              <td>'.$row['apid'].'</td>
                                <td><img src="../images/'.$row['pet_image'].'" height="50px"></td>
                               <td>'.$row['pname'].'</td>
                               <td>'.$row['status'].'</td>
+                              <td><button type="button" onclick="sendmessage(&quot;'.$row['rid'].'&quot;)"><i class="fa-regular fa-comments"></i></button></td></td>
                               <td>
                                  <button type="button" data-bs-toggle="modal" data-bs-target="#pickupdone"
                                     onclick="pickupdone(&quot;'.$row['apid'].'&quot;,&quot;'.$row['petid'].'&quot;)">Update

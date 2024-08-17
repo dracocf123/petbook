@@ -13,8 +13,33 @@ Class User extends Database{
       $data = $this->conn->query($sql);
       return $data;
    }
+   public function transactions(){
+      $sql = "select * from transactions";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
+   public function report2(){
+      $sql = "SELECT tbl_pet.pet_breed AS breed, COUNT(tbl_pet.pet_breed) AS most 
+                FROM tbl_pet 
+                INNER JOIN tbl_pet_status ON tbl_pet.pet_id = tbl_pet_status.pet_id 
+                WHERE tbl_pet_status.status = 'Adopted'
+                GROUP BY tbl_pet.pet_breed 
+                ORDER BY most DESC 
+                LIMIT 1";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
+   public function report1(){
+      $sql = "SELECT pet_breed AS breed, COUNT(pet_breed) AS most 
+                FROM tbl_pet
+                GROUP BY pet_breed 
+                ORDER BY most DESC 
+                LIMIT 1";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
    public function myadoptionrequest($uid){
-      $sql = "select tbl_application.pet_id as pet_id, tbl_application.application_date as date, tbl_application.status as status, tbl_pet.user_id as user_id
+      $sql = "select tbl_application.pet_id as pet_id, tbl_application.application_date as date, tbl_application.status as status, tbl_pet.user_id as user_id, tbl_pet.pet_image as petimg,tbl_pet.pet_name as name
       from tbl_application
       inner join tbl_pet on tbl_application.pet_id = tbl_pet.pet_id
       where tbl_application.user_id = '$uid'";
@@ -27,9 +52,31 @@ Class User extends Database{
       $data = $this->conn->query($sql);
       return $data;
    }
+   public function application2(){
+      $sql = "SELECT 
+    tbl_pet.pet_image AS petimg, 
+    tbl_user_info.profile_image as userimg, 
+    tbl_pet.pet_name AS petn, 
+    tbl_user_info.first_name AS fn, 
+    tbl_user_info.last_name AS ln, 
+    COUNT(tbl_application.user_id) AS appcount
+      FROM tbl_pet
+      INNER JOIN tbl_user_info ON tbl_pet.user_id = tbl_user_info.user_id
+      LEFT JOIN tbl_application ON tbl_pet.pet_id = tbl_application.pet_id
+      GROUP BY 
+      tbl_pet.pet_id";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
+   
    public function submission(){
       $sql = "select * from tbl_pet
       inner join tbl_pet_status on tbl_pet.pet_id = tbl_pet_status.pet_id";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
+   public function pet($pid){
+      $sql = "select * from tbl_pet where pet_id = '$pid'";
       $data = $this->conn->query($sql);
       return $data;
    }
@@ -126,6 +173,11 @@ Class User extends Database{
       $data = $this->conn->query($sql);
       return $data;
    }
+   public function reqcount($uid){
+      $sql = "select * from tbl_user where id_number='$uid'";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
 
    public function petviewinfo($pid){
       $sql = "select * from tbl_pet
@@ -145,9 +197,10 @@ Class User extends Database{
       return $data;
    }
    public function mypetpostedpickup($uid){
-      $sql = "select tbl_application.application_id as apid, tbl_application.user_id as adopterid, tbl_pet.pet_id as petid, tbl_pet.pet_name as pname, tbl_pet.pet_image, tbl_application.status as status
+      $sql = "select tbl_application.application_id as apid, tbl_application.user_id as adopterid, tbl_pet.pet_id as petid, tbl_pet.pet_name as pname, tbl_pet.pet_image, tbl_application.status as status, tbl_application.user_id as rid,  tbl_user_info.first_name as fname, tbl_user_info.last_name as lname
       from tbl_application 
       inner join tbl_pet on tbl_pet.pet_id = tbl_application.pet_id
+      inner join tbl_user_info on tbl_user_info.user_id = tbl_application.user_id
       where tbl_pet.user_id='$uid' and status = 'Pickup/Delivery'";
       $data = $this->conn->query($sql);
       return $data;
@@ -169,6 +222,18 @@ Class User extends Database{
       $data = $this->conn->query($sql);
       return $data;
    }
+   public function getDetailsByLabel($type, $label) {
+      if ($type === 'posted') {
+          $query = "SELECT * FROM tbl_pet_status WHERE ptc = ?";
+      } else {
+          $query = "SELECT * FROM tbl_pet_status WHERE pstat = ?";
+      }
+      $stmt = $this->conn->prepare($query);
+      $stmt->bind_param('s', $label);
+      $stmt->execute();
+      return $stmt->get_result();
+  }
+  
 
 // INSERT FUNCTION
    public function signup($fn, $ln, $ad, $gen, $bday, $em, $cn, $un, $pw){
@@ -237,8 +302,9 @@ Class User extends Database{
    }
    public function applicationrequestsend($uid,$pid,$ocp ,$house ,$own ,$alg ,$perm ,$res ,$fin ,$sec ,$hh ,$reas){
       $appid = 'APPLICATION-ID'.rand(1000,9999);
-      $sql = "insert into tbl_application values(NULL,'$appid','$uid','$pid',CURDATE(),'Pending','$ocp','$house','$own','$alg','$perm','$res','$fin','$sec','$hh','$reas')";
-      if($this->conn->query($sql)){
+      $sql = "insert into tbl_application values(NULL,'$appid','$uid','$pid',CURDATE(),'Pending','$ocp','$house','$own','$alg','$perm','$res','$fin','$sec','$hh','$reas');";
+      $sql.= "UPDATE tbl_user SET request_count = request_count + 1 WHERE id_number = '$uid'";
+      if($this->conn->multi_query($sql)){
          return 'Application Send! Wait for the Approval.';
       }else{
          return $this->conn->error;

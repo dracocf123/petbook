@@ -69,8 +69,38 @@ if(isset($_POST['petreg'])){
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Upload Status</title>
 </head>
+<style>
+   *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+   }
+   body{
+         display: flex;
+         height: 100vh;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   }
+   h1{
+      padding: 20px;
+      background-color: orange;
+      border: 1px solid black;
+      border-radius: 20px;
+      box-shadow: 2px 2px 2px grey;
+   }
+   a{
+      text-decoration: none;
+      color: aqua;
+      background-color: black;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 2px 2px 2px grey;
+   }
+</style>
 <body>
-   <h1><?= $message; ?></h1>
-   <a href="postpet.php">Back</a>
+      <h1><?= $message; ?></h1>
+      <a href="postpet.php">Back</a>
 </body>
 </html>

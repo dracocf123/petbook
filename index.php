@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php session_start();
+if (isset($_GET['message'])) {
+  $success_message = $_GET['message'];
+} else {
+  $success_message = '';
+}
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -64,6 +70,8 @@
         </div>
         <div class="modal-footer border-0 d-flex justify-content-center pb-4">
           <button type="submit" name="login" class="btn btn-primary rounded-pill px-5"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+          <br>
+          <a href="email/forgot_password.php">Forgot Password?</a>
         </div>
       </div>
     </div>

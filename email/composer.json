@@ -1,0 +1,21 @@
+{
+    "name": "gon/com",
+    "description": "smtp",
+    "type": "project",
+    "license": "n",
+    "autoload": {
+        "psr-4": {
+            "Gon\\Com\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jay Anthony Gonzaga",
+            "email": "jayanthonygonzaga123@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

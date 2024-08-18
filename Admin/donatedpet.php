@@ -7,13 +7,6 @@ if($_SESSION['role']!="admin"){
     header('location:adminlogout.php');
 }
 include_once 'topnavbar.php';
-include_once '../Class/User.php';
-function formatDate($dateString) {
-   // Create a DateTime object from the input string
-   $date = new DateTime($dateString);
-   // Format the date in the desired format
-   return $date->format('F jS, Y');
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,54 +18,52 @@ function formatDate($dateString) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
    <link rel="stylesheet" href="adminstyle.css">
+    <script>
+        function fetchTableData() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'scriptdata/fetch_pet_data.php', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById('data-table-body').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        function viewsubmission(pid){
+            window.open("viewsubmission.php?pid=" + pid,"_new");
+        }
+
+        // Fetch table data every 5 seconds
+        setInterval(fetchTableData, 5000);
+
+        // Fetch table data on initial page load
+        window.onload = fetchTableData;
+    </script>
 </head>
 <body>
-<main >
+<main>
    <div class="container">
       <div class="row">
          <div class="col">
-         <table class="table border table-admin">
+            <table class="table border table-admin">
+                <thead>
                     <tr class="table-dark">
                         <th>Pet ID</th>
                         <th>Pet Name</th>
-                        <th>User ID:</th>
+                        <th>User ID</th>
                         <th>Date Submitted</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
-                
-                <?php
-                    $u = new User();
-                    $postpetsubmission = $u->submission(); 
-                    while($row = $postpetsubmission->fetch_assoc()){
-                        $dateString = $row['date_reg'];
-                        if($row['status'] == 'Pending'){
-                            $col = 'table-danger';
-                        }else{
-                            $col = 'table-primary';
-                        }
-                        echo '
-                            <tr class="align-middle '.$col.'">
-                                <th>'.$row['pet_id'].'</th>
-                                <th>'.$row['pet_name'].'</th>
-                                <th>'.$row['user_id'].'</th>
-                                <th>'.formatDate($dateString).'</th>
-                                <th>'.$row['status'].'</th>
-                                <th><button type="button" onclick="viewsubmission(&quot;'.$row['pet_id'].'&quot;)">View Application</button></th>
-                            </tr>
-                        ';
-                    }
-                ?>
-                
-                </table>
+                </thead>
+                <tbody id="data-table-body">
+                    <!-- Data will be loaded here by JavaScript -->
+                </tbody>
+            </table>
          </div>
       </div>
    </div>
 </main>
 </body>
 </html>
-<script>
-    function viewsubmission(pid){
-        window.open("viewsubmission.php?pid=" + pid,"_new");
-    }
-</script>

@@ -33,7 +33,7 @@
       .signup-content{
          border: 1px solid rgb(255,255,255,0.18);
          box-shadow: 0 8px 32px rgb(0,0,0,0.37);
-         padding: 30px;
+         padding: 20px;
          border-radius: 10px;
          max-width: 500px;
          margin: 10px;
@@ -48,6 +48,19 @@
          position: absolute;
          left: 0;
          right: 0;
+      }
+      #emailValidationMessage {
+         color: red;
+         font-size: 12px;
+         background-color: white;
+         position: absolute;
+         left: 0;
+         right: 0;
+         top: 40px; 
+         margin-right: 9px;
+         margin-left: 9px;
+         border-radius: 2px;
+         /* Adjust as needed */
       }
       .back{
          position: absolute;
@@ -110,63 +123,63 @@
    <section>
       <a href="index.php"class=" text-white back"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
       <div class="signup-content">
-         <img src="images/logo.png" height="40px" class="top"> 
          <h1>Paws-Connect </h1>
             <h2 class="pb-2 text-white">Sign Up</h2>
                <form id="signupform">
                   <div class="container ">
                   <div class="row row-cols-2 g-3">
                   <div class="col form-box">
-                     <input type="text" class="form-control rounded-pill" name="fname" autocomplete="off" required placeholder="First Name">
+                     <input type="text" class="form-control rounded" name="fname" autocomplete="off" required placeholder="First Name">
                      <i class="fa-solid fa-pen form-icon"></i>
                   </div>
                   <div class="col form-box">
-                     <input type="text" class="form-control rounded-pill" name="lname" autocomplete="off" required placeholder="Last Name">
+                     <input type="text" class="form-control rounded" name="lname" autocomplete="off" required placeholder="Last Name">
                      <i class="fa-solid fa-pen form-icon"></i>
                   </div>
                   <div class="col-12 form-box">
-                     <input type="text" class="form-control rounded-pill"  name="address" autocomplete="off" required placeholder="Address">
+                     <input type="text" class="form-control rounded"  name="address" autocomplete="off" required placeholder="Address">
                      <i class="fa-solid fa-location-dot form-icon ps-1 pe-1 text-danger"></i>
                      </div>
-                  <div class="col-12 form-box">
-                     <input type="email" class="form-control rounded-pill" name="email" autocomplete="off" required placeholder="Email">
+                  <div class="col-12 mb-3 form-box">
+                     <input type="email" class="form-control rounded" id="email" name="email" autocomplete="off" required placeholder="Email">
                      <i class="fa-solid fa-at form-icon"></i>
-                     </div>
+                     <span id="emailValidationMessage"></span>
+                  </div>
                   <div class="col-6 form-box">
-                     <input type="text" class="form-control bday-form" name="contact" autocomplete="off" required placeholder="Contact Number">
+                     <input type="text" class="form-control" name="contact" autocomplete="off" required placeholder="Contact Number">
                      <i class="fa-solid fa-address-book form-icon"></i>
                      </div>
                   <div class="col-6 form-box">
-                     <select class="form-control bday-input" name="gender">
+                     <select class="form-control" name="gender">
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                      </select>
                      <i class="fa-solid fa-venus-mars form-icon"></i>
                      </div>
                   <div class="col-6 form-box">
-                     <input type="Text" class="form-control bday-form" autocomplete="off" required placeholder="Birthday" disabled>
+                     <input type="Text" class="form-control" autocomplete="off" required placeholder="Birthday" disabled>
                      <i class="fa-solid fa-cake-candles form-icon text-warning"></i>
                      </div>
                   <div class="col-6 form-box">
-                     <input type="Date" class="form-control bday-input" name="bday" autocomplete="off" required placeholder="Birthday">
+                     <input type="Date" class="form-control" name="bday" autocomplete="off" required placeholder="Birthday" id="bday">
                      </div>
                   <div class="col-12 form-box">
-                     <input type="text" class="form-control rounded-pill" name="uname" autocomplete="off" required placeholder="Username">
+                     <input type="text" class="form-control rounded" name="uname" autocomplete="off" required placeholder="Username">
                      <i class="fa-solid fa-user form-icon text-primary"></i>
                      </div>
                      <div class="col-12 form-box">
-                     <input type="password" class="form-control rounded-pill" id="password" name="pword" autocomplete="new-password" required placeholder="Password">
+                     <input type="password" class="form-control rounded" id="password" name="pword" autocomplete="new-password" required placeholder="Password">
                      <i class="fa-solid fa-key form-icon text-success"></i>
                      </div>
                      <div class="col-12 passmess form-box">
-                     <input type="password" class="form-control rounded-pill" id="confpassword" name="cpword" autocomplete="new-password" required placeholder="Re-Password">
+                     <input type="password" class="form-control roundel" id="confpassword" name="cpword" autocomplete="new-password" required placeholder="Re-Password">
                      <i class="fa-solid fa-key form-icon text-success"></i>
                      <span id="passwordMatchMessage"></span>
                   </div>
                   </div>
                   </div>
                </form>
-            <button type="submit" id="signup" name="signupbtn" class="btn btn-primary mt-2 rounded-pill"><i class="fa-solid fa-right-to-bracket"></i> Sign Up </button>
+            <button type="submit" id="signup" name="signupbtn" class="btn btn-primary rounded" disabled><i class="fa-solid fa-right-to-bracket"></i> Sign Up </button>
          </div>
             
       
@@ -177,31 +190,55 @@
       const passwordInput = document.getElementById('password');
       const confirmPasswordInput = document.getElementById('confpassword');
       const passwordMatchMessage = document.getElementById('passwordMatchMessage');
+      const emailInput = document.getElementById('email');
+      const emailValidationMessage = document.getElementById('emailValidationMessage');
       const submitButton = document.getElementById('signup');
 
-      function validatePassword() {
-      const password = passwordInput.value;
-      const confirmPassword = confirmPasswordInput.value;
+      const API_KEY = 'cac693c4613f6cae2603d6bee930d118538f17f6'; // Replace with your Hunter API key
 
-      if (password === confirmPassword) {
-         passwordMatchMessage.textContent = '';
-         submitButton.disabled = false;
-      } else {
-         passwordMatchMessage.textContent = 'Passwords do not match';
-         submitButton.disabled = true;
-      }
+      function validateEmailWithHunter(email) {
+         fetch(`https://api.hunter.io/v2/email-verifier?email=${email}&api_key=${API_KEY}`)
+            .then(response => response.json())
+            .then(data => {
+               if (data.data.result === 'deliverable') {
+                  emailValidationMessage.textContent = '';
+                  submitButton.disabled = false;
+               } else {
+                  emailValidationMessage.textContent = 'Invalid email address.';
+                  submitButton.disabled = true;
+               }
+            })
+            .catch(error => {
+               emailValidationMessage.textContent = 'Error validating email.';
+               submitButton.disabled = true;
+            });
       }
 
       passwordInput.addEventListener('input', validatePassword);
       confirmPasswordInput.addEventListener('input', validatePassword);
-
-      document.getElementById('signupform').addEventListener('button', function(event) {
-      event.preventDefault(); // Prevent form submission for demonstration purposes
-      // You can add further logic here to submit the form data
+      emailInput.addEventListener('input', () => {
+         validateEmailWithHunter(emailInput.value);
       });
 
-   </script>
+      function validatePassword() {
+         if (passwordInput.value !== confirmPasswordInput.value) {
+            passwordMatchMessage.textContent = 'Passwords do not match.';
+            submitButton.disabled = true;
+         } else {
+            passwordMatchMessage.textContent = '';
+            submitButton.disabled = false;
+         }
+      }
+
+      // Calculate the maximum date value for the date of birth input field
+      const today = new Date();
+      const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+      const maxDateString = maxDate.toISOString().split('T')[0];
+
+      document.getElementById('bday').setAttribute('max', maxDateString);
+</script>
 </html>
+
 
 <?php
 include_once 'Class/User.php';

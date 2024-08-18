@@ -3,9 +3,9 @@ $label = isset($_GET['label']) ? $_GET['label'] : '';
 
 // Example database connection and query
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "pet-adoption-system";
+$username = "u320585682_petbook";
+$password = "Mysqlphp1";
+$dbname = "u320585682_petbook";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {

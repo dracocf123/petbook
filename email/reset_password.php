@@ -60,7 +60,12 @@ $conn->close();
     <title>Reset Password</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
-        body {
+        @font-face {
+         font-family: "Poppins Medium";
+         src: url(../Poppins/Poppins-Medium.ttf);
+         }
+         body{
+         font-family: "Poppins Medium";
             background-color: #f8f9fa;
             display: flex;
             justify-content: center;
@@ -78,10 +83,20 @@ $conn->close();
         h1 {
             color: #007bff;
         }
+        .back {
+         position: absolute;
+         right: 0;
+         top: 0;
+         background-color: #FC4100;
+         border-radius: 0 0 0 10px;
+         padding: 10px;
+         text-decoration: none;
+      }
     </style>
 </head>
 <body>
     <div class="container">
+    <a href="../index.php" class="text-white back"> Back to Login</a>
         <h1 class="text-center">Reset Password</h1>
         <p class="text-center">Enter a new password below.</p>
         <?php if ($message): ?>

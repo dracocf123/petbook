@@ -44,8 +44,8 @@ if (isset($_POST['submit'])) {
                     $mail->isSMTP();
                     $mail->Host       = 'smtp.gmail.com';
                     $mail->SMTPAuth   = true;
-                    $mail->Username   = 'jayanthonygonzaga123@gmail.com'; // Replace with your email
-                    $mail->Password   = 'exqy wzut udbe nipz';     // Replace with your app-specific password
+                    $mail->Username   = 'exalead123@gmail.com'; // Replace with your email
+                    $mail->Password   = 'ness aikv rryb hbvv'; // Replace with your app-specific password
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                     $mail->Port       = 587;
 
@@ -54,7 +54,13 @@ if (isset($_POST['submit'])) {
 
                     $mail->isHTML(true);
                     $mail->Subject = 'Password Reset Request';
-                    $mail->Body    = 'Click <a href="http://paws-connect.online/email/reset_password.php?token=' . $token . '">here</a> to reset your password.';
+                    $mail->Body    = ' <p>Dear User,</p>
+                                        <p>We received a request to reset the password associated with your account. If you made this request, please follow the instructions below to reset your password.</p>
+                                        <p>Click <a href="http://paws-connect.online/email/reset_password.php?token=' . $token . '">here</a> to reset your password.</p>
+                                        <p>If you did not request a password reset, you can safely ignore this email. Your password will remain unchanged.</p>
+                                        <p>For your security, this link will expire in 1 hour.</p>
+                                        <p>Thank you,</p>
+                                        <p>Your Paws-Connect Team</p>';
 
                     $mail->send();
                     $message = 'Reset link has been sent to your email address.';
@@ -88,7 +94,12 @@ $conn->close();
     <title>Forgot Password</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
-        body {
+        @font-face {
+         font-family: "Poppins Medium";
+         src: url(../Poppins/Poppins-Medium.ttf);
+         }
+         body{
+         font-family: "Poppins Medium";
             background-color: #f8f9fa;
             display: flex;
             justify-content: center;
@@ -106,10 +117,20 @@ $conn->close();
         h1 {
             color: #007bff;
         }
+        .back {
+         position: absolute;
+         right: 0;
+         top: 0;
+         background-color: #FC4100;
+         border-radius: 0 0 0 10px;
+         padding: 10px;
+         text-decoration: none;
+      }
     </style>
 </head>
 <body>
     <div class="container">
+    <a href="../index.php" class="text-white back"> Back to Login</a>
         <h1 class="text-center">Forgot Password</h1>
         <p class="text-center">Enter your email address below to receive a password reset link.</p>
         <?php if ($message): ?>

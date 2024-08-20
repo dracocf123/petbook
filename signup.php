@@ -1,5 +1,3 @@
-
-
 <?php
 // Database connection
 $servername = "localhost";
@@ -38,6 +36,50 @@ if (isset($_GET['email'])) {
 // Check username existence when the form is submitted
 
 $conn->close();
+?>
+<?php
+if (isset($_POST['signupbtn'])) {
+   $uname = $_POST['uname'];
+   $usernameExists = false;
+
+   if ($stmt = $conn->prepare("SELECT id FROM tbl_user WHERE username = ?")) {
+       $stmt->bind_param("s", $uname);
+       $stmt->execute();
+       $stmt->store_result();
+       
+       // Check if username exists
+       if ($stmt->num_rows > 0) {
+           $usernameExists = true;
+       }
+       $stmt->close();
+   }
+
+   if ($usernameExists) {
+       echo '<script>
+               alert("Username already exists. Please choose a different username.");
+               window.location = "signup.php?email='.$email.'"; // Redirect to signup page
+             </script>';
+   } else {
+       // Proceed with sign up
+       include_once 'Class/User.php';
+       $u = new User();
+       $fn = $_POST['fname'];
+       $ln = $_POST['lname'];
+       $ad = $_POST['address'];
+       $em = $_POST['email'];
+       $cn = $_POST['contact'];
+       $gen = $_POST['gender'];
+       $bday = $_POST['bday'];
+       $pw = $_POST['pword'];
+
+       echo '
+           <script>
+           alert("'.$u->signup($fn, $ln, $ad, $gen, $bday, $em, $cn, $uname, $pw).'");
+           window.location="index.php";
+           </script>
+       ';
+   }
+}
 ?>
 
 <!DOCTYPE html>
@@ -243,47 +285,3 @@ $conn->close();
     document.getElementById('bday').setAttribute('max', maxDateString);
 </script>
 
-<?php
-if (isset($_POST['signupbtn'])) {
-   $uname = $_POST['uname'];
-   $usernameExists = false;
-
-   if ($stmt = $conn->prepare("SELECT id FROM tbl_user WHERE username = ?")) {
-       $stmt->bind_param("s", $uname);
-       $stmt->execute();
-       $stmt->store_result();
-       
-       // Check if username exists
-       if ($stmt->num_rows > 0) {
-           $usernameExists = true;
-       }
-       $stmt->close();
-   }
-
-   if ($usernameExists) {
-       echo '<script>
-               alert("Username already exists. Please choose a different username.");
-               window.location = "signup.php?email='.$email.'"; // Redirect to signup page
-             </script>';
-   } else {
-       // Proceed with sign up
-       include_once 'Class/User.php';
-       $u = new User();
-       $fn = $_POST['fname'];
-       $ln = $_POST['lname'];
-       $ad = $_POST['address'];
-       $em = $_POST['email'];
-       $cn = $_POST['contact'];
-       $gen = $_POST['gender'];
-       $bday = $_POST['bday'];
-       $pw = $_POST['pword'];
-
-       echo '
-           <script>
-           alert("'.$u->signup($fn, $ln, $ad, $gen, $bday, $em, $cn, $uname, $pw).'");
-           window.location="index.php";
-           </script>
-       ';
-   }
-}
-?>

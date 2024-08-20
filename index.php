@@ -40,7 +40,7 @@ if (isset($_GET['message'])) {
           <li><a class="nav-l" href="#about"  onclick="toggleCheckbox();">About</a></li>
           <li><a class="nav-l" href="#service"  onclick="toggleCheckbox();">Service</a></li>
           <li><a class="nav-l" href="#contact"  onclick="toggleCheckbox();">Contact</a></li>
-          <li><a class="nav-l" href="signup.php">Sign Up</a></li>
+          <li><a class="nav-l" href="signuptry.php">Sign Up</a></li>
           <li><a class="nav-l" href="#" data-bs-toggle="modal" data-bs-target="#loginmod" id="li">Log-in</a></li>
       </ul>
   </nav>

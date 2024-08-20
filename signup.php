@@ -68,11 +68,12 @@ if (isset($_POST['signupbtn'])) {
        $cn = $_POST['contact'];
        $gen = $_POST['gender'];
        $bday = $_POST['bday'];
+       $un = $_POST['uname'];
        $pw = $_POST['pword'];
 
        echo '
            <script>
-           alert("'.$u->signup($fn, $ln, $ad, $gen, $bday, $em, $cn, $uname, $pw).'");
+           alert("'.$u->signup($fn, $ln, $ad, $gen, $bday, $em, $cn, $un, $pw).'");
            window.location="index.php";
            </script>
        ';
@@ -218,7 +219,7 @@ $conn->close();
                   <i class="fa-solid fa-location-dot form-icon ps-1 pe-1 text-danger"></i>
                </div>
                <div class="col-6 form-box">
-                  <input type="text" class="form-control" name="contact" autocomplete="off" required placeholder="Contact Number">
+                  <input type="number" class="form-control" name="contact" autocomplete="off" required placeholder="Contact Number">
                   <i class="fa-solid fa-address-book form-icon"></i>
                </div>
                <div class="col-6 form-box">

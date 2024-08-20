@@ -14,13 +14,13 @@
       }
       *{
          margin: 0;
-        padding: 0;
-        list-style: none;
-        box-sizing: border-box;
+         padding: 0;
+         list-style: none;
+         box-sizing: border-box;
       }
       body{
-        font-family: "Poppins Medium";
-        background-color:whitesmoke;
+         font-family: "Poppins Medium";
+         background-color:whitesmoke;
       }
       section{
          display: flex;
@@ -145,6 +145,9 @@
                      <i class="fa-solid fa-at form-icon"></i>
                      <span id="emailValidationMessage"></span>
                   </div>
+                  <div class="col-12 mb-3">
+                     <button type="button" id="verifyEmail" class="btn btn-secondary">Verify Email</button>
+                  </div>
                   <div class="col-6 form-box">
                      <input type="text" class="form-control" name="contact" autocomplete="off" required placeholder="Contact Number">
                      <i class="fa-solid fa-address-book form-icon"></i>
@@ -192,53 +195,73 @@
       const passwordMatchMessage = document.getElementById('passwordMatchMessage');
       const emailInput = document.getElementById('email');
       const emailValidationMessage = document.getElementById('emailValidationMessage');
+      const verifyEmailButton = document.getElementById('verifyEmail');
       const submitButton = document.getElementById('signup');
 
-      const API_KEY = 'cac693c4613f6cae2603d6bee930d118538f17f6'; // Replace with your Hunter API key
+      const API_KEY = 'test_55470bac084ed8c518cc';
 
-      function validateEmailWithHunter(email) {
-         fetch(`https://api.hunter.io/v2/email-verifier?email=${email}&api_key=${API_KEY}`)
-            .then(response => response.json())
-            .then(data => {
-               if (data.data.result === 'deliverable') {
-                  emailValidationMessage.textContent = '';
-                  submitButton.disabled = false;
-               } else {
-                  emailValidationMessage.textContent = 'Invalid email address.';
-                  submitButton.disabled = true;
-               }
-            })
-            .catch(error => {
-               emailValidationMessage.textContent = 'Error validating email.';
-               submitButton.disabled = true;
-            });
-      }
-
-      passwordInput.addEventListener('input', validatePassword);
-      confirmPasswordInput.addEventListener('input', validatePassword);
-      emailInput.addEventListener('input', () => {
-         validateEmailWithHunter(emailInput.value);
-      });
-
-      function validatePassword() {
+      function checkPasswordMatch() {
          if (passwordInput.value !== confirmPasswordInput.value) {
-            passwordMatchMessage.textContent = 'Passwords do not match.';
-            submitButton.disabled = true;
+            passwordMatchMessage.textContent = 'Passwords do not match';
+            confirmPasswordInput.setCustomValidity('Passwords do not match');
          } else {
             passwordMatchMessage.textContent = '';
-            submitButton.disabled = false;
+            confirmPasswordInput.setCustomValidity('');
          }
       }
 
-      // Calculate the maximum date value for the date of birth input field
-      const today = new Date();
-      const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
-      const maxDateString = maxDate.toISOString().split('T')[0];
+      passwordInput.addEventListener('input', checkPasswordMatch);
+      confirmPasswordInput.addEventListener('input', checkPasswordMatch);
 
-      document.getElementById('bday').setAttribute('max', maxDateString);
-</script>
+      verifyEmailButton.addEventListener('click', function() {
+   const email = emailInput.value.trim(); // Trim to remove any extra spaces
+
+   if (!email) {
+      emailValidationMessage.textContent = 'Please enter a valid email address';
+      emailValidationMessage.style.color = 'red';
+      return;
+   }
+
+   emailValidationMessage.textContent = 'Validating...';
+
+   console.log(`Email to validate: ${email}`); // Log the email to verify it's captured correctly
+
+   fetch(`https://api.emailable.com/v1/verify?email=${email}&api_key=${API_KEY}`)
+   .then(response => {
+      console.log(`HTTP Status: ${response.status}`); // Log status code
+      return response.json();
+   })
+   .then(data => {
+      console.log("Full API Response:", data); // Log the full response
+
+      if (data.state === 'deliverable') {
+         emailValidationMessage.textContent = 'Email is valid';
+         emailValidationMessage.style.color = 'green';
+         submitButton.disabled = false;
+      } else if (data.state === 'undeliverable') {
+         emailValidationMessage.textContent = 'Email is undeliverable';
+         emailValidationMessage.style.color = 'red';
+         submitButton.disabled = true;
+      } else {
+         emailValidationMessage.textContent = 'Error validating email, please try again';
+         emailValidationMessage.style.color = 'orange';
+         submitButton.disabled = true;
+      }
+
+
+   })
+   .catch(error => {
+      emailValidationMessage.textContent = 'Error validating email';
+      emailValidationMessage.style.color = 'red';
+      console.error('Error:', error); // Log the error for debugging
+   });
+
+
+});
+
+
+   </script>
 </html>
-
 
 <?php
 include_once 'Class/User.php';

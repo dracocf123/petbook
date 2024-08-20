@@ -198,7 +198,7 @@
       const verifyEmailButton = document.getElementById('verifyEmail');
       const submitButton = document.getElementById('signup');
 
-      const API_KEY = 'live_7e84f409e78ef00d88a3';
+      const API_KEY = 'test_55470bac084ed8c518cc';
 
       function checkPasswordMatch() {
          if (passwordInput.value !== confirmPasswordInput.value) {

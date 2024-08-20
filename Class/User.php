@@ -241,7 +241,7 @@ Class User extends Database{
       $uid2 = mt_rand(1000, 9999);
       $uid = strtoupper('U'.$uid1.'-'.$uid2);
       $sql = "insert into tbl_user_info values(NULL,'$uid','$fn','$ln','$bday','$gen','$ad','$em','$cn','user.png');";
-      $sql.= "insert into tbl_user values(NULL,'$uid','$uname','$pw','user','','$em','','','')";
+      $sql.= "INSERT into tbl_user values(NULL,'$uid','$uname','$pw','user','','$em','','',CURRENT_TIMESTAMP())";
      if($this->conn->multi_query($sql)){
         return 'Sign Up Success!';
      }else{

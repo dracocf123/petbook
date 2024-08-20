@@ -35,9 +35,7 @@ if (isset($_GET['email'])) {
 
 // Check username existence when the form is submitted
 
-$conn->close();
-?>
-<?php
+
 if (isset($_POST['signupbtn'])) {
    $uname = $_POST['uname'];
    $usernameExists = false;
@@ -80,6 +78,7 @@ if (isset($_POST['signupbtn'])) {
        ';
    }
 }
+$conn->close();
 ?>
 
 <!DOCTYPE html>

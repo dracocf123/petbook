@@ -29,9 +29,9 @@ $u = new User();
 ?>
 <div class="container">
     <div class="row donation-card">
-        <div class="col">
-            <h1>My Adoption Request</h1>
-            <table class="table table-sm align-middle">
+        <h1>My Adoption Request</h1>
+        <div class="col table-responsive ">
+            <table class="table table-sm align-middle text-nowrap">
                 <thead class="table-dark">
                     <tr>
                         <th></th>

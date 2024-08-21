@@ -1,9 +1,9 @@
 <?php
 // Database connection
 $servername = "localhost";
-$username = "u320585682_petbook";
-$password = "Mysqlphp1";
-$dbname = "u320585682_petbook";
+$username = "root";
+$password = "";
+$dbname = "pet-adoption-system";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -15,11 +15,13 @@ if ($conn->connect_error) {
 // Initialize email and validity variables
 $email = '';
 $emailValid = false;
+$emailExistsInUser = false;  // New variable to track email existence in tbl_user
 
 // Get email from URL and check its existence in the database
 if (isset($_GET['email'])) {
     $email = $_GET['email'];
     
+    // Check if email exists in tbl_registration (already verified)
     if ($stmt = $conn->prepare("SELECT id FROM tbl_registration WHERE email = ? AND is_verified = TRUE")) {
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -31,11 +33,22 @@ if (isset($_GET['email'])) {
         }
         $stmt->close();
     }
+
+    // Check if email exists in tbl_user
+    if ($stmt = $conn->prepare("SELECT id FROM tbl_user WHERE email = ?")) {
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
+        
+        // Email exists in tbl_user
+        if ($stmt->num_rows > 0) {
+            $emailExistsInUser = true;
+        }
+        $stmt->close();
+    }
 }
 
 // Check username existence when the form is submitted
-
-
 if (isset($_POST['signupbtn'])) {
    $uname = $_POST['uname'];
    $usernameExists = false;
@@ -142,6 +155,17 @@ $conn->close();
          margin-left: 9px;
          border-radius: 2px;
       }
+      #emailUserCheckMessage {
+         color: red;
+         font-size: 12px;
+         position: absolute;
+         left: 0;
+         right: 0;
+         top: 60px; /* Adjusted position */
+         margin-right: 9px;
+         margin-left: 9px;
+         border-radius: 2px;
+      }
       .back {
          position: absolute;
          right: 0;
@@ -200,11 +224,12 @@ $conn->close();
          </div>
          <hr>
          <div class="container">
-            <div class="row row-cols-2 g-3">
-               <div class="col-12 mb-3 form-box">
-                  <input type="email" class="form-control rounded" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" autocomplete="off" required placeholder="Email" <?php echo $emailValid ? 'readonly' : 'readonly'; ?>>
+            <div class="row row-cols-2 g-2">
+            <div class="col-12 mb-5 form-box">
+                  <input type="email" class="form-control rounded bg-white" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" autocomplete="off" required placeholder="Email" readonly>
                   <i class="fa-solid fa-at form-icon"></i>
                   <span id="emailValidationMessage"><?php echo $emailValid ? 'Email is valid' : 'Email not found'; ?></span>
+                  <span id="emailUserCheckMessage"><?php echo $emailExistsInUser ? 'Email already registered! Try using another one. <a href="email/register.php">Here</a>' : ''; ?></span>
                </div>
                <div class="col form-box">
                   <input type="text" class="form-control rounded" name="fname" autocomplete="off" required placeholder="First Name">
@@ -251,7 +276,7 @@ $conn->close();
                </div>
             </div>
          </div>
-         <button type="submit" id="signup" name="signupbtn" class="btn btn-primary rounded" <?php echo $emailValid ? '' : 'disabled'; ?>><i class="fa-solid fa-right-to-bracket"></i> Sign Up</button>
+         <button type="submit" id="signup" name="signupbtn" class="btn btn-primary rounded" <?php echo ($emailValid && !$emailExistsInUser) ? '' : 'disabled'; ?>><i class="fa-solid fa-right-to-bracket"></i> Sign Up</button>
       </div>
    </section>
    </form>

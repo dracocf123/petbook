@@ -170,7 +170,7 @@ if(isset($_POST['acceptreq'])){
             <div class="donation-card">
                <h4 class="text-center">My Pets</h4>
                <div class="row">
-                  <div class="col">
+                  <div class="col-auto table-responsive">
                   <table class="table text-center table-bordered text-nowrap pet-table">
                   <tr class="table-dark">
                      <th colspan="4">Pet for adoption</th>
@@ -197,8 +197,8 @@ if(isset($_POST['acceptreq'])){
                      <td colspan="4">No More Data</td>
                   </tr>
                </table>
-                  </div>
-                  <div class="col">
+               </div>
+                  <div class="col-auto table-responsive">
                   <table class="table text-center table-bordered text-nowrap pet-table">
                   <tr class="table-dark">
                      <th colspan="6">Adoption Request</th>
@@ -247,7 +247,7 @@ if(isset($_POST['acceptreq'])){
                   </tr>
                </table>
                   </div>
-                  <div class="col">
+                  <div class="col-auto table-responsive">
                   <table class="table text-center table-bordered text-nowrap pet-table">
                   <tr class="table-dark">
                      <th colspan="5">Pick Up/Deliver</th>

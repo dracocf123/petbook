@@ -45,8 +45,8 @@ include_once 'topnavbar.php';
 <main>
    <div class="container">
       <div class="row">
-         <div class="col">
-            <table class="table border table-admin">
+         <div class="col table-responsive">
+            <table class="table border table-admin text-nowrap">
                 <thead>
                     <tr class="table-dark">
                         <th>Pet ID</th>

@@ -254,10 +254,13 @@
         }
      }
    
-   .filter-container-css {
-     margin-bottom: 10px;
-     display: flex;
-     gap: 10px;
+     .filter-container-css {
+      display: flex;
+      flex-wrap: wrap; /* Allow wrapping for smaller screens */
+      gap: 10px;
+      margin-bottom: 10px;
+      justify-content: center; /* Center elements */
+      align-items: center;
    }
    
    .filter-container-css select, .filter-container-css input {

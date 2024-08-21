@@ -19,7 +19,7 @@ if (isset($_GET['token'])) {
     $token = $_GET['token'];
 
     // Check if the token is valid and not expired
-    if ($stmt = $conn->prepare("SELECT email FROM tbl_registration WHERE verification_token = ? AND token_expires > NOW() AND is_verified = FALSE")) {
+    if ($stmt = $conn->prepare("SELECT email FROM tbl_registration WHERE verification_token = ? AND token_expires > NOW() AND is_verified = FALSE or TRUE")) {
         $stmt->bind_param("s", $token);
         $stmt->execute();
         $stmt->store_result();

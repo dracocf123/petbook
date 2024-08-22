@@ -53,7 +53,7 @@ while($row = $petview->fetch_assoc()){
             <div class="pet-details"><b>Type </b><?=$ptype?></div>
             <div class="pet-details"><b>Breed </b><?=$breed ?></div>
             <div class="pet-details"><b>Gender </b><?=$pgender ?></div>
-            <a href="signup.php">Register to Adopt</a>
+            <a href="email/register.php">Register to Adopt</a>
          </div>
       </div>
    </div>

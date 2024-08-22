@@ -81,7 +81,7 @@ if (isset($_GET['message'])) {
                 
                   <div class="hometext mb-3">
                     <h1 class="fw-bold mb-4">Welcome to Paws-Connect!</h1>
-                    <h3 class="fw-bold">Take yours</h3>
+                    <h3 class="fw-bold">Take your</h3>
                     <h3 class="fw-bold">new best friend</h3>
                     <span>Start your journey towards unconditional love today!</span>
                   </div>
@@ -257,7 +257,7 @@ if (isset($_GET['message'])) {
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button class="btn btn-dark text-white" type="button">Register</button>
+                      <a href="email/register.php" class="btn btn-dark text-white" type="button">Register</a>
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
@@ -303,7 +303,7 @@ if (isset($_GET['message'])) {
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button class="btn btn-dark text-white" type="button">Register</button>
+                      <a href="email/register.php" class="btn btn-dark text-white" type="button">Register</a>
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>

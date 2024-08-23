@@ -80,16 +80,16 @@ if (isset($_GET['message'])) {
               <section id="home">
                 
                   <div class="hometext mb-3">
-                    <h1 class="fw-bold mb-4">Welcome to Paws-Connect!</h1>
-                    <h3 class="fw-bold">Take your</h3>
-                    <h3 class="fw-bold">new best friend</h3>
-                    <span>Start your journey towards unconditional love today!</span>
+                    <h1 class="fw-bold mb-4 an-text-1">Welcome to Paws-Connect!</h1>
+                    <h3 class="fw-bold an-text-2">Take yours</h3>
+                    <h3 class="fw-bold an-text-3">new best friend</h3>
+                    <span class="an-text-4">Start your journey towards unconditional love today!</span>
                   </div>
                     <div class="service-content">
                       <div class="row d-flex justify-content-center mx-2">
                         <div class="col-md-3">
                           <div class="p-1">
-                          <div class="card card-home text-center p-2" data-bs-toggle="modal" data-bs-target="#modcat">
+                          <div class="card card-home text-center p-2 home-card-1" data-bs-toggle="modal" data-bs-target="#modcat">
                             <div class="card-body">
                               <h1 class="card-title"><i class="fa-solid fa-cat"></i></h1>
                               <p>Cat adoption</p>
@@ -99,7 +99,7 @@ if (isset($_GET['message'])) {
                         </div>
                         <div class="col-md-3">
                           <div class="p-1">
-                          <div class="card card-home text-center p-2" data-bs-toggle="modal" data-bs-target="#moddog">
+                          <div class="card card-home text-center p-2 home-card-2" data-bs-toggle="modal" data-bs-target="#moddog">
                             <div class="card-body">
                               <h1 class="card-title"><i class="fa-solid fa-dog"></i></h1>
                               <p>Dog adoption</p>
@@ -109,7 +109,7 @@ if (isset($_GET['message'])) {
                         </div>
                         <div class="col-md-3">
                           <div class="p-1">
-                          <div class="card card-home text-center p-2">
+                          <div class="card card-home text-center p-2 home-card-3">
                             <a class="nav-l" href="#faq">
                             <div class="card-body">
                               <h1 class="card-title"><i class="fa-regular fa-circle-question"></i></h1>
@@ -121,7 +121,7 @@ if (isset($_GET['message'])) {
                         </div>
                         <div class="col-md-3">
                           <div class="p-1">
-                          <div class="card card-home text-center p-2" data-bs-toggle="modal" data-bs-target="#moddonate">
+                          <div class="card card-home text-center p-2 home-card-4" data-bs-toggle="modal" data-bs-target="#moddonate">
                             <div class="card-body">
                               <h1 class="card-title"><i class="fa-solid fa-hand-holding-heart"></i></h1>
                               <p>Donate</p>

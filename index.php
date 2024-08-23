@@ -81,9 +81,9 @@ if (isset($_GET['message'])) {
                 
                   <div class="hometext mb-3">
                     <h1 class="fw-bold mb-4 an-text-1">Welcome to Paws-Connect!</h1>
-                    <h3 class="fw-bold an-text-2">Take yours</h3>
-                    <h3 class="fw-bold an-text-3">new best friend</h3>
-                    <span class="an-text-4">Start your journey towards unconditional love today!</span>
+                    <h3 class="fw-bold an-text-2">Take your new</h3>
+                    <h3 class="fw-bold an-text-3 text-danger"><i class="fa-solid fa-paw fa-beat" style="--fa-beat-scale: 1.5;"></i> best friend <i class="fa-solid fa-paw fa-beat" style="--fa-beat-scale: 1.5;"></i></h3>
+                    <h6 class="an-text-4">Start your journey towards unconditional love today!</h6>
                   </div>
                     <div class="service-content">
                       <div class="row d-flex justify-content-center mx-2">

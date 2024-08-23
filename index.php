@@ -78,7 +78,6 @@ if (isset($_GET['message'])) {
   </div> 
  
               <section id="home">
-                
                   <div class="hometext mb-3">
                     <h1 class="fw-bold mb-4 an-text-1">Welcome to Paws-Connect!</h1>
                     <h3 class="fw-bold an-text-2">Take your new</h3>

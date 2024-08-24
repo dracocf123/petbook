@@ -24,7 +24,9 @@
             <li class="sidelink mt-4">
                 <a href="adminhome.php" class="nav-link px-3 active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
                 <hr class="dropdown-divider"/>
-                <a href="application.php" class="nav-link px-3 active"><i class="fa-solid fa-paw"></i> Application</a>
+                <a href="users.php" class="nav-link px-3 active"><i class="fa-regular fa-user"></i> Users</a>
+                <hr class="dropdown-divider"/>
+                <a href="application.php" class="nav-link px-3 active"><i class="fa-solid fa-file-pen"></i> Application</a>
                 <hr class="dropdown-divider"/>
                 <a href="donatedpet.php" class="nav-link px-3 active"><i class="fa-solid fa-paw"></i> Donated Pets</a>
                 <hr class="dropdown-divider"/>
@@ -32,13 +34,13 @@
                 <hr class="dropdown-divider"/>
                 <a href="shelter.php" class="nav-link px-3 active"><i class="fa-solid fa-building-shield"></i> Shelter Panel</a>
                 <hr class="dropdown-divider"/>
-                <a href="breed.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> Add Breed</a>
+                <a href="breed.php" class="nav-link px-3 active"><i class="fa-solid fa-plus"></i> Add Breed</a>
                 <hr class="dropdown-divider"/>
-                <a href="status.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> Status</a>
+                <a href="status.php" class="nav-link px-3 active"><i class="fa-solid fa-signal"></i> Status</a>
                 <hr class="dropdown-divider"/>
                 <a href="report.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> Report</a>
                 <hr class="dropdown-divider"/>
-                <a href="transaction.php" class="nav-link px-3 active"><i class="fa-solid fa-file-contract"></i> Transaction</a>
+                <a href="transaction.php" class="nav-link px-3 active"><i class="fa-solid fa-money-bill-1"></i> Transaction</a>
                 <hr class="dropdown-divider"/>
                 <a href="adminlogout.php" class="nav-link child active p-3 log"><i class="fa-solid fa-right-from-bracket"></i> Log out</a> 
             </li>

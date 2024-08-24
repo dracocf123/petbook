@@ -13,7 +13,7 @@ include_once 'topnavbar.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report</title>
+    <title>Users</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -24,6 +24,9 @@ include_once 'topnavbar.php';
          padding: 15px 25px;
          border-radius: 10px;
          box-shadow: 1px 2px 3px rgb(0,0,0,0.2), -1px 1px 3px rgb(0,0,0,0.2) ;
+         }
+         .card-pet{
+            font-size: 12px;
          }
    </style>
 </head>
@@ -37,28 +40,25 @@ include_once 'topnavbar.php';
       <div class="container">
          <div class="row p-2">
             <div class="col">
-               <h1>Report:</h1>
+               <h1>Users:</h1>
                <input type="hidden" name="petidshelter" id="idforshelter">
                   <?php
                   include_once '../Class/User.php';
                   $u = new User();
-                  $reports = $u->report1();
-                  while($row = $reports->fetch_assoc()){
+                  $users = $u->UsersInfo();
+                  while($row = $users->fetch_assoc()){
+                     $pic = '../images/'.$row['profile_image'];
                       echo '
-                      <div class="card-pet">
-                          <div class="d-flex justify-content-between align-items-center">
-                              <div>Most Breed Posted: <b>'.$row['breed'].' '.$row['most'].'</b> </div>
-                              <div></div>
+                      <div class="card-pet d-flex justify-content-between align-items-center">
+                          <div class="d-flex flex-column justify-content-center align-items-start">
+                              <div><b>Name:</b> '.$row['first_name'].' '.$row['last_name'].'</div>
+                              <div>Address: '.$row['address'].'</div>
+                              <div>Gender: '.$row['gender'].'</div>
+                              <div>Email: '.$row['email'].'</div>
+                              <div>Contact: '.$row['contact'].'</div>
                           </div>
-                      </div>';
-                  }
-                  $reports2 = $u->report2();
-                  while($row = $reports2->fetch_assoc()){
-                      echo '
-                      <div class="card-pet">
-                          <div class="d-flex justify-content-between align-items-center">
-                              <div>Most Breed Adopted: <b>'.$row['breed'].' '.$row['most'].'</b> </div>
-                              <div></div>
+                          <div>
+                              <img src="'.$pic.'" height="80px" width="80px">
                           </div>
                       </div>';
                   }

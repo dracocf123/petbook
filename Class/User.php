@@ -8,6 +8,11 @@ Class User extends Database{
       $data = $this->conn->query($sql);
       return $data;
    }
+   public function UsersInfo(){
+      $sql = "select * from tbl_user_info";
+      $data = $this->conn->query($sql);
+      return $data;
+   }
    public function displaytable1(){
       $sql = "select * from tbl_pet_status";
       $data = $this->conn->query($sql);
